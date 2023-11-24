@@ -1,0 +1,655 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+:root {
+  /* base colors */
+  --white: #ffffff;
+  --black: #202020;
+  --gray-25: #80808040;
+  --accent: #1ad6ba;
+
+  /* labels */
+  --out-age: #fe5555;
+  --in-age: #dc2626;
+  --out-gender: #f09f2e;
+  --in-gender: #ea580c;
+  --out-physical: #ffcc00;
+  --in-physical: #c9ae02;
+  --out-race: #2bce9a;
+  --in-race: #16a38b;
+  --out-religion: #424bfc;
+  --in-religion: #0f3a97;
+  --out-other: #65696c;
+  --in-other: #3f3b3b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Poppins", Tahoma, Geneva, Verdana, sans-serif;
+  color: #202020;
+  font-size: 14px;
+  background-image: linear-gradient(180deg, white, rgb(230, 236, 247));
+}
+
+.text-secondary {
+  color: #434242;
+  font-size: 12px;
+}
+
+.text-center {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.header {
+  background-color: #005bb4;
+  margin-bottom: 2px;
+}
+
+.fixed {
+  margin: 0;
+  padding: 8px 16px;
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.align-center {
+  align-items: center;
+}
+
+h1 {
+  font-size: 20px;
+  margin-bottom: 1rem;
+}
+
+p {
+  line-height: 1.6;
+  font-size: 14;
+}
+
+/* Style our app according to the provided design! */
+
+/* Container Sizes for devices */
+
+.container {
+  margin: 0 auto;
+  padding: 25px;
+  max-width: 70%;
+
+  @media screen and (max-width: 768px) {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  @media screen and (max-width: 480px) {
+    max-width: 100%;
+    padding: 10px;
+  }
+}
+
+.container .border {
+  border: 1px solid #20202020;
+  border-radius: 8px;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+header {
+  border-bottom: 1px solid var(--gray-25);
+}
+
+nav {
+  padding: 1rem 5%;
+  box-shadow: 0 5px 16px #999da025;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+i {
+  color: black;
+}
+
+.logo {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  color: var(--black);
+}
+
+.logo-img {
+  width: 5%;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.logo-name {
+  letter-spacing: -1.5;
+}
+
+nav ul {
+  gap: 1rem;
+}
+
+u {
+  color: firebrick;
+}
+
+.input-set {
+  padding: 0 8px 16px 8px;
+}
+
+/* Components */
+
+/* Input */
+.input-textbox {
+  background-color: #ebeff5;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+textarea {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  border: none;
+  background-color: #ebeff5;
+  border-radius: 0px;
+  margin-bottom: 12px;
+  height: 100px;
+  resize: none;
+  line-height: 1.5;
+  min-height: 120px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+textarea:focus {
+  outline: none;
+  border: none;
+}
+
+/* Buttons */
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  border-radius: 4px;
+  background-color: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.btn-options {
+  width: 50%;
+}
+
+.btn-group {
+  gap: 4px;
+}
+
+.btn i {
+  color: inherit;
+}
+
+.btn-clear {
+  background-color: firebrick;
+  color: var(--white);
+}
+
+.btn-analyze {
+  background-color: green;
+  color: var(--white);
+}
+
+.btn:hover {
+  opacity: 80%;
+}
+
+/* Tabs for input */
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 0.8rem;
+}
+
+#input-tab:hover {
+  opacity: 100%;
+}
+
+.tab {
+  border-radius: 0;
+  background-color: white;
+}
+
+.tab.active {
+  border-bottom: 3px solid var(--black);
+  cursor: auto;
+}
+
+.dark-mode .tab.active {
+  border-bottom: 3px solid white;
+}
+
+.tab.active:hover {
+  opacity: 100%;
+}
+
+input[type="checkbox"] {
+  scale: 1.5;
+  margin-right: 4px;
+}
+
+/* Element Reset */
+
+label {
+  font-size: 14px;
+}
+
+ul {
+  list-style: none;
+  color: #0f8fff;
+}
+
+a {
+  color: #0f8fff;
+}
+
+main {
+  border-radius: 8px;
+}
+
+section {
+  padding: 30px 0;
+}
+
+/* Labels */
+
+.section-header {
+  padding: 0 20px;
+  border-bottom: 1px solid var(--gray-25);
+  margin: 0 10px 20px 10px;
+}
+
+.labels-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0 0.5rem;
+}
+
+.label-container {
+  background-color: #a0a9b1;
+  border-radius: 25rem;
+}
+
+.label {
+  font-size: 12px;
+  color: var(--white);
+  padding: 8px 16px;
+  border-radius: 32px;
+  width: 100%;
+}
+
+.label .label-percent {
+  color: #ffffff;
+  padding: 0.25rem 0.4rem;
+  border-radius: 0.25rem;
+  margin-left: 0.25rem;
+  font-weight: 500;
+}
+
+.label-age {
+  background-color: var(--out-age);
+}
+
+.label-gender {
+  background-color: var(--out-gender);
+}
+
+.label-physical {
+  background-color: var(--out-physical);
+}
+
+.label-race {
+  background-color: var(--out-race);
+}
+
+.label-religion {
+  background-color: var(--out-religion);
+}
+
+.label-others {
+  background-color: var(--out-other);
+}
+
+.label-percent-age {
+  background-color: var(--in-age);
+}
+
+.label-percent-gender {
+  background-color: var(--in-gender);
+}
+
+.label-percent-physical {
+  background-color: var(--in-physical);
+}
+
+.label-percent-race {
+  background-color: var(--in-race);
+}
+
+.label-percent-religion {
+  background-color: var(--in-religion);
+}
+
+.label-percent-others {
+  background-color: var(--in-other);
+}
+
+.settings-container {
+  color: var(--white);
+  margin: 20px 10px 10px 10px;
+}
+
+.border-none {
+  border: none;
+}
+
+.banner-title {
+  color: var(--black);
+  font-size: 25px;
+}
+
+#toggle-labels-btn {
+  border: none;
+  font-weight: normal;
+  border-radius: 5px;
+  background-color: white;
+  border-top: 1px solid var(--gray-25);
+  color: gray;
+  width: 100%;
+  height: 50px;
+  cursor: pointer;
+}
+
+.dark-mode #toggle-labels-btn {
+  background-color: #333;
+}
+
+.show-labels {
+  display: block;
+}
+
+.analyze_container {
+  text-align: center;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.analyze_container p {
+  margin-right: 10px;
+  color: var(--in-other);
+  font-size: 12px;
+}
+
+.loading-spinner {
+  display: inline-block;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid #828990;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+.dark-mode .loading-spinner {
+  border: 4px solid rgba(255, 255, 255, 0.33);
+  border-top: 4px solid white;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.result-fade-in {
+  animation: fadeIn 1s ease;
+}
+
+/* Add this CSS to your existing stylesheet */
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+
+/* Button Options */
+
+#clear-btn[disabled] {
+  opacity: 20%;
+  cursor: auto;
+}
+
+#analyze-btn[disabled] {
+  opacity: 20%;
+  cursor: auto;
+}
+
+/* Sample Hate Speech */
+
+#sample-hate-speech {
+  padding: 10px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 30%;
+}
+
+#sample-hate-speech option {
+  background-color: #fff;
+  color: #333;
+}
+
+#sample-hate-speech::-ms-expand {
+  display: none;
+}
+
+#sample-hate-speech::before {
+  content: "\25BC";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #333;
+}
+
+#sample-hate-speech-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.dev-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 15px;
+}
+
+/* Footer */
+
+footer {
+  background-color: #333;
+  box-shadow: 0 -3px 16px #999da025;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer_size {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.footer-authors span {
+  margin: 0 10px;
+  color: white;
+}
+
+.copyright {
+  opacity: 0.6;
+}
+
+/* dark mode */
+
+.dark-mode-toggle {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.dark-mode-toggle label {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 15px;
+  margin-left: 10px;
+}
+
+.dark-mode-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.dark-mode-toggle label:before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+}
+
+.dark-mode-toggle input:checked + label:before {
+  transform: translateX(20px);
+  background-color: #333;
+}
+
+.dark-mode {
+  background-image: linear-gradient(180deg, #202020, #202020);
+  color: #ffffff;
+}
+
+.dark-mode-toggle label:before {
+  background-color: #333;
+}
+
+.dark-mode .logo-name,
+.dark-mode .text-secondary u {
+  color: #39ff14;
+}
+
+.dark-mode nav,
+.dark-mode #main-container,
+.dark-mode #input-tab,
+.dark-mode .input-textbox textarea {
+  background-color: #333;
+}
+
+.dark-mode .input-textbox textarea {
+  border: 1px solid #ccc;
+}
+.dark-mode #main-container {
+  border-radius: 0;
+}
+
+.dark-mode section h1,
+.dark-mode section p,
+.dark-mode #input-tab {
+  color: #fff;
+}
+
+.dark-mode .word-limit {
+  color: #333;
+}
+
+.dark-mode .btn-analyze {
+  background-color: #4caf50;
+  box-shadow: #4caf50;
+}
+
+.dark-mode .btn-clear {
+  background-color: #ff5733;
+  color: var(--white);
+}
+
+.dark-mode .btn:hover {
+  opacity: 80%;
+  background-color: #4caf50;
+}
+
+.dark-mode .btn-clear:hover {
+  opacity: 80%;
+  background-color: #ff5733;
+}
+
+@media (max-width: 768px) {
+  footer {
+    padding: 20px;
+  }
+}
