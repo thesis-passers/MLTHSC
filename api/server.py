@@ -11,7 +11,6 @@ def hello_world():
     return "<p>Hello, World!</p>"
 
 
-
 @app.route("/labels", methods=['GET'])
 def get_labels():
 

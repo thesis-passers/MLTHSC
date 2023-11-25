@@ -30,7 +30,7 @@ class HateSpeechClassifier(nn.Module):
         return logits
     
 trained_model = HateSpeechClassifier(model_name, len(LABELS))
-trained_model.load_state_dict(torch.load('D:\Repo\Thesis\BERT-MLTHSC\\api\good_model.pth'))
+trained_model.load_state_dict(torch.load(os.getcwd() + '\\models\\best_trained_model.pth'))
 
 def preprocess_text(text):
     encoding = tokenizer(text, padding="max_length", truncation=True, max_length=128, return_tensors='pt')
