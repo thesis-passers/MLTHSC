@@ -578,6 +578,48 @@ footer {
   opacity: 0.6;
 }
 
+.btn.tab.active {
+  background-color: #fff;
+  color: black;
+}
+
+.btn.tab.active:hover {
+  opacity: 100%;
+  cursor: default;
+}
+
+.btn.tab.inactive {
+  color: #202020;
+}
+
+.btn.tab.inactive:hover {
+  opacity: 80%;
+  cursor: pointer;
+}
+
+#upload-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#file-input {
+  display: block;
+  margin: 0 auto;
+  padding: 15px;
+  font-size: 12px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  color: #333;
+  cursor: pointer;
+}
+
+#file-input:hover {
+  background-color: #e0e0e0;
+}
+
+
 /* dark mode */
 
 .dark-mode-toggle {
@@ -636,6 +678,8 @@ footer {
 .dark-mode nav,
 .dark-mode #main-container,
 .dark-mode #input-tab,
+.dark-mode #upload-tab,
+.dark-mode #link-tab,
 .dark-mode .input-textbox textarea {
   background-color: #333;
 }
@@ -649,7 +693,9 @@ footer {
 
 .dark-mode section h1,
 .dark-mode section p,
-.dark-mode #input-tab {
+.dark-mode #input-tab, 
+.dark-mode #upload-tab,
+.dark-mode #link-tab {
   color: #fff;
 }
 
@@ -675,6 +721,11 @@ footer {
 .dark-mode .btn-clear:hover {
   opacity: 80%;
   background-color: #ff5733;
+}
+
+.dark-mode #file-input {
+  background-color: #333;
+  color: #f8f8f8;
 }
 
 @media (max-width: 768px) {

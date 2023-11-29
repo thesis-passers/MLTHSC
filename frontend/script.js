@@ -6,10 +6,118 @@ const wordCountElement = document.getElementById("word-count");
 const toggleLabelsBtn = document.getElementById("toggle-labels-btn");
 const hideLabelsContainer = document.getElementById("hide-labels-container");
 const noLabelsContainer = document.getElementById("no-labels-container");
+const fileInput = document.getElementById("file-input");
+const inputTab = document.getElementById("input-tab");
+const uploadTab = document.getElementById("upload-tab");
+const linkTab = document.getElementById("link-tab");
+const linkSection = document.getElementById("link-section");
+const inputTabBtn = document.getElementById("input-tab");
+const uploadTabBtn = document.getElementById("upload-tab");
+const linkTabBtn = document.getElementById("link-tab");
 
 let allLabelsBelow50 = true;
-
 updateSavedPostsDisplay()
+
+
+// tab handling
+
+inputTabBtn.addEventListener("click", function () {
+  showInputUI();
+});
+
+uploadTabBtn.addEventListener("click", function () {
+  showUploadUI();
+});
+
+linkTabBtn.addEventListener("click", function () {
+  showLinkUI();
+});
+
+function showLinkUI() {
+  fileInput.style.display = "none";
+  document.getElementById("input-textbox").style.display = "none";
+  linkSection.style.display = "block";
+  resetLabels();
+  fileInput.value = "";
+  inputText.value = "";
+  updateWordCount();
+  hideLabelsContainer.style.display = "none";
+  noLabelsContainer.style.display = "none";
+  document.getElementById("sample-hate-speech").selectedIndex = 0;
+}
+
+function showInputUI() {
+  fileInput.style.display = "none";
+  document.getElementById("input-textbox").style.display = "block";
+  linkSection.style.display = "none";
+  resetLabels();
+  fileInput.value = "";
+  inputText.value = "";
+  updateWordCount();
+  hideLabelsContainer.style.display = "none";
+  noLabelsContainer.style.display = "none";
+  document.getElementById("sample-hate-speech").selectedIndex = 0;
+}
+
+function showUploadUI() {
+  fileInput.style.display = "block";
+  document.getElementById("input-textbox").style.display = "none";
+  linkSection.style.display = "none";
+  resetLabels();
+  fileInput.value = "";
+  inputText.value = "";
+  updateWordCount();
+  hideLabelsContainer.style.display = "none";
+  noLabelsContainer.style.display = "none";
+  document.getElementById("sample-hate-speech").selectedIndex = 0;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const inputTabBtn = document.getElementById("input-tab");
+  const uploadTabBtn = document.getElementById("upload-tab");
+  const linkTabBtn = document.getElementById("link-tab");
+  const inputSection = document.getElementById("input-section");
+  const uploadSection = document.getElementById("upload-section");
+  const linkSection = document.getElementById("link-section");
+
+  inputTabBtn.addEventListener("click", function () {
+      inputTabBtn.classList.add("active");
+      uploadTabBtn.classList.remove("active");
+      linkTabBtn.classList.remove("active");
+
+      inputSection.style.display = "block";
+      uploadSection.style.display = "none";
+      linkSection.style.display = "none";
+  });
+
+  uploadTabBtn.addEventListener("click", function () {
+      uploadTabBtn.classList.add("active");
+      inputTabBtn.classList.remove("active");
+      linkTabBtn.classList.remove("active");
+
+      uploadSection.style.display = "block";
+      inputSection.style.display = "none";
+      linkSection.style.display = "none";
+  });
+
+  linkTabBtn.addEventListener("click", function () {
+      linkTabBtn.classList.add("active");
+      inputTabBtn.classList.remove("active");
+      uploadTabBtn.classList.remove("active");
+
+      linkSection.style.display = "block";
+      inputSection.style.display = "none";
+      uploadSection.style.display = "none";
+  });
+});
+
+function disableButtons() {
+  analyzeBtn.disabled = true;
+  clearBtn.disabled = true;
+}
+
+// main functions
+
 
 analyzeBtn.addEventListener("click", () => {
     console.log("Input Text: " + inputText.value);
@@ -17,6 +125,26 @@ analyzeBtn.addEventListener("click", () => {
     setTimeout(() => {
         fetchLabels();
     }, 1000);
+});
+
+function isValidFile(file) {
+  const allowedExtensions = ["txt"];
+  const fileExtension = file.name.split(".").pop().toLowerCase();
+  return allowedExtensions.includes(fileExtension);
+}
+
+fileInput.addEventListener("change", (event) => {
+  const selectedFile = event.target.files[0];
+
+  if (selectedFile && isValidFile(selectedFile)) {
+    console.log("Selected file:", selectedFile);
+    analyzeBtn.disabled = false;
+    clearBtn.disabled = false;
+  } else {
+    alert("Please select a valid .txt file.");
+    fileInput.value = "";
+    disableButtons();
+  }
 });
 
 function showAnalyzingState() {
@@ -93,20 +221,21 @@ function hideLabelsInitially() {
 }
 
 clearBtn.addEventListener("click", () => {
-    inputText.value = "";
-    document.getElementById("sample-hate-speech").selectedIndex = 0;
-    resetLabels();
-    updateWordCount();
-    hideLabelsContainer.style.display = "none";
-    noLabelsContainer.style.display = "none";
+  inputText.value = "";
+  document.getElementById("sample-hate-speech").selectedIndex = 0;
+  resetLabels();
+  updateWordCount();
+  hideLabelsContainer.style.display = "none";
+  noLabelsContainer.style.display = "none";
+
+  fileInput.value = "";
 });
 
 document.addEventListener("DOMContentLoaded", function () {
     const inputElement = document.getElementById("input-text");
 
-    inputElement.addEventListener("input", updateWordCount);
-
-    updateWordCount();
+  inputElement.addEventListener("input", updateWordCount);
+  updateWordCount();
 });
 
 function fetchLabels() {
@@ -212,6 +341,8 @@ function resetLabels() {
             </div>
         </div>
     `;
+
+  disableButtons();
 }
 
 function updateTextArea() {
@@ -236,19 +367,17 @@ function updateWordCount() {
     }
 }
 
+// dark mode
+
 function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
 }
 
 function toggleDarkMode() {
-    const isDarkMode = document.body.classList.toggle("dark-mode");
+  const isDarkMode = document.body.classList.toggle("dark-mode");
+  const selectedOption = document.getElementById("sample-hate-speech").options.selectedIndex;
+  const textarea = document.getElementById("input-text");
 
-    const selectedOption =
-        document.getElementById("sample-hate-speech").options.selectedIndex;
-
-    const textarea = document.getElementById("input-text");
-
-    textarea.style.color = isDarkMode ? "white" : "black";
-
-    /*document.getElementById("sample-hate-speech").options[selectedOption].style.backgroundColor = isDarkMode ? '#333' : 'white';*/
+  textarea.style.color = isDarkMode ? "white" : "black";
+  /*document.getElementById("sample-hate-speech").options[selectedOption].style.backgroundColor = isDarkMode ? '#333' : 'white';*/
 }
