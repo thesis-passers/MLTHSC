@@ -7,6 +7,12 @@ import re
 import torch
 import torch.nn as nn
 from transformers import BertTokenizer, BertModel
+import numpy as np
+import random
+
+torch.manual_seed(42)
+np.random.seed(42)
+random.seed(42)
 
 tokenizer = BertTokenizer.from_pretrained('gklmip/bert-tagalog-base-uncased')
 model_name = "gklmip/bert-tagalog-base-uncased"

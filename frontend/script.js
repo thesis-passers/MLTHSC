@@ -119,7 +119,6 @@ function fetchLabels() {
             let labels = data.labels;
 
             let resultHTML = "";
-            document.getElementById("list-labels").innerHTML = '';
 
             for (let label of labels) {
                 const probability = parseFloat(label.probability);

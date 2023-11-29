@@ -21,7 +21,7 @@ const PostDisplay = (post, index) => {
     // Add a delete button
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
-    deleteButton.addEventListener('click', () => deleteSavedPost(index)); // Associate the event handler
+    deleteButton.addEventListener('click', () => deleteSavedPost(index)); 
 
     // Append labels and delete button to the post element
     postElement.appendChild(labelsContainer);
@@ -65,7 +65,7 @@ function updateSavedPostsDisplay() {
 
     for (let i = savedPosts.length - 1; i >= 0; i--) {
         const post = savedPosts[i];
-        const postDisplayElement = PostDisplay(post);
+        const postDisplayElement = PostDisplay(post, i);
         savedPostsContainer.appendChild(postDisplayElement);
     }
 
