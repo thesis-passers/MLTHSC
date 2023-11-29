@@ -47,10 +47,12 @@
 
       <section class="input-set">
         <div class="flex tabs">
-          <button class="btn tab active" id="input-tab">Input Post</button>
+          <button class="btn tab active" id="input-tab" data-tab="input">Input Post</button>
+          <button class="btn tab inactive" id="link-tab" data-tab="link">Link</button>
+          <button class="btn tab inactive" id="upload-tab" data-tab="upload">Upload File</button>
         </div>
 
-        <div class="input-textbox">
+        <div class="input-textbox" id="input-textbox">
           <textarea
             type="text"
             id="input-text"
@@ -87,16 +89,24 @@
             </div>
           </div>
         </div>
-
-        <div class="btn-group flex">
-          <button id="analyze-btn" class="btn btn-options btn-analyze">
-            Analyze <i class="bx bx-send"></i>
-          </button>
-          <button id="clear-btn" class="btn btn-options btn-clear">
-            Clear <i class="bx bxs-tag-x"></i>
-          </button>
-        </div>
       </section>
+
+      <section class="input-set" id="upload-section" style="display: none;">
+        <input type="file" id="file-input" accept=".txt" style="display: none" />
+      </section> 
+
+      <section class="input-set" id="link-section" style="display: none;">
+        <!-- link input or content -->
+      </section>      
+
+      <div class="btn-group flex">
+        <button id="analyze-btn" class="btn btn-options btn-analyze">
+          Analyze <i class="bx bx-send"></i>
+        </button>
+        <button id="clear-btn" class="btn btn-options btn-clear">
+          Clear <i class="bx bxs-tag-x"></i>
+        </button>
+      </div>
 
       <section>
         <div
