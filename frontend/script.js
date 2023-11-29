@@ -26,27 +26,19 @@ let allLabelsBelow50 = true;
 updateSavedPostsDisplay();
 
 // Tab handling
-inputTabBtn.addEventListener("click", function () {
-  showInputUI();
-});
+function showTabUI(selectedTab) {
+  // Define all UI sections
+  const sections = {
+    input: inputSection,
+    link: linkSection,
+    upload: uploadSection,
+    image: imageSection,
+  };
 
-linkTabBtn.addEventListener("click", function () {
-  showLinkUI();
-});
-
-uploadTabBtn.addEventListener("click", function () {
-  showUploadUI();
-});
-
-imageTabBtn.addEventListener("click", function () {
-  showImageUI();
-});
-
-function showInputUI() {
-  fileInput.style.display = "none";
-  document.getElementById("input-textbox").style.display = "block";
-  linkSection.style.display = "none";
-  imageSection.style.display = "none";
+  // Hide all sections and reset common elements
+  Object.values(sections).forEach(
+    (section) => (section.style.display = "none")
+  );
   resetLabels();
   fileInput.value = "";
   inputText.value = "";
@@ -54,97 +46,31 @@ function showInputUI() {
   hideLabelsContainer.style.display = "none";
   noLabelsContainer.style.display = "none";
   document.getElementById("sample-hate-speech").selectedIndex = 0;
+
+  // Show the selected section
+  if (sections[selectedTab]) {
+    sections[selectedTab].style.display = "block";
+    if (selectedTab === "upload") {
+      fileInput.style.display = "block"; // Show file input for upload tab
+    }
+  }
 }
 
-function showLinkUI() {
-  fileInput.style.display = "none";
-  document.getElementById("input-textbox").style.display = "none";
-  linkSection.style.display = "block";
-  imageSection.style.display = "none";
-  resetLabels();
-  fileInput.value = "";
-  inputText.value = "";
-  updateWordCount();
-  hideLabelsContainer.style.display = "none";
-  noLabelsContainer.style.display = "none";
-  document.getElementById("sample-hate-speech").selectedIndex = 0;
-}
-
-function showUploadUI() {
-  fileInput.style.display = "block";
-  document.getElementById("input-textbox").style.display = "none";
-  linkSection.style.display = "none";
-  imageSection.style.display = "none";
-  resetLabels();
-  fileInput.value = "";
-  inputText.value = "";
-  updateWordCount();
-  hideLabelsContainer.style.display = "none";
-  noLabelsContainer.style.display = "none";
-  document.getElementById("sample-hate-speech").selectedIndex = 0;
-}
-
-function showImageUI() {
-  fileInput.style.display = "none";
-  document.getElementById("input-textbox").style.display = "none";
-  linkSection.style.display = "none";
-  imageSection.style.display = "block";
-  resetLabels();
-  fileInput.value = "";
-  inputText.value = "";
-  updateWordCount();
-  hideLabelsContainer.style.display = "none";
-  noLabelsContainer.style.display = "none";
-  document.getElementById("sample-hate-speech").selectedIndex = 0;
-}
-
+// Event listener for tab button clicks
 document.addEventListener("DOMContentLoaded", function () {
-  inputTabBtn.addEventListener("click", function () {
-    inputTabBtn.classList.add("active");
-    uploadTabBtn.classList.remove("active");
-    linkTabBtn.classList.remove("active");
-    imageTabBtn.classList.remove("active");
+  // Add click event listener to each tab button
+  document.querySelectorAll(".tab").forEach((tabBtn) => {
+    tabBtn.addEventListener("click", function () {
+      // Remove 'active' class from all tabs and add to the clicked one
+      document
+        .querySelectorAll(".tab")
+        .forEach((btn) => btn.classList.remove("active"));
+      this.classList.add("active");
 
-    inputSection.style.display = "block";
-    uploadSection.style.display = "none";
-    linkSection.style.display = "none";
-    imageSection.style.display = "none";
-  });
-
-  uploadTabBtn.addEventListener("click", function () {
-    uploadTabBtn.classList.add("active");
-    inputTabBtn.classList.remove("active");
-    linkTabBtn.classList.remove("active");
-    imageTabBtn.classList.remove("active");
-
-    uploadSection.style.display = "block";
-    inputSection.style.display = "none";
-    linkSection.style.display = "none";
-    imageSection.style.display = "none";
-  });
-
-  linkTabBtn.addEventListener("click", function () {
-    linkTabBtn.classList.add("active");
-    inputTabBtn.classList.remove("active");
-    uploadTabBtn.classList.remove("active");
-    imageTabBtn.classList.remove("active");
-
-    linkSection.style.display = "block";
-    inputSection.style.display = "none";
-    uploadSection.style.display = "none";
-    imageSection.style.display = "none";
-  });
-
-  imageTabBtn.addEventListener("click", function () {
-    imageTabBtn.classList.add("active");
-    linkTabBtn.classList.remove("active");
-    inputTabBtn.classList.remove("active");
-    uploadTabBtn.classList.remove("active");
-
-    imageSection.style.display = "block";
-    linkSection.style.display = "none";
-    inputSection.style.display = "none";
-    uploadSection.style.display = "none";
+      // Show the corresponding UI section
+      const selectedTab = this.getAttribute("data-tab");
+      showTabUI(selectedTab);
+    });
   });
 });
 
@@ -201,13 +127,14 @@ function showAnalyzingState() {
       </div>
   `;
     labelsContainer.classList.remove("fade-out");
-  }, 500);
 
-  // Scroll down to the labels container
-  labelsContainer.scrollIntoView({
-    behavior: "smooth",
-    block: "start",
-  });
+    // Scroll down to the labels container
+    const elementBelowButtons = document.querySelector(".section-header"); // or another suitable element
+    elementBelowButtons.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, 500);
 }
 
 // Labels Button below 50%
@@ -280,16 +207,17 @@ function fetchLabels() {
       console.log(data); // if fetch is successful, log the data
 
       let labels = data.labels;
-
       let resultHTML = "";
 
       for (let label of labels) {
-        const probability = parseFloat(label.probability);
+        const probability = parseFloat(label.probability).toFixed(2);
+        const labelClass = `label-${label.name.toLowerCase()}`;
+        const labelPercentClass = `label-percent-${label.name.toLowerCase()}`;
 
         resultHTML += `
           <div class="label-container result-fade-in">
-            <div class="label label-${label.name} border-none" style="width: ${probability}%;">
-              <span class="label-percent label-percent-${label.name}">${label.probability}</span>&nbsp;&nbsp;${label.name}
+            <div class="label ${labelClass} border-none" style="width: ${probability}%;">
+              <span class="label-percent ${labelPercentClass}">${probability}%</span>&nbsp;&nbsp;${label.name}
             </div>
           </div>`;
       }
