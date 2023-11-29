@@ -14,8 +14,10 @@ const linkSection = document.getElementById("link-section");
 const inputTabBtn = document.getElementById("input-tab");
 const uploadTabBtn = document.getElementById("upload-tab");
 const linkTabBtn = document.getElementById("link-tab");
-
+const freqContainer = document.getElementById("frequency-container");
 let allLabelsBelow50 = true;
+
+
 updateSavedPostsDisplay()
 
 
@@ -114,6 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function disableButtons() {
   analyzeBtn.disabled = true;
   clearBtn.disabled = true;
+  saveBtn.disabled = true;
 }
 
 // main functions
@@ -243,6 +246,10 @@ function fetchLabels() {
     fetch(`http://127.0.0.1:5000/labels?input=${inputText.value}`)
         .then((response) => response.json())
         .then((data) => {
+
+            currentPost = data
+            saveBtn.disabled = false
+
             console.log(data); // if fetch is successful, log the data
 
             let labels = data.labels;
@@ -264,11 +271,6 @@ function fetchLabels() {
             labelsContainer.innerHTML = resultHTML;
             hideLabelsInitially();
 
-            /* After fetching, save to localstorage */ 
-            saveToLocalStorage(data)
-            updateSavedPostsDisplay()
-
-            
         })
         .catch((error) => {
             console.error("Error:", error);
@@ -380,4 +382,22 @@ function toggleDarkMode() {
 
   textarea.style.color = isDarkMode ? "white" : "black";
   /*document.getElementById("sample-hate-speech").options[selectedOption].style.backgroundColor = isDarkMode ? '#333' : 'white';*/
+}
+
+
+const Toast = (message) => {
+    const toastContainer = document.getElementById('toast-container');
+
+    // Create a new toast element
+    const toast = document.createElement('div');
+    toast.classList.add('toast');
+    toast.textContent = message;
+
+    // Append the toast to the container
+    toastContainer.appendChild(toast);
+
+    // Remove the toast after a delay (e.g., 3 seconds)
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
 }

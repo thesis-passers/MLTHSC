@@ -106,9 +106,9 @@
         <section>
             <div class="flex justify-between align-center section-header" style="padding-bottom: 10px">
                 <h4>Labels</h4>
-                <!-- <button id="save-btn" class="btn btn-tertiary">
+                <button id="save-btn" class="btn btn-tertiary">
 						<i class="bx bxs-save bx-xs"></i> Save
-					</button> -->
+					</button>
             </div>
 
             <div id="no-labels-container" style="display: none">
@@ -150,7 +150,6 @@
                 </div>
             </div>
 
-            <!-- Add this HTML to your existing code -->
             <div class="settings-container" id="hide-labels-container" style="display: none">
                 <button class="btn" id="toggle-labels-btn">
                     Show Labels below 50% <i class="bx bx-chevron-down"></i>
@@ -162,9 +161,17 @@
     <section id="saved-post" class="container">
         <div class="section-header">
             <h3>Saved Posts</h3>
-            <ul id="list-labels"></ul>
+            <!-- <ul id="list-labels"></ul> -->
         </div>
         <div id="savedPosts"></div>
+    </section>
+
+    <section id="stats" class="container">
+        <div class="section-header">
+            <h3>Most Frequent Labels based on user input</h3>
+            <!-- <ul id="list-labels"></ul> -->
+        </div>
+        <div id="frequency-container"></div>
     </section>
 
     <footer>
@@ -181,8 +188,12 @@
         <p class="footer_size copyright">THESIS PASSERS &copy; 2024 <br /></p>
     </footer>
 
+
     <script src="./frontend/saveToLocalStorage.js"></script>
     <script src="./frontend/script.js"></script>
 </body>
+<div id="toast-container"></div>
+
+
 
 </html>

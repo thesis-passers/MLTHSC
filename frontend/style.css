@@ -199,6 +199,7 @@ textarea:focus {
   align-items: center;
   justify-content: center;
   gap: 4px;
+  transition: all 150ms ease;
 }
 
 .btn-options {
@@ -502,12 +503,7 @@ section {
 
 /* Button Options */
 
-#clear-btn[disabled] {
-  opacity: 20%;
-  cursor: auto;
-}
-
-#analyze-btn[disabled] {
+.btn[disabled] {
   opacity: 20%;
   cursor: auto;
 }
@@ -732,4 +728,18 @@ footer {
   footer {
     padding: 20px;
   }
+}
+
+
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
 }

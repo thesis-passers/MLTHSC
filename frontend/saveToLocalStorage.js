@@ -1,4 +1,24 @@
+const saveBtn = document.getElementById("save-btn");
+
 let savedPosts = []
+let currentPost = null
+let labelFrequency = {}
+
+if (!currentPost) saveBtn.disabled = true
+
+console.log(`current post: ${currentPost}`)
+
+saveBtn.addEventListener("click", function() {
+    // if () {
+        console.log(`Num saved posts: ${savedPosts.length}` )
+        console.log("Saving post...")
+        saveToLocalStorage(currentPost)
+        updateSavedPostsDisplay()
+        saveBtn.disabled = true
+        Toast('Post saved successfully!');
+    // }
+})
+
 
 const PostDisplay = (post, index) => {
     const postElement = document.createElement('div');
@@ -48,7 +68,6 @@ function saveToLocalStorage(data) {
     console.log("Localstorage:")
     console.log(JSON.parse(localStorage.getItem('savedPosts')))
 
-
 }
 
 function updateSavedPostsDisplay() {
@@ -69,14 +88,26 @@ function updateSavedPostsDisplay() {
         savedPostsContainer.appendChild(postDisplayElement);
     }
 
-    countLabelFrequency()
+    labelFrequency = countLabelFrequency()
+    document.getElementById("frequency-container").innerHTML = ''
+
+    console.log('innerHTML')
+    console.log(document.getElementById("frequency-container").innerHTML)
+
+
+    for (let label in labelFrequency) {
+        console.log(`${label}: ${labelFrequency[label]}`)
+        labelFreq = `<span> ${label}: ${labelFrequency[label]} </span>`
+        document.getElementById("frequency-container").innerHTML += labelFreq
+
+    }
+
 
 }
 
 function countLabelFrequency() {
 
     const labelNames = ['Age', 'Gender', 'Physical', 'Race', 'Religion', 'Others'];
-    let labelFrequency = {}
 
     labelNames.forEach((label) => {
         labelFrequency[label] = 0;
