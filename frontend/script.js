@@ -289,15 +289,10 @@ function updateHTML(labels) {
             </div>`;
     }
 
-        labelsContainer.innerHTML = resultHTML;
-        //updateResultTable(resultTableHTML);
-        hideLabelsInitially();
-
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-        });
+    labelsContainer.innerHTML = resultHTML;
+    hideLabelsInitially();
 }
+
 
 // Update table
 // function updateResultTable(labelsHTML) {
