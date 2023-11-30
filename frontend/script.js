@@ -84,13 +84,12 @@ function disableButtons() {
 
 // main functions
 
-
 analyzeBtn.addEventListener("click", () => {
-    console.log("Input Text: " + inputText.value);
-    showAnalyzingState();
-    setTimeout(() => {
-        fetchLabels();
-    }, 1000);
+  console.log("Input Text: " + inputText.value);
+  showAnalyzingState();
+  setTimeout(() => {
+    fetchLabels();
+  }, 1000);
 });
 
 // Batch upload
@@ -148,11 +147,12 @@ function showAnalyzingState() {
     labelsContainer.classList.remove("fade-out");
 
     // Scroll down to the labels container
-    const elementBelowButtons = document.querySelector(".section-header"); // or another suitable element
-    elementBelowButtons.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+
+    // Adjusted scrolling
+    const elementPosition =
+      labelsContainer.getBoundingClientRect().top + window.scrollY;
+    const offset = 400; // Adjust this value to set how much further down you want to scroll
+    window.scrollTo({ top: elementPosition - offset, behavior: "smooth" });
   }, 500);
 }
 
@@ -220,15 +220,13 @@ clearBtn.addEventListener("click", () => {
 
 // Model
 function fetchLabels() {
+  fetch(`http://127.0.0.1:5000/labels?input=${inputText.value}`)
+    .then((response) => response.json())
+    .then((data) => {
+      currentPost = data;
+      saveBtn.disabled = false;
 
-    fetch(`http://127.0.0.1:5000/labels?input=${inputText.value}`)
-        .then((response) => response.json())
-        .then((data) => {
-
-            currentPost = data
-            saveBtn.disabled = false
-
-            console.log(data); // if fetch is successful, log the data
+      console.log(data); // if fetch is successful, log the data
 
       let labels = data.labels;
       let resultHTML = "";
@@ -246,13 +244,12 @@ function fetchLabels() {
           </div>`;
       }
 
-            labelsContainer.innerHTML = resultHTML;
-            hideLabelsInitially();
-
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-        });
+      labelsContainer.innerHTML = resultHTML;
+      hideLabelsInitially();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
 
 // function pushData(data) {
@@ -365,20 +362,19 @@ function toggleDarkMode() {
   /*document.getElementById("sample-hate-speech").options[selectedOption].style.backgroundColor = isDarkMode ? '#333' : 'white';*/
 }
 
-
 const Toast = (message) => {
-    const toastContainer = document.getElementById('toast-container');
+  const toastContainer = document.getElementById("toast-container");
 
-    // Create a new toast element
-    const toast = document.createElement('div');
-    toast.classList.add('toast');
-    toast.textContent = message;
+  // Create a new toast element
+  const toast = document.createElement("div");
+  toast.classList.add("toast");
+  toast.textContent = message;
 
-    // Append the toast to the container
-    toastContainer.appendChild(toast);
+  // Append the toast to the container
+  toastContainer.appendChild(toast);
 
-    // Remove the toast after a delay (e.g., 3 seconds)
-    setTimeout(() => {
-        toast.remove();
-    }, 3000);
-}
+  // Remove the toast after a delay (e.g., 3 seconds)
+  setTimeout(() => {
+    toast.remove();
+  }, 3000);
+};
