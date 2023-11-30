@@ -3,6 +3,7 @@ const inputText = document.getElementById("input-text");
 const analyzeBtn = document.getElementById("analyze-btn");
 const clearBtn = document.getElementById("clear-btn");
 const labelsContainer = document.getElementById("labels-container");
+// const tableContainer = document.getElementById("table-container");
 const wordCountElement = document.getElementById("word-count");
 const toggleLabelsBtn = document.getElementById("toggle-labels-btn");
 const hideLabelsContainer = document.getElementById("hide-labels-container");
@@ -20,6 +21,8 @@ const inputSection = document.getElementById("input-section");
 const uploadSection = document.getElementById("upload-section");
 const linkSection = document.getElementById("link-section");
 const imageSection = document.getElementById("image-section");
+const labelSection = document.getElementById("label-section");
+// const batchSection = document.getElementById("batch-section");
 
 // Initialization
 
@@ -52,8 +55,12 @@ function showTabUI(selectedTab) {
   // Show the selected section
   if (sections[selectedTab]) {
     sections[selectedTab].style.display = "block";
+    //labelSection.style.display = "block";
+    // batchSection.style.display = "none"
     if (selectedTab === "upload") {
       fileInput.style.display = "block"; // Show file input for upload tab
+      //batchSection.style.display = "block";
+      //labelSection.style.display = "none";
     }
   }
 }
@@ -99,19 +106,54 @@ function isValidFile(file) {
   return allowedExtensions.includes(fileExtension);
 }
 
+// Read batches
 fileInput.addEventListener("change", (event) => {
   const selectedFile = event.target.files[0];
 
   if (selectedFile && isValidFile(selectedFile)) {
-    console.log("Selected file:", selectedFile);
-    analyzeBtn.disabled = false;
-    clearBtn.disabled = false;
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const fileContent = e.target.result;
+      processFileContent(fileContent);
+    };
+
+    reader.readAsText(selectedFile);
+
   } else {
     alert("Please select a valid .txt file.");
     fileInput.value = "";
     disableButtons();
   }
 });
+
+function processFileContent(content) {
+  const sentences = content.split(/\n/);
+  const nonEmptySentences = sentences.filter((sentence) => sentence.trim() !== "");
+
+  nonEmptySentences.forEach((sentence, index) => {
+    setTimeout(() => {
+      inputText.value = sentence.trim();
+
+      const inputTextValue = inputText.value.trim();
+      const wordCount = inputTextValue.split(/\s+/).filter(Boolean).length;
+
+      if (inputTextValue !== "" && wordCount >= 3 && wordCount <= 280) {
+        showAnalyzingState();
+        fetchLabels();
+        clearBtn.disabled = false;
+      }else{
+        Toast("Some sentences not analyzed! Please review the word count.");
+        disableButtons();
+        fileInput.value = "";
+      }
+
+      if (index === nonEmptySentences.length - 1) {
+        inputText.value = "";
+      }
+    }, index * 2000);
+  });
+}
 
 // disable buttons
 function disableButtons() {
@@ -244,13 +286,29 @@ function fetchLabels() {
           </div>`;
       }
 
-      labelsContainer.innerHTML = resultHTML;
-      hideLabelsInitially();
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+        labelsContainer.innerHTML = resultHTML;
+        //updateResultTable(resultTableHTML);
+        hideLabelsInitially();
+
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
 }
+
+// Update table
+// function updateResultTable(labelsHTML) {
+//   const resultTableBody = document.querySelector("#table-container tbody");
+
+//   const row = resultTableBody.insertRow();
+
+//   const postCell = row.insertCell(0);
+//   const labelsCell = row.insertCell(1);
+
+//   postCell.textContent = inputText.value;
+//   labelsCell.innerHTML = labelsHTML;
+// }
+
 
 // function pushData(data) {
 //     savedPosts.push(data)
