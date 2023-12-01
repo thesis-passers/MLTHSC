@@ -28,30 +28,97 @@
 
     <!-- Main Content Section -->
     <main class="container bg-white" id="main-container">
-        <!-- Introduction and Instructions -->
-        <section>
-            <div class="fixed text-center">
-                <h1 class="banner-title">
-                    Multilabel Tagalog Hate Speech Classifier
-                </h1>
-                <p class="text-secondary">
-                    Enter your
-                    <span class="tooltip">
-                        hate speech
-                        <span class="tooltiptext">
-                            Speech that promotes violence or discrimination against
-                            individuals or groups based on attributes such as gender, race,
-                            religion, physical appearance, disability, etc. that can lead to
-                            deterioration of ones health
-                        </span>
-                    </span>
-                    into the textbox below, and then press the "Analyze" button to
-                    classify the content according to its relevant labels. Be aware that
-                    the system requires a minimum of <u>3 words</u> and accepts up to a
-                    maximum of <u>280 words</u>.
-                </p>
-            </div>
-        </section>
+      <!-- Introduction and Instructions -->
+      <section>
+        <div class="fixed text-center">
+          <h1 class="banner-title">
+            Multilabel Tagalog Hate Speech Classifier
+          </h1>
+          <p
+            class="text-secondary"
+            id="input-post-description"
+            style="display: block"
+          >
+            Enter your
+            <span class="tooltip">
+              hate speech
+              <span class="tooltiptext">
+                Speech that promotes violence or discrimination against
+                individuals or groups based on attributes such as gender, race,
+                religion, physical appearance, disability, etc. that can lead to
+                deterioration of ones health
+              </span>
+            </span>
+            into the textbox below, and then press the "Analyze" button to
+            classify the content according to its relevant labels. Be aware that
+            the system requires a minimum of <u>3 words</u> and accepts up to a
+            maximum of <u>280 words</u>.
+          </p>
+
+          <p
+            class="text-secondary"
+            id="input-link-description"
+            style="display: none"
+          >
+            Enter Reddit link containing
+            <span class="tooltip">
+              hate speech
+              <span class="tooltiptext">
+                Speech that promotes violence or discrimination against
+                individuals or groups based on attributes such as gender, race,
+                religion, physical appearance, disability, etc. that can lead to
+                deterioration of ones health
+              </span>
+            </span>
+            into the textbox below, and then press the "Analyze" button to
+            classify the content according to its relevant labels. Be aware that
+            the system requires a minimum of <u>3 words</u> and accepts up to a
+            maximum of <u>280 words</u>.
+          </p>
+
+          <p
+            class="text-secondary"
+            id="upload-file-description"
+            style="display: none"
+          >
+            [Change this hehehe]
+            <span class="tooltip">
+              hate speech
+              <span class="tooltiptext">
+                Speech that promotes violence or discrimination against
+                individuals or groups based on attributes such as gender, race,
+                religion, physical appearance, disability, etc. that can lead to
+                deterioration of ones health
+              </span>
+            </span>
+            into the textbox below, and then press the "Analyze" button to
+            classify the content according to its relevant labels. Be aware that
+            the system requires a minimum of <u>3 words</u> and accepts up to a
+            maximum of <u>280 words</u>.
+          </p>
+
+          <p
+            class="text-secondary"
+            id="upload-image-description"
+            style="display: none"
+          >
+            Upload screenshot images from Facebook, X, and Reddit that contains
+            <span class="tooltip">
+              hate speech
+              <span class="tooltiptext">
+                Speech that promotes violence or discrimination against
+                individuals or groups based on attributes such as gender, race,
+                religion, physical appearance, disability, etc. that can lead to
+                deterioration of ones health
+              </span>
+            </span>
+            into the file upload box below, and then press the "Analyze" button
+            to classify the content according to its relevant labels. Be aware
+            that the system requires a minimum of <u>3 words</u> and accepts up
+            to a maximum of <u>280 words</u>.
+          </p>
+        </div>
+      </section>
 
         <!-- Input Options (Text, Link, Upload File, Upload Image) -->
         <section class="input-set">
@@ -117,10 +184,25 @@
                 <!-- link input or content -->
             </article>
 
-            <!-- Upload File Tab -->
-            <article class="input-set" id="upload-section" style="display: none">
-                <input type="file" id="file-input" accept=".txt" style="display: none" />
-            </article>
+        <!-- Upload File Tab -->
+        <article
+          class="input-set upload-section"
+          id="upload-section"
+          style="display: none"
+        >
+          <input
+            type="file"
+            id="file-input"
+            accept=".txt"
+            style="display: none"
+          />
+
+          <div class="upload-design">
+            <i class="bx bx-upload" id="upload-icon1"></i>
+            <i class="bx bx-edit" id="upload-icon2" style="display: none"></i>
+            <p>Drag your files here or click in this area.</p>
+          </div>
+        </article>
 
             <!-- Upload Image Tab -->
             <article class="input-set" id="image-section" style="display: none">
@@ -194,59 +276,31 @@
                     Show Labels below 50% <i class="bx bx-chevron-down"></i>
                 </button>
             </div>
-
-            <!-- Saved Posts Section -->
-            <section id="saved-post">
-                <div class="flex justify-between align-center section-header" style="padding-bottom: 10px">
-                    <h4>Saved Posts</h4>
-                </div>
-                <div id="labelFilterButtons">
-                    <button class="filterButton active " data-label="">All Labels</button>
-                    <button class="filterButton " data-label="age">Age</button>
-                    <button class="filterButton" data-label="gender">Gender</button>
-                    <button class="filterButton" data-label="physical">Physical</button>
-                    <button class="filterButton" data-label="race">Race</button>
-                    <button class="filterButton" data-label="religion">Religion</button>
-                    <button class="filterButton" data-label="others">Others</button>
-                  </div>
-                <div id="savedPosts" class="posts-container posts-grid"></div>
-                <div id="pagination-controls" class="pagination"></div>
-            </section>
-
-            <section id="stats">
-                <div class="flex justify-between align-center section-header" style="padding-bottom: 10px">
-                    <h4>Most Frequent Labels Based on Saved</h4>
-                </div>
-                <div class="chart-legend">
-                    <div class="chart">
-                        <canvas id="labelPieChart"></canvas>
-                    </div>
-                    <div id="legendContainer" class="legend-container"></div>
-                </div>
-            </section>
         </section>
 
       <!-- Batch Section -->
-      <section id="batch-section" style="display: none;">
+      <article id="batch-section" style="display: none">
         <div
           class="flex justify-between align-center section-header"
           style="padding-bottom: 10px"
         >
           <h4>Hate Speech Posts</h4>
+          <button id="save-batch-btn" class="btn btn-save">
+            <i class="bx bxs-save bx-xs"></i> Save
+          </button>
         </div>
         <div>
           <table id="table-container">
             <thead>
               <tr>
                 <th>Post</th>
-                <!--<th>Highest Percentage</th>-->
                 <th>All Labels</th>
               </tr>
             </thead>
             <tbody></tbody>
           </table>
         </div>
-      </section> 
+      </article>
 
       <!-- Saved Posts Section -->
       <section id="saved-post">
@@ -298,34 +352,32 @@
 
     <!-- Footer -->
     <footer>
-        <article class="model-description">
-            <div>
-                <h4>
-                    MULTILABEL CLASSIFICATION OF TAGALOG HATE SPEECH USING BIDIRECTIONAL
-                    ENCODER REPRESENTATIONS FROM TRANSFORMERS (BERT)
-                </h4>
-                <p class="footer_size">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et ratione
-                    incidunt optio facilis magni sapiente, id voluptas numquam
-                    repudiandae omnis soluta, iste maxime quaerat, nesciunt facere eius
-                    itaque voluptatum nihil? Lorem ipsum, dolor sit amet consectetur
-                    adipisicing elit. Nostrum ad necessitatibus, aspernatur voluptas
-                    voluptates corporis laboriosam! Asperiores facilis, dicta, natus,
-                    magni adipisci nesciunt perferendis accusamus suscipit alias nam ab
-                    ea?
-                </p>
-            </div>
+      <article class="model-description">
+        <div>
+          <h4>
+            MULTILABEL CLASSIFICATION OF TAGALOG HATE SPEECH USING BIDIRECTIONAL
+            ENCODER REPRESENTATIONS FROM TRANSFORMERS (BERT)
+          </h4>
+          <p class="footer_size">
+            MLTHSC employs Bidirectional Encoder Representations from
+            Transformer (BERT) to analyze text and categorize hate speech in
+            Tagalog across multiple labels. The classifier discerns hateful
+            content related to age, gender, race, religion, physical attributes,
+            and other categories, enhancing the identification, and
+            understanding of diverse forms of harmful speech.
+          </p>
+        </div>
 
-            <div>
-                <h4>DISCLAIMER</h4>
-                <p class="footer_size">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et ratione
-                    incidunt optio facilis magni sapiente, id voluptas numquam
-                    repudiandae omnis soluta, iste maxime quaerat, nesciunt facere eius
-                    itaque voluptatum nihil?
-                </p>
-            </div>
-        </article>
+        <div>
+          <h4>DISCLAIMER</h4>
+          <p class="footer_size">
+            This website does not collect any user credentials. In the event
+            that data is saved, it is stored only in the local storage of your
+            device, ensuring your information remains secure and within your
+            control.
+          </p>
+        </div>
+      </article>
 
         <article class="footer-bottom flex">
             <p class="footer_size copyright">THESIS PASSERS &copy; 2024 <br /></p>

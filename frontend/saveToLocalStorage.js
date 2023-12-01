@@ -1,6 +1,8 @@
 const saveBtn = document.getElementById("save-btn");
+const saveBatchBtn = document.getElementById("save-batch-btn");
 const exportButton = document.getElementById("export-btn");
 
+let batchPosts = [];
 let savedPosts = [];
 let currentPost = null;
 let labelFrequency = {};
@@ -15,14 +17,28 @@ if (!currentPost) saveBtn.disabled = true;
 
 console.log(`current post: ${currentPost}`);
 
-function inputByBatch() {
-    // get txt file
-    // read lines
-    // for line in txt
-    // fetch labels
-    // saveToLocalStorage
-    // updateSavedPostDisplay
-}
+saveBatchBtn.addEventListener("click", function () {
+
+  batchPosts.forEach((post) => {
+    saveToLocalStorage(post);
+  });
+
+  // Update the UI after saving all posts
+  updateSavedPostsDisplay();
+
+  // Scroll down to the saved posts container
+  const savedPostsContainer = document.getElementById("saved-post");
+  savedPostsContainer.scrollIntoView({ behavior: "smooth" });
+
+  const totalPages = Math.ceil(savedPosts.length / postsPerPage);
+  currentPage = totalPages;
+  displayPage(currentPage);
+  updateActivePageButton();
+
+  saveBatchBtn.disabled = true;
+  Toast("Batch saved successfully!", "success");
+});
+
 
 /** Save Button */
 saveBtn.addEventListener("click", function () {
