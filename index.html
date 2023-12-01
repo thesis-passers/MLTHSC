@@ -28,97 +28,81 @@
 
     <!-- Main Content Section -->
     <main class="container bg-white" id="main-container">
-      <!-- Introduction and Instructions -->
-      <section>
-        <div class="fixed text-center">
-          <h1 class="banner-title">
-            Multilabel Tagalog Hate Speech Classifier
-          </h1>
-          <p
-            class="text-secondary"
-            id="input-post-description"
-            style="display: block"
-          >
-            Enter your
-            <span class="tooltip">
-              hate speech
-              <span class="tooltiptext">
-                Speech that promotes violence or discrimination against
-                individuals or groups based on attributes such as gender, race,
-                religion, physical appearance, disability, etc. that can lead to
-                deterioration of ones health
-              </span>
-            </span>
-            into the textbox below, and then press the "Analyze" button to
-            classify the content according to its relevant labels. Be aware that
-            the system requires a minimum of <u>3 words</u> and accepts up to a
-            maximum of <u>280 words</u>.
-          </p>
+        <!-- Introduction and Instructions -->
+        <section>
+            <div class="fixed text-center">
+                <h1 class="banner-title">
+                    Multilabel Tagalog Hate Speech Classifier
+                </h1>
+                <p class="text-secondary" id="input-post-description" style="display: block">
+                    Enter your
+                    <span class="tooltip">
+                        hate speech
+                        <span class="tooltiptext">
+                            Speech that promotes violence or discrimination against
+                            individuals or groups based on attributes such as gender, race,
+                            religion, physical appearance, disability, etc. that can lead to
+                            deterioration of ones health
+                        </span>
+                    </span>
+                    into the textbox below, and then press the "Analyze" button to
+                    classify the content according to its relevant labels. Be aware that
+                    the system requires a minimum of <u>3 words</u> and accepts up to a
+                    maximum of <u>280 words</u>.
+                </p>
 
-          <p
-            class="text-secondary"
-            id="input-link-description"
-            style="display: none"
-          >
-            Enter Reddit link containing
-            <span class="tooltip">
-              hate speech
-              <span class="tooltiptext">
-                Speech that promotes violence or discrimination against
-                individuals or groups based on attributes such as gender, race,
-                religion, physical appearance, disability, etc. that can lead to
-                deterioration of ones health
-              </span>
-            </span>
-            into the textbox below, and then press the "Analyze" button to
-            classify the content according to its relevant labels. Be aware that
-            the system requires a minimum of <u>3 words</u> and accepts up to a
-            maximum of <u>280 words</u>.
-          </p>
+                <p class="text-secondary" id="input-link-description" style="display: none">
+                    Enter Reddit link containing
+                    <span class="tooltip">
+                        hate speech
+                        <span class="tooltiptext">
+                            Speech that promotes violence or discrimination against
+                            individuals or groups based on attributes such as gender, race,
+                            religion, physical appearance, disability, etc. that can lead to
+                            deterioration of ones health
+                        </span>
+                    </span>
+                    into the textbox below, and then press the "Analyze" button to
+                    classify the content according to its relevant labels. Be aware that
+                    the system requires a minimum of <u>3 words</u> and accepts up to a
+                    maximum of <u>280 words</u>.
+                </p>
 
-          <p
-            class="text-secondary"
-            id="upload-file-description"
-            style="display: none"
-          >
-            [Change this hehehe]
-            <span class="tooltip">
-              hate speech
-              <span class="tooltiptext">
-                Speech that promotes violence or discrimination against
-                individuals or groups based on attributes such as gender, race,
-                religion, physical appearance, disability, etc. that can lead to
-                deterioration of ones health
-              </span>
-            </span>
-            into the textbox below, and then press the "Analyze" button to
-            classify the content according to its relevant labels. Be aware that
-            the system requires a minimum of <u>3 words</u> and accepts up to a
-            maximum of <u>280 words</u>.
-          </p>
+                <p class="text-secondary" id="upload-file-description" style="display: none">
+                    [Change this hehehe]
+                    <span class="tooltip">
+                        hate speech
+                        <span class="tooltiptext">
+                            Speech that promotes violence or discrimination against
+                            individuals or groups based on attributes such as gender, race,
+                            religion, physical appearance, disability, etc. that can lead to
+                            deterioration of ones health
+                        </span>
+                    </span>
+                    into the textbox below, and then press the "Analyze" button to
+                    classify the content according to its relevant labels. Be aware that
+                    the system requires a minimum of <u>3 words</u> and accepts up to a
+                    maximum of <u>280 words</u>.
+                </p>
 
-          <p
-            class="text-secondary"
-            id="upload-image-description"
-            style="display: none"
-          >
-            Upload screenshot images from Facebook, X, and Reddit that contains
-            <span class="tooltip">
-              hate speech
-              <span class="tooltiptext">
-                Speech that promotes violence or discrimination against
-                individuals or groups based on attributes such as gender, race,
-                religion, physical appearance, disability, etc. that can lead to
-                deterioration of ones health
-              </span>
-            </span>
-            into the file upload box below, and then press the "Analyze" button
-            to classify the content according to its relevant labels. Be aware
-            that the system requires a minimum of <u>3 words</u> and accepts up
-            to a maximum of <u>280 words</u>.
-          </p>
-        </div>
-      </section>
+                <p class="text-secondary" id="upload-image-description" style="display: none">
+                    Upload screenshot images from Facebook, X, and Reddit that contains
+                    <span class="tooltip">
+                        hate speech
+                        <span class="tooltiptext">
+                            Speech that promotes violence or discrimination against
+                            individuals or groups based on attributes such as gender, race,
+                            religion, physical appearance, disability, etc. that can lead to
+                            deterioration of ones health
+                        </span>
+                    </span>
+                    into the file upload box below, and then press the "Analyze" button
+                    to classify the content according to its relevant labels. Be aware
+                    that the system requires a minimum of <u>3 words</u> and accepts up
+                    to a maximum of <u>280 words</u>.
+                </p>
+            </div>
+        </section>
 
         <!-- Input Options (Text, Link, Upload File, Upload Image) -->
         <section class="input-set">
@@ -184,25 +168,16 @@
                 <!-- link input or content -->
             </article>
 
-        <!-- Upload File Tab -->
-        <article
-          class="input-set upload-section"
-          id="upload-section"
-          style="display: none"
-        >
-          <input
-            type="file"
-            id="file-input"
-            accept=".txt"
-            style="display: none"
-          />
+            <!-- Upload File Tab -->
+            <article class="input-set upload-section" id="upload-section" style="display: none">
+                <input type="file" id="file-input" accept=".txt" style="display: none" />
 
-          <div class="upload-design">
-            <i class="bx bx-upload" id="upload-icon1"></i>
-            <i class="bx bx-edit" id="upload-icon2" style="display: none"></i>
-            <p>Drag your files here or click in this area.</p>
-          </div>
-        </article>
+                <div class="upload-design">
+                    <i class="bx bx-upload" id="upload-icon1"></i>
+                    <i class="bx bx-edit" id="upload-icon2" style="display: none"></i>
+                    <p>Drag your files here or click in this area.</p>
+                </div>
+            </article>
 
             <!-- Upload Image Tab -->
             <article class="input-set" id="image-section" style="display: none">
@@ -229,12 +204,12 @@
                 </button>
             </div>
 
-        <!-- No Labels Container (Displayed when no labels are identified) -->
-        <div id="no-labels-container" style="display: none">
-          <div class="analyze_container result-fade-in">
-            <p>No label identified, please add more words.</p>
-          </div>
-        </div>
+            <!-- No Labels Container (Displayed when no labels are identified) -->
+            <div id="no-labels-container" style="display: none">
+                <div class="analyze_container result-fade-in">
+                    <p>No label identified, please add more words.</p>
+                </div>
+            </div>
 
             <!-- Container for Displaying Labels -->
             <div class="labels-container" id="labels-container">
@@ -278,106 +253,107 @@
             </div>
         </section>
 
-      <!-- Batch Section -->
-      <article id="batch-section" style="display: none">
-        <div
-          class="flex justify-between align-center section-header"
-          style="padding-bottom: 10px"
-        >
-          <h4>Hate Speech Posts</h4>
-          <button id="save-batch-btn" class="btn btn-save">
-            <i class="bx bxs-save bx-xs"></i> Save
-          </button>
-        </div>
-        <div>
-          <table id="table-container">
-            <thead>
-              <tr>
-                <th>Post</th>
-                <th>All Labels</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </article>
+        <!-- Batch Section -->
+        <article id="batch-section" style="display: none">
+            <div class="flex justify-between align-center section-header" style="padding-bottom: 10px">
+                <h4>Hate Speech Posts</h4>
+                <button id="save-batch-btn" class="btn btn-save">
+                    <i class="bx bxs-save bx-xs"></i> Save
+                </button>
+            </div>
+            <div>
+                <table id="table-container">
+                    <thead>
+                        <tr>
+                            <th>Post</th>
+                            <th>All Labels</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </article>
 
-      <!-- Saved Posts Section -->
-      <section id="saved-post">
-        <div
-          class="flex justify-between align-center section-header"
-          style="padding-bottom: 10px"
-        >
-          <h4>Saved Posts</h4>
-          <button id="export-btn" class="btn btn-save">
-            <i class="bx bx-export bx-xs"></i> Export
-          </button>
-        </div>
+        <!-- Saved Posts Section -->
+        <section id="saved-post">
+            <div class="flex justify-between align-center section-header" style="padding-bottom: 10px">
+                <h4>Saved Posts</h4>
+                <button id="export-btn" class="btn btn-save">
+                    <i class="bx bx-export bx-xs"></i> Export
+                </button>
+            </div>
+            <div id="labelFilterButtons">
+                <button class="filterButton active " data-label="">All Labels</button>
+                <i class="bx bx-filter bx-sm" style=" margin-bottom: 10px; transform: rotate(-90deg); opacity: 30%"></i>
+                <button class="filterButton " data-label="age">Age</button>
+                <button class="filterButton" data-label="gender">Gender</button>
+                <button class="filterButton" data-label="physical">Physical</button>
+                <button class="filterButton" data-label="race">Race</button>
+                <button class="filterButton" data-label="religion">Religion</button>
+                <button class="filterButton" data-label="others">Others</button>
+            </div>
 
-        <!-- No posts Container (Displayed when no labels are identified) -->
-        <div id="no-posts-container" style="display: none">
-          <div class="analyze_container result-fade-in">
-            <p>No posts saved.</p>
-          </div>
-        </div>
+            <!-- No posts Container (Displayed when no labels are identified) -->
+            <div id="no-posts-container" style="display: none">
+                <div class="analyze_container result-fade-in">
+                    <p>No posts saved.</p>
+                </div>
+            </div>
 
-        <div id="savedPosts" class="posts-container"></div>
-        <div id="pagination-controls" class="pagination"></div>
-      </section>
+            <div id="savedPosts" class="posts-container"></div>
+            <div id="pagination-controls" class="pagination"></div>
+        </section>
 
-      <!-- Stats -->
-      <article id="stats">
-        <div
-          class="flex justify-between align-center section-header"
-          style="padding-bottom: 10px"
-        >
-          <h4>Most Frequent Labels Based on Saved</h4>
-        </div>
+        <!-- Stats -->
+        <article id="stats">
+            <div class="flex justify-between align-center section-header" style="padding-bottom: 10px">
+                <h4>Most Frequent Labels Based on Saved</h4>
+            </div>
 
-        <!-- No posts Container (Displayed when no labels are identified) -->
-        <div id="no-chart-container" style="display: none">
-          <div class="analyze_container result-fade-in">
-            <p>No data to analyze.</p>
-          </div>
-        </div>
+            <!-- No posts Container (Displayed when no labels are identified) -->
+            <div id="no-chart-container" style="display: none">
+                <div class="analyze_container result-fade-in">
+                    <p>No data to analyze.</p>
+                </div>
+            </div>
 
-        <div id="chart-legend" class="chart-legend" style="display: none">
-          <div class="chart">
-            <canvas id="labelPieChart"></canvas>
-          </div>
-          <div id="legendContainer" class="legend-container"></div>
-        </div>
-      </article>
+            <div id="chart-legend" class="chart-legend" style="display: none">
+                <div class="chart">
+                    <canvas id="labelPieChart"></canvas>
+                </div>
+                <div id="legendContainer" class="legend-container"></div>
+            </div>
+        </article>
     </main>
 
     <!-- Footer -->
     <footer>
-      <article class="model-description">
-        <div>
-          <h4>
-            MULTILABEL CLASSIFICATION OF TAGALOG HATE SPEECH USING BIDIRECTIONAL
-            ENCODER REPRESENTATIONS FROM TRANSFORMERS (BERT)
-          </h4>
-          <p class="footer_size">
-            MLTHSC employs Bidirectional Encoder Representations from
-            Transformer (BERT) to analyze text and categorize hate speech in
-            Tagalog across multiple labels. The classifier discerns hateful
-            content related to age, gender, race, religion, physical attributes,
-            and other categories, enhancing the identification, and
-            understanding of diverse forms of harmful speech.
-          </p>
-        </div>
+        <article class="model-description">
+            <div>
+                <h4>
+                    MULTILABEL CLASSIFICATION OF TAGALOG HATE SPEECH USING BIDIRECTIONAL
+                    ENCODER REPRESENTATIONS FROM TRANSFORMERS (BERT)
+                </h4>
+                <p class="footer_size">
+                    MLTHSC employs Bidirectional Encoder Representations from
+                    Transformer (BERT) to analyze text and categorize hate speech in
+                    Tagalog across multiple labels. The classifier discerns hateful
+                    content related to age, gender, race, religion, physical attributes,
+                    and other categories, enhancing the identification, and
+                    understanding of diverse forms of harmful speech.
+                </p>
+            </div>
 
-        <div>
-          <h4>DISCLAIMER</h4>
-          <p class="footer_size">
-            This website does not collect any user credentials. In the event
-            that data is saved, it is stored only in the local storage of your
-            device, ensuring your information remains secure and within your
-            control.
-          </p>
-        </div>
-      </article>
+            <div>
+                <h4>DISCLAIMER</h4>
+                <p class="footer_size">
+                    This website does not collect any user credentials. In the event
+                    that data is saved, it is stored only in the local storage of your
+                    device, ensuring your information remains secure and within your
+                    control.
+                </p>
+            </div>
+        </article>
 
         <article class="footer-bottom flex">
             <p class="footer_size copyright">THESIS PASSERS &copy; 2024 <br /></p>
@@ -397,7 +373,7 @@
     <script src="./frontend/saveToLocalStorage.js"></script>
     <script src="./frontend/script.js"></script>
     <script src="./frontend/batchProcessing.js"></script>
-  </body>
+</body>
 
 <div id="toast-container"></div>
 
