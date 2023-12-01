@@ -147,12 +147,12 @@
                 </button>
             </div>
 
-            <!-- No Labels Container (Displayed when no labels are identified) -->
-            <div id="no-labels-container" style="display: none">
-                <div class="analyze_container result-fade-in">
-                    <p>No label identified, please add more words</p>
-                </div>
-            </div>
+        <!-- No Labels Container (Displayed when no labels are identified) -->
+        <div id="no-labels-container" style="display: none">
+          <div class="analyze_container result-fade-in">
+            <p>No label identified, please add more words.</p>
+          </div>
+        </div>
 
             <!-- Container for Displaying Labels -->
             <div class="labels-container" id="labels-container">
@@ -226,7 +226,8 @@
             </section>
         </section>
 
-        <!--<section id="batch-section" style="display: none;">
+      <!-- Batch Section -->
+      <section id="batch-section" style="display: none;">
         <div
           class="flex justify-between align-center section-header"
           style="padding-bottom: 10px"
@@ -238,18 +239,61 @@
             <thead>
               <tr>
                 <th>Post</th>
-                <th>Age</th>
-                <th>Gender</th>
-                <th>Physical</th>
-                <th>Race</th>
-                <th>Religion</th>
-                <th>Others</th>
+                <!--<th>Highest Percentage</th>-->
+                <th>All Labels</th>
               </tr>
             </thead>
             <tbody></tbody>
           </table>
         </div>
-      </section> -->
+      </section> 
+
+      <!-- Saved Posts Section -->
+      <section id="saved-post">
+        <div
+          class="flex justify-between align-center section-header"
+          style="padding-bottom: 10px"
+        >
+          <h4>Saved Posts</h4>
+          <button id="export-btn" class="btn btn-save">
+            <i class="bx bx-export bx-xs"></i> Export
+          </button>
+        </div>
+
+        <!-- No posts Container (Displayed when no labels are identified) -->
+        <div id="no-posts-container" style="display: none">
+          <div class="analyze_container result-fade-in">
+            <p>No posts saved.</p>
+          </div>
+        </div>
+
+        <div id="savedPosts" class="posts-container"></div>
+        <div id="pagination-controls" class="pagination"></div>
+      </section>
+
+      <!-- Stats -->
+      <article id="stats">
+        <div
+          class="flex justify-between align-center section-header"
+          style="padding-bottom: 10px"
+        >
+          <h4>Most Frequent Labels Based on Saved</h4>
+        </div>
+
+        <!-- No posts Container (Displayed when no labels are identified) -->
+        <div id="no-chart-container" style="display: none">
+          <div class="analyze_container result-fade-in">
+            <p>No data to analyze.</p>
+          </div>
+        </div>
+
+        <div id="chart-legend" class="chart-legend" style="display: none">
+          <div class="chart">
+            <canvas id="labelPieChart"></canvas>
+          </div>
+          <div id="legendContainer" class="legend-container"></div>
+        </div>
+      </article>
     </main>
 
     <!-- Footer -->
@@ -296,9 +340,12 @@
     <!-- JavaScript Files -->
     <!-- <script src="./frontend/stls2.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
     <script src="./frontend/saveToLocalStorage.js"></script>
     <script src="./frontend/script.js"></script>
-</body>
+    <script src="./frontend/batchProcessing.js"></script>
+  </body>
 
 <div id="toast-container"></div>
 
