@@ -19,9 +19,8 @@ fileInput.addEventListener("change", (event) => {
 
     reader.readAsText(selectedFile);
   } else {
-    Toast("Please select a valid .txt file.");
+    Toast("Please select a valid .txt file.", "failed");
     fileInput.value = "";
-    disableButtons();
   }
 });
 
@@ -44,8 +43,7 @@ function processFileContent(content) {
         fetchLabelsForBatches();
         clearBtn.disabled = false;
       } else {
-        Toast("Some sentences not analyzed! Please review the word count.");
-        disableButtons();
+        Toast("Some sentences not analyzed! Please review the word count.", "failed");
         fileInput.value = "";
       }
 
@@ -54,6 +52,8 @@ function processFileContent(content) {
       }
     }, index * 2000);
   });
+
+  saveBatchBtn.disabled = false;
 }
 
 function fetchLabelsForBatches() {
@@ -78,6 +78,11 @@ function fetchLabelsForBatches() {
 
       updateResultTable(inputText.value, resultLabelProbabilityHTML);
       hideLabelsInitially();
+
+      batchPosts.push(currentPost);
+
+      saveBatchBtn.disabled = false;
+      clearBtn.disabled = false;
     })
     .catch((error) => {
       console.error("Error:", error);
