@@ -3,7 +3,7 @@ const inputText = document.getElementById("input-text");
 const analyzeBtn = document.getElementById("analyze-btn");
 const clearBtn = document.getElementById("clear-btn");
 const labelsContainer = document.getElementById("labels-container");
-// const tableContainer = document.getElementById("table-container");
+const tableContainer = document.getElementById("table-container");
 const wordCountElement = document.getElementById("word-count");
 const toggleLabelsBtn = document.getElementById("toggle-labels-btn");
 const hideLabelsContainer = document.getElementById("hide-labels-container");
@@ -22,7 +22,7 @@ const uploadSection = document.getElementById("upload-section");
 const linkSection = document.getElementById("link-section");
 const imageSection = document.getElementById("image-section");
 const labelSection = document.getElementById("label-section");
-// const batchSection = document.getElementById("batch-section");
+const batchSection = document.getElementById("batch-section");
 
 // Initialization
 
@@ -48,6 +48,7 @@ function showTabUI(selectedTab) {
     (section) => (section.style.display = "none")
   );
   resetLabels();
+  resetTable();
   fileInput.value = "";
   inputText.value = "";
   updateWordCount();
@@ -58,12 +59,12 @@ function showTabUI(selectedTab) {
   // Show the selected section
   if (sections[selectedTab]) {
     sections[selectedTab].style.display = "block";
-    //labelSection.style.display = "block";
-    // batchSection.style.display = "none"
+    labelSection.style.display = "block";
+    batchSection.style.display = "none"
     if (selectedTab === "upload") {
       fileInput.style.display = "block"; // Show file input for upload tab
-      //batchSection.style.display = "block";
-      //labelSection.style.display = "none";
+      batchSection.style.display = "block";
+      labelSection.style.display = "none";
     }
   }
 }
@@ -82,6 +83,9 @@ document.addEventListener("DOMContentLoaded", function () {
       // Show the corresponding UI section
       const selectedTab = this.getAttribute("data-tab");
       showTabUI(selectedTab);
+
+      // Reset the table when a tab is clicked
+      resetTable();
     });
   });
 });
@@ -90,63 +94,6 @@ function disableButtons() {
   analyzeBtn.disabled = true;
   clearBtn.disabled = true;
   saveBtn.disabled = true;
-}
-
-// Batch upload
-function isValidFile(file) {
-  const allowedExtensions = ["txt"];
-  const fileExtension = file.name.split(".").pop().toLowerCase();
-  return allowedExtensions.includes(fileExtension);
-}
-
-// Read batches
-fileInput.addEventListener("change", (event) => {
-  const selectedFile = event.target.files[0];
-
-  if (selectedFile && isValidFile(selectedFile)) {
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-      const fileContent = e.target.result;
-      processFileContent(fileContent);
-    };
-
-    reader.readAsText(selectedFile);
-  } else {
-    alert("Please select a valid .txt file.");
-    fileInput.value = "";
-    disableButtons();
-  }
-});
-
-function processFileContent(content) {
-  const sentences = content.split(/\n/);
-  const nonEmptySentences = sentences.filter(
-    (sentence) => sentence.trim() !== ""
-  );
-
-  nonEmptySentences.forEach((sentence, index) => {
-    setTimeout(() => {
-      inputText.value = sentence.trim();
-
-      const inputTextValue = inputText.value.trim();
-      const wordCount = inputTextValue.split(/\s+/).filter(Boolean).length;
-
-      if (inputTextValue !== "" && wordCount >= 3 && wordCount <= 280) {
-        showAnalyzingState();
-        fetchLabels();
-        clearBtn.disabled = false;
-      } else {
-        Toast("Some sentences not analyzed! Please review the word count.");
-        disableButtons();
-        fileInput.value = "";
-      }
-
-      if (index === nonEmptySentences.length - 1) {
-        inputText.value = "";
-      }
-    }, index * 2000);
-  });
 }
 
 // disable buttons
@@ -236,6 +183,7 @@ clearBtn.addEventListener("click", () => {
   inputText.value = "";
   document.getElementById("sample-hate-speech").selectedIndex = 0;
   resetLabels();
+  resetTable();
   updateWordCount();
   hideLabelsContainer.style.display = "none";
   noLabelsContainer.style.display = "none";
