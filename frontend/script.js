@@ -417,19 +417,36 @@ function toggleDarkMode() {
   /*document.getElementById("sample-hate-speech").options[selectedOption].style.backgroundColor = isDarkMode ? '#333' : 'white';*/
 }
 
-const Toast = (message) => {
+const Toast = (message, type) => {
   const toastContainer = document.getElementById("toast-container");
 
   // Create a new toast element
   const toast = document.createElement("div");
   toast.classList.add("toast");
-  toast.textContent = message;
+
+  // Set the appropriate class based on the type (success or failed)
+  if (type === "success") {
+    toast.classList.add("success");
+    toast.innerHTML = '<i class="bx bxs-check-circle"></i>' + message; // Use a success icon
+  } else if (type === "failed") {
+    toast.classList.add("failed");
+    toast.innerHTML = '<i class="bx bxs-x-circle"></i>' + message; // Use a failed icon
+  }
 
   // Append the toast to the container
   toastContainer.appendChild(toast);
 
+  // Trigger a reflow to enable the CSS transition
+  toast.offsetHeight;
+
+  // Add the "show" class to start the enter animation
+  toast.classList.add("show");
+
   // Remove the toast after a delay (e.g., 3 seconds)
   setTimeout(() => {
-    toast.remove();
+    toast.classList.add("hide"); // Start the exit animation
+    setTimeout(() => {
+      toast.remove(); // Remove the toast after the exit animation
+    }, 300);
   }, 3000);
 };

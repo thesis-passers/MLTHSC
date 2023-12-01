@@ -1,4 +1,5 @@
 const saveBtn = document.getElementById("save-btn");
+const exportButton = document.getElementById("export-btn");
 
 let savedPosts = [];
 let currentPost = null;
@@ -7,6 +8,8 @@ let labelFrequency = {};
 let currentPage = 1;
 const postsPerPage = 6;
 const columns = 2;
+
+window.myPieChart = null;
 
 if (!currentPost) saveBtn.disabled = true;
 
@@ -38,7 +41,7 @@ saveBtn.addEventListener("click", function () {
   updateActivePageButton();
 
   saveBtn.disabled = true;
-  Toast("Post saved successfully!");
+  Toast("Post saved successfully!", "success");
 });
 
 /** Display Saved Hate Speech */
@@ -120,12 +123,25 @@ function updateSavedPostsDisplay() {
   console.log("savedPosts");
   console.log(savedPosts);
 
-  labelFrequency = countLabelFrequency();
-
   // Clear previous chart data
   if (window.myPieChart) {
     window.myPieChart.destroy();
   }
+
+  // Check if there are no saved posts
+  if (savedPosts.length === 0) {
+    document.getElementById("no-posts-container").style.display = "block";
+    document.getElementById("no-chart-container").style.display = "block";
+    document.getElementById("chart-legend").style.display = "none";
+    exportButton.disabled = true;
+  } else {
+    document.getElementById("no-posts-container").style.display = "none";
+    document.getElementById("no-chart-container").style.display = "none";
+    document.getElementById("chart-legend").style.display = "flex";
+    exportButton.disabled = false;
+  }
+
+  labelFrequency = countLabelFrequency();
 
   // Update the chart with new data
   createPieChart();
@@ -136,6 +152,10 @@ function deleteSavedPost(index) {
   savedPosts = JSON.parse(localStorage.getItem("savedPosts")) || [];
   savedPosts.splice(index, 1);
   localStorage.setItem("savedPosts", JSON.stringify(savedPosts));
+
+  // After deleting the post, check if there are any saved posts left
+  const totalPages = Math.ceil(savedPosts.length / postsPerPage);
+  if (currentPage > totalPages) currentPage = totalPages;
 
   updateSavedPostsDisplay();
   displayPage(currentPage);
@@ -256,6 +276,10 @@ function updateActivePageButton() {
 
 /** For Chart */
 function createPieChart() {
+  if (window.myPieChart) {
+    window.myPieChart.destroy();
+  }
+
   const ctx = document.getElementById("labelPieChart").getContext("2d");
 
   // Set the width and height of the chart
@@ -320,11 +344,6 @@ function createPieChart() {
           text: "Frequency of Labels",
           padding: 10,
         },
-        emptyDoughnut: {
-          color: "gray",
-          width: 2,
-          radiusDecrease: 20,
-        },
       },
     },
   });
@@ -357,4 +376,106 @@ function createPieChart() {
 
     legendContainer.appendChild(legendItem);
   });
+}
+
+// Export
+document.getElementById("export-btn").addEventListener("click", exportToExcel);
+
+function exportToExcel() {
+  if (savedPosts.length === 0) {
+    Toast("No posts to export.", "failed");
+    return;
+  }
+
+  var workbook = XLSX.utils.book_new();
+
+  // Sheet 1: Post Data with Count
+  let postsData = savedPosts.map((post, index) => {
+    let labelCells = post.labels
+      .filter((label) => parseFloat(label.probability) > 50)
+      .map((label) => `${label.name} (${label.probability}%)`);
+
+    return {
+      "#": index + 1 + ".",
+      "Hate Speech Text": post.text,
+      ...labelCells.reduce((obj, label, i) => {
+        obj[`Label ${i + 1}`] = label;
+        return obj;
+      }, {}),
+    };
+  });
+  var postsSheet = XLSX.utils.json_to_sheet(postsData);
+  XLSX.utils.book_append_sheet(workbook, postsSheet, "Posts");
+
+  var colWidths1 = [
+    { wch: 5 }, // '#' column
+    { wch: 50 }, // 'Hate Speech Text' column
+    { wch: 20 }, // 'Label 2' column
+    { wch: 20 }, // 'Label 1' column
+    { wch: 20 }, // 'Label 3' column
+    { wch: 20 }, // 'Label 4' column
+    { wch: 20 }, // 'Label 5' column
+    { wch: 20 }, // 'Label 6' column
+  ];
+
+  postsSheet["!cols"] = colWidths1;
+
+  // Sheet 2: Label Frequencies including Total Count of Hate Speech Posts
+  let totalCount = Object.values(labelFrequency).reduce(
+    (acc, count) => acc + count,
+    0
+  );
+  let frequenciesData = Object.entries(labelFrequency).map(([label, count]) => {
+    return {
+      Labels: label,
+      Count: count,
+      Percentage: ((count / totalCount) * 100).toFixed(2) + "%",
+    };
+  });
+
+  // Append the frequencies data first
+  var frequenciesSheet = XLSX.utils.json_to_sheet(frequenciesData);
+
+  // Determine the next available row number (the row after the last label frequency)
+  let nextRow = frequenciesData.length + 2; // +1 for header, +1 for next row
+
+  // Insert a blank row before the Total Posts row for visual division
+  XLSX.utils.sheet_add_json(
+    frequenciesSheet,
+    [{ Labels: "", Count: "", Percentage: "" }], // Blank row
+    {
+      skipHeader: true,
+      origin: nextRow - 1, // Insert the blank row before the Total Posts
+    }
+  );
+
+  // Then append the Total Posts row after the blank row
+  XLSX.utils.sheet_add_json(
+    frequenciesSheet,
+    [
+      {
+        Labels: "Total Posts",
+        Count: savedPosts.length,
+        Percentage: "", // Empty string for percentage as it does not apply here
+      },
+    ],
+    {
+      skipHeader: true,
+      origin: nextRow, // Append the Total Posts row after the blank row
+    }
+  );
+
+  var colWidths2 = [
+    { wch: 15 }, // labels column
+    { wch: 7 }, // count column
+    { wch: 15 }, // percentage column
+  ];
+
+  frequenciesSheet["!cols"] = colWidths2;
+
+  XLSX.utils.book_append_sheet(workbook, frequenciesSheet, "Label Frequencies");
+
+  // Export the workbook
+  XLSX.writeFile(workbook, "saved_posts.xlsx");
+  Toast("Saved Posts exported successfully!", "success");
 }
