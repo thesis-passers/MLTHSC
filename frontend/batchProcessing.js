@@ -40,7 +40,6 @@ fileInput.addEventListener("change", (event) => {
   } else {
     Toast("Please select a valid .txt file.", "failed");
     fileInput.value = "";
-    disableButtons();
   }
 });
 
@@ -75,6 +74,8 @@ function processFileContent(content) {
       }
     }, index * 2000);
   });
+
+  saveBatchBtn.disabled = false;
 }
 
 function fetchLabelsForBatches(currentIndex, totalSentences) {
@@ -100,8 +101,12 @@ function fetchLabelsForBatches(currentIndex, totalSentences) {
       updateResultTable(inputText.value, resultLabelProbabilityHTML);
       hideLabelsInitially();
 
+      batchPosts.push(currentPost);
+
       if (currentIndex === totalSentences - 1) {
         clearBtn.disabled = false;
+
+        saveBatchBtn.disabled = false;
         Toast("Done analyzing file", "success");
       }
     })

@@ -103,6 +103,7 @@ function disableButtons() {
   analyzeBtn.disabled = true;
   clearBtn.disabled = true;
   saveBtn.disabled = true;
+  saveBatchBtn.disabled = true;
 
   const uploadSection = document.querySelector(".upload-section");
   const pElement = uploadSection.querySelector("p");
@@ -259,19 +260,6 @@ function updateHTML(labels) {
   labelsContainer.innerHTML = resultHTML;
   hideLabelsInitially();
 }
-
-// Update table
-// function updateResultTable(labelsHTML) {
-//   const resultTableBody = document.querySelector("#table-container tbody");
-
-//   const row = resultTableBody.insertRow();
-
-//   const postCell = row.insertCell(0);
-//   const labelsCell = row.insertCell(1);
-
-//   postCell.textContent = inputText.value;
-//   labelsCell.innerHTML = labelsHTML;
-// }
 
 // function pushData(data) {
 //     savedPosts.push(data)
