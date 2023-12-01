@@ -268,6 +268,7 @@ textarea:focus {
   background-color: white;
   cursor: pointer;
   padding: 8px 12px;
+  width: 100px;
   border: 1px solid #ccc;
 }
 
@@ -456,6 +457,44 @@ textarea:focus {
   margin-right: 8px;
 }
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.result-fade-in {
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+
 /* save posts */
 #savedPosts {
   display: flex;
@@ -463,6 +502,10 @@ textarea:focus {
   gap: 1rem;
   margin: 0 10px;
 }
+
+/* .posts-container {
+  min-height: 500px;
+} */
 
 .postDisplay {
   border-radius: 10px;
@@ -562,44 +605,6 @@ textarea:focus {
   background-color: var(--gray-25);
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-.result-fade-in {
-  animation: fadeIn 1s ease;
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
-
-.fade-out {
-  animation: fadeOut 0.5s ease forwards;
-}
-
 /* Sample Hate Speech Container */
 #sample-hate-speech {
   padding: 10px;
@@ -642,6 +647,51 @@ textarea:focus {
   margin-right: 15px;
 }
 
+/* Batch */
+
+#table-container {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+#table-container th, #table-container td {
+  border: 1px solid #ddd;
+  padding: 5px; 
+}
+
+#table-container th {
+  background-color: #f2f2f2;
+  font-size: 15px;
+  text-align: center;
+}
+
+#table-container td {
+  text-align: left;
+}
+
+#table-container tbody tr:hover {
+  background-color: #e0e0e0;
+}
+
+#table-container td:nth-child(1) {
+  width: 200px;
+}
+
+#table-container td:nth-child(2) {
+  width: 500px;
+}
+
+.all-labels {
+  padding: 5px;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+
 /* Footer */
 footer {
   background-color: #333;
@@ -662,29 +712,22 @@ footer {
 
 .model-description div:first-child {
   flex: 3;
-  /* Takes up 3 parts */
   padding: 0 60px 40px 0;
-  /* Optional padding for spacing */
   border-bottom: 1px solid gray;
   text-align: justify;
 }
 
 .model-description div:last-child {
   flex: 1;
-  /* Takes up 3 parts */
   padding: 0 10px 40px 0;
-  /* Optional padding for spacing */
   border-bottom: 1px solid gray;
   text-align: justify;
 }
 
 .footer-bottom {
   display: flex;
-  /* Use Flexbox */
   justify-content: space-between;
-  /* Space between the two p tags */
   align-items: center;
-  /* Align items vertically */
 }
 
 .footer_size {
@@ -848,17 +891,70 @@ footer {
   border-top: 4px solid white;
 }
 
+.dark-mode #table-container th, #table-container td {
+  border: 1px solid #ccc;
+}
+
+.dark-mode #table-container th {
+  background-color: #202020;
+  font-size: 15px;
+  color: #4caf50;
+}
+
+.dark-mode #table-container tbody tr:hover {
+  background-color: #202020;
+}
+
+.dark-mode .all-labels {
+  background-color: #333;
+  border: 1px solid #ccc;
+  color: white;
+}
+
+
+/* Toast */
 .toast {
+  color: white;
   position: fixed;
   top: 20px;
   left: 50%;
-  transform: translateX(-50%);
-  background-color: #333;
-  color: #fff;
   padding: 10px 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin: 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  background-color: var(--white);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
   z-index: 1000;
+  opacity: 0; /* Initially set opacity to 0 */
+  transform: translateX(-50%) translateY(-20px); /* Center horizontally and move toast element up by 20px */
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.toast.show {
+  opacity: 1; /* When the toast is shown, set opacity to 1 */
+  transform: translateX(-50%) translateY(0); /* Reset the translation to 0 */
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.toast.hide {
+  opacity: 0; /* When the toast is hidden, set opacity to 0 */
+  transform: translateX(-50%) translateY(-20px); /* Move toast element up by 20px */
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.toast.success {
+  background-color: #4caf50; /* Green background for success */
+}
+
+.toast.failed {
+  background-color: #f44336; /* Red background for failed */
+}
+
+.toast i {
+  margin-right: 5px;
+  font-size: 20px;
 }
 
 /*Tool Tip*/
@@ -866,10 +962,11 @@ footer {
   position: relative;
   display: inline-block;
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .tooltip:hover {
-  text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 
 .tooltip .tooltiptext {
@@ -1046,3 +1143,31 @@ footer {
     }
   }
  
+}
+
+@media (max-width: 768px) {
+  .chart-legend {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center items horizontally */
+    height: auto; /* Allow the container to adjust its height */
+  }
+
+  .chart {
+    width: 100%; /* Take up the full width */
+    margin-bottom: 20px;
+  }
+
+  .legend-container {
+    width: 100%;
+  }
+
+  .legend-item {
+    width: 45%; /* Adjust width for smaller screens */
+    margin: 5px 10px; /* Center items horizontally */
+  }
+
+  .saved-posts-count {
+    width: 100%;
+    margin: 20px;
+  }
+}
