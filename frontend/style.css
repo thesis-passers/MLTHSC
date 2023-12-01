@@ -887,6 +887,27 @@ footer {
   border-top: 4px solid white;
 }
 
+.dark-mode #table-container th, #table-container td {
+  border: 1px solid #ccc;
+}
+
+.dark-mode #table-container th {
+  background-color: #202020;
+  font-size: 15px;
+  color: #4caf50;
+}
+
+.dark-mode #table-container tbody tr:hover {
+  background-color: #202020;
+}
+
+.dark-mode .all-labels {
+  background-color: #333;
+  border: 1px solid #ccc;
+  color: white;
+}
+
+
 /* Toast */
 .toast {
   color: white;
