@@ -1,90 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Image and Link</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 20px;
-      background-color: #f4f4f4;
-    }
-
-    h1 {
-      color: #333;
-    }
-
-    #uploadForm, #extractForm, #redditExtractForm {
-      margin-bottom: 20px;
-    }
-
-    #imageInput, #linkInput, #redditLinkInput {
-      margin-right: 10px;
-    }
-
-    #processButton, #extractButton, #redditExtractButton {
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    #outputArea, #linkOutputArea, #redditOutputArea {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-    }
-
-    .section-header {
-      margin-top: 30px;
-    }
-  </style>
-</head>
-<body>
-  <h1>Image Upload</h1>
-
-  <!-- Image Upload Section -->
-  <form id="uploadForm">
-    <input type="file" id="imageInput" accept="image/*">
-    <button type="button" id="processButton" onclick="processImage()">Process Image</button>
-  </form>
-
-  <!-- Output Area for Image Upload -->
-  <div id="outputArea"></div>
-
-  <!-- Break and Section Header for Link Extraction -->
-  <br>
-  <h1 class="section-header">Enter Link</h1>
-
-  <!-- Link Extraction Section -->
-  <form id="extractForm">
-    <input type="text" id="linkInput" placeholder="Enter a link">
-    <button type="button" id="extractButton" onclick="extractFromLink()">Extract</button>
-  </form>
-
-  <!-- Output Area for Link Extraction -->
-  <div id="linkOutputArea"></div>
-
-  <script src="https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js"></script>
-  <script>
-    async function processImage() {
-      const fileInput = document.getElementById('imageInput');
-      const file = fileInput.files[0];
-
-      if (!file) {
-        alert('Please select an image');
-        return;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image and Link</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 20px;
+        background-color: #f4f4f4;
       }
 
-      const formData = new FormData();
-      formData.append('image', file);
+      h1 {
+        color: #333;
+      }
+
+      #uploadForm,
+      #extractForm,
+      #redditExtractForm {
+        margin-bottom: 20px;
+      }
+
+      #imageInput,
+      #linkInput,
+      #redditLinkInput {
+        margin-right: 10px;
+      }
+
+      #processButton,
+      #extractButton,
+      #redditExtractButton {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      #outputArea,
+      #linkOutputArea,
+      #redditOutputArea {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+      }
+
+      .section-header {
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Image Upload</h1>
+
+    <!-- Image Upload Section -->
+    <form id="uploadForm">
+      <input type="file" id="imageInput" accept="image/*" />
+      <button type="button" id="processButton" onclick="processImage()">
+        Process Image
+      </button>
+    </form>
+
+    <!-- Output Area for Image Upload -->
+    <div id="outputArea"></div>
+
+    <!-- Break and Section Header for Link Extraction -->
+    <br />
+    <h1 class="section-header">Enter Link</h1>
+
+    <!-- Link Extraction Section -->
+    <form id="extractForm">
+      <input type="text" id="linkInput" placeholder="Enter a link" />
+      <button type="button" id="extractButton" onclick="extractFromLink()">
+        Extract
+      </button>
+    </form>
+
+    <!-- Output Area for Link Extraction -->
+    <div id="linkOutputArea"></div>
+
+    <script src="https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js"></script>
+    <script>
+      async function processImage() {
+        const fileInput = document.getElementById("imageInput");
+        const file = fileInput.files[0];
+
+        if (!file) {
+          alert("Please select an image");
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("image", file);
 
       try {
         const response = await fetch('http://127.0.0.1:5000/upload', {
@@ -92,52 +104,55 @@
           body: formData
         });
 
-        if (response.ok) {
-          const data = await response.json();
-          console.log('Hate Speech:', data.hateSpeech);
+          if (response.ok) {
+            const data = await response.json();
+            console.log("Hate Speech:", data.hateSpeech);
 
-          const outputArea = document.getElementById('outputArea');
-          outputArea.innerHTML = `<strong>Hate Speech:</strong><br>${data.hateSpeech}`;
-        } else {
-          console.error('Error:', response.statusText);
+            const outputArea = document.getElementById("outputArea");
+            outputArea.innerHTML = `<strong>Hate Speech:</strong><br>${data.hateSpeech}`;
+          } else {
+            console.error("Error:", response.statusText);
+          }
+        } catch (error) {
+          console.error("Error:", error.message);
         }
-      } catch (error) {
-        console.error('Error:', error.message);
       }
-    }
 
-    async function extractFromLink() {
-    const linkInput = document.getElementById('linkInput');
-    const link = linkInput.value;
+      async function extractFromLink() {
+        const linkInput = document.getElementById("linkInput");
+        const link = linkInput.value;
 
-    if (!link) {
-      alert('Please enter a link');
-      return;
-    }
+        if (!link) {
+          alert("Please enter a link");
+          return;
+        }
 
-    try {
-      const response = await fetch('http://127.0.0.1:5000/extract-link-post', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ link })  // Use the correct variable name 'link' here
-      });
+        try {
+          const response = await fetch(
+            "http://127.0.0.1:5000/extract-link-post",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ link }), // Use the correct variable name 'link' here
+            }
+          );
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Reddit Post Title:', data.postTitle);
-        console.log('Reddit Post Content:', data.postContent);
+          if (response.ok) {
+            const data = await response.json();
+            console.log("Reddit Post Title:", data.postTitle);
+            console.log("Reddit Post Content:", data.postContent);
 
-        const linkOutputArea = document.getElementById('linkOutputArea');
-        linkOutputArea.innerHTML = `<strong>Hate Speech:</strong><br>${data.postTitle} ${data.postContent}`;
-      } else {
-        console.error('Error:', response.statusText);
+            const linkOutputArea = document.getElementById("linkOutputArea");
+            linkOutputArea.innerHTML = `<strong>Hate Speech:</strong><br>${data.postTitle} ${data.postContent}`;
+          } else {
+            console.error("Error:", response.statusText);
+          }
+        } catch (error) {
+          console.error("Error:", error.message);
+        }
       }
-    } catch (error) {
-      console.error('Error:', error.message);
-    }
-  }
-</script>
-</body>
+    </script>
+  </body>
 </html>
