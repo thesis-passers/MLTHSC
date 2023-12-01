@@ -1,3 +1,5 @@
+let isFileUploaded = false;
+
 // Batch upload
 function isValidFile(file) {
   const allowedExtensions = ["txt"];
@@ -8,6 +10,12 @@ function isValidFile(file) {
 // Read batches
 fileInput.addEventListener("change", (event) => {
   const selectedFile = event.target.files[0];
+  isFileUploaded = true;
+
+  if (isFileUploaded) {
+    isFileUploaded = false;
+    resetTable();
+  }
 
   if (selectedFile && isValidFile(selectedFile)) {
     const reader = new FileReader();
@@ -18,8 +26,19 @@ fileInput.addEventListener("change", (event) => {
     };
 
     reader.readAsText(selectedFile);
+
+    const uploadSection = document.querySelector(".upload-section");
+    const pElement = uploadSection.querySelector("p");
+    const uploadIcon1 = document.getElementById("upload-icon1");
+    const uploadIcon2 = document.getElementById("upload-icon2");
+    pElement.textContent = `Uploaded File: ${selectedFile.name}`;
+    uploadSection.style.backgroundColor = "#80808040";
+    uploadIcon1.style.display = "none";
+    uploadIcon2.style.display = "block";
+
+    Toast("File successfully uploaded!", "success");
   } else {
-    Toast("Please select a valid .txt file.");
+    Toast("Please select a valid .txt file.", "failed");
     fileInput.value = "";
     disableButtons();
   }
@@ -31,6 +50,8 @@ function processFileContent(content) {
     (sentence) => sentence.trim() !== ""
   );
 
+  clearBtn.disabled = true;
+
   nonEmptySentences.forEach((sentence, index) => {
     setTimeout(() => {
       inputText.value = sentence.trim();
@@ -38,14 +59,14 @@ function processFileContent(content) {
       const inputTextValue = inputText.value.trim();
       const wordCount = inputTextValue.split(/\s+/).filter(Boolean).length;
 
-
       if (inputTextValue !== "" && wordCount >= 3 && wordCount <= 280) {
         showAnalyzingState();
-        fetchLabelsForBatches();
-        clearBtn.disabled = false;
+        fetchLabelsForBatches(index, nonEmptySentences.length);
       } else {
-        Toast("Some sentences not analyzed! Please review the word count.");
-        disableButtons();
+        Toast(
+          "Some sentences not analyzed! Please review the word count.",
+          "failed"
+        );
         fileInput.value = "";
       }
 
@@ -56,7 +77,7 @@ function processFileContent(content) {
   });
 }
 
-function fetchLabelsForBatches() {
+function fetchLabelsForBatches(currentIndex, totalSentences) {
   fetch(`http://127.0.0.1:5000/labels?input=${inputText.value}`)
     .then((response) => response.json())
     .then((data) => {
@@ -71,13 +92,18 @@ function fetchLabelsForBatches() {
 
       for (let label of labels) {
         const probability = parseFloat(label.probability).toFixed(2);
-        probabilities.push(probability);
+        const labelColor = getLabelColor(label.name);
 
-        resultLabelProbabilityHTML += `<span class="all-labels"> ${label.name} - ${probability}%  </span>`;
+        resultLabelProbabilityHTML += `<span class="all-labels" style="background-color: ${labelColor};">${probability}% ${label.name}</span>`;
       }
 
       updateResultTable(inputText.value, resultLabelProbabilityHTML);
       hideLabelsInitially();
+
+      if (currentIndex === totalSentences - 1) {
+        clearBtn.disabled = false;
+        Toast("Done analyzing file", "success");
+      }
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -86,25 +112,38 @@ function fetchLabelsForBatches() {
 
 // Update table
 function updateResultTable(sentence, probabilitiesHTML) {
-    const resultTableBody = document.querySelector("#table-container tbody");
-  
-    const row = resultTableBody.insertRow();
-  
-    const postCell = row.insertCell(0);
-    const probabilitiesCell = row.insertCell(1);
-  
-    postCell.textContent = sentence;
-    probabilitiesCell.innerHTML = probabilitiesHTML; 
+  const resultTableBody = document.querySelector("#table-container tbody");
+
+  const row = resultTableBody.insertRow();
+
+  const postCell = row.insertCell(0);
+  const probabilitiesCell = row.insertCell(1);
+
+  postCell.textContent = sentence;
+  probabilitiesCell.innerHTML = probabilitiesHTML;
 }
-  
+
 // Reset
 function resetTable() {
-    const existingTableBody = document.querySelector("#table-container tbody");
+  const existingTableBody = document.querySelector("#table-container tbody");
 
-    if (existingTableBody) {
-        existingTableBody.remove();
-    }
+  if (existingTableBody) {
+    existingTableBody.remove();
+  }
 
-    const newTableBody = document.createElement("tbody");
-    tableContainer.appendChild(newTableBody);
+  const newTableBody = document.createElement("tbody");
+  tableContainer.appendChild(newTableBody);
+}
+
+// label color
+function getLabelColor(labelName) {
+  const colors = {
+    age: "#dc2626",
+    gender: "#ea580c",
+    physical: "#c9ae02",
+    race: "#16a38b",
+    religion: "#0f3a97",
+    others: "#3f3b3b",
+  };
+  return colors[labelName.toLowerCase()] || "#ffffff"; // Default color if no match found
 }

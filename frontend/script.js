@@ -24,6 +24,12 @@ const imageSection = document.getElementById("image-section");
 const labelSection = document.getElementById("label-section");
 const batchSection = document.getElementById("batch-section");
 
+// Instructions
+const inputDesc = document.getElementById("input-post-description");
+const linkDesc = document.getElementById("input-link-description");
+const fileDesc = document.getElementById("upload-file-description");
+const imageDesc = document.getElementById("upload-image-description");
+
 // Initialization
 
 const freqContainer = document.getElementById("frequency-container");
@@ -59,8 +65,9 @@ function showTabUI(selectedTab) {
   // Show the selected section
   if (sections[selectedTab]) {
     sections[selectedTab].style.display = "block";
+    updateInstructions(selectedTab);
     labelSection.style.display = "block";
-    batchSection.style.display = "none"
+    batchSection.style.display = "none";
     if (selectedTab === "upload") {
       fileInput.style.display = "block"; // Show file input for upload tab
       batchSection.style.display = "block";
@@ -71,36 +78,47 @@ function showTabUI(selectedTab) {
 
 // Event listener for tab button clicks
 document.addEventListener("DOMContentLoaded", function () {
-  // Add click event listener to each tab button
   document.querySelectorAll(".tab").forEach((tabBtn) => {
     tabBtn.addEventListener("click", function () {
-      // Remove 'active' class from all tabs and add to the clicked one
       document
         .querySelectorAll(".tab")
         .forEach((btn) => btn.classList.remove("active"));
       this.classList.add("active");
 
-      // Show the corresponding UI section
       const selectedTab = this.getAttribute("data-tab");
       showTabUI(selectedTab);
 
-      // Reset the table when a tab is clicked
       resetTable();
+
+      if (selectedTab != "upload") {
+        analyzeBtn.style.display = "block";
+        clearBtn.style.width = "50%";
+      }
     });
   });
 });
-
-function disableButtons() {
-  analyzeBtn.disabled = true;
-  clearBtn.disabled = true;
-  saveBtn.disabled = true;
-}
 
 // disable buttons
 function disableButtons() {
   analyzeBtn.disabled = true;
   clearBtn.disabled = true;
+  saveBtn.disabled = true;
+
+  const uploadSection = document.querySelector(".upload-section");
+  const pElement = uploadSection.querySelector("p");
+  const uploadIcon1 = document.getElementById("upload-icon1");
+  const uploadIcon2 = document.getElementById("upload-icon2");
+  pElement.textContent = "Drag your files here or click in this area.";
+  uploadSection.style.backgroundColor = "";
+  uploadIcon1.style.display = "block";
+  uploadIcon2.style.display = "none";
 }
+
+// remove analyze button on upload tab
+uploadTabBtn.addEventListener("click", function () {
+  analyzeBtn.style.display = "none";
+  clearBtn.style.width = "100%";
+});
 
 // Loading screen
 function showAnalyzingState() {
@@ -120,11 +138,11 @@ function showAnalyzingState() {
   `;
     labelsContainer.classList.remove("fade-out");
 
-    // Adjusted scrolling
-    const elementPosition =
-      labelsContainer.getBoundingClientRect().top + window.scrollY;
-    const offset = 400; // Adjust this value to set how much further down you want to scroll
-    window.scrollTo({ top: elementPosition - offset, behavior: "smooth" });
+    // Scroll down
+    // const elementPosition =
+    //   labelsContainer.getBoundingClientRect().top + window.scrollY;
+    // const offset = 400;
+    // window.scrollTo({ top: elementPosition - offset, behavior: "smooth" });
   }, 500);
 }
 
@@ -365,14 +383,13 @@ function toggleDarkMode() {
   /*document.getElementById("sample-hate-speech").options[selectedOption].style.backgroundColor = isDarkMode ? '#333' : 'white';*/
 }
 
+// Toast
 const Toast = (message, type) => {
   const toastContainer = document.getElementById("toast-container");
 
-  // Create a new toast element
   const toast = document.createElement("div");
   toast.classList.add("toast");
 
-  // Set the appropriate class based on the type (success or failed)
   if (type === "success") {
     toast.classList.add("success");
     toast.innerHTML = '<i class="bx bxs-check-circle"></i>' + message; // Use a success icon
@@ -381,20 +398,40 @@ const Toast = (message, type) => {
     toast.innerHTML = '<i class="bx bxs-x-circle"></i>' + message; // Use a failed icon
   }
 
-  // Append the toast to the container
   toastContainer.appendChild(toast);
 
-  // Trigger a reflow to enable the CSS transition
   toast.offsetHeight;
 
-  // Add the "show" class to start the enter animation
   toast.classList.add("show");
 
-  // Remove the toast after a delay (e.g., 3 seconds)
   setTimeout(() => {
-    toast.classList.add("hide"); // Start the exit animation
+    toast.classList.add("hide");
     setTimeout(() => {
-      toast.remove(); // Remove the toast after the exit animation
+      toast.remove();
     }, 300);
   }, 3000);
 };
+
+// Instructions
+function updateInstructions(selectedTab) {
+  console.log("tab" + selectedTab);
+  inputDesc.style.display = "none";
+  linkDesc.style.display = "none";
+  fileDesc.style.display = "none";
+  imageDesc.style.display = "none";
+
+  switch (selectedTab) {
+    case "input":
+      inputDesc.style.display = "block";
+      break;
+    case "link":
+      linkDesc.style.display = "block";
+      break;
+    case "upload":
+      fileDesc.style.display = "block";
+      break;
+    case "image":
+      imageDesc.style.display = "block";
+      break;
+  }
+}

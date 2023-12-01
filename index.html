@@ -44,7 +44,11 @@
           <h1 class="banner-title">
             Multilabel Tagalog Hate Speech Classifier
           </h1>
-          <p class="text-secondary">
+          <p
+            class="text-secondary"
+            id="input-post-description"
+            style="display: block"
+          >
             Enter your
             <span class="tooltip">
               hate speech
@@ -59,6 +63,69 @@
             classify the content according to its relevant labels. Be aware that
             the system requires a minimum of <u>3 words</u> and accepts up to a
             maximum of <u>280 words</u>.
+          </p>
+
+          <p
+            class="text-secondary"
+            id="input-link-description"
+            style="display: none"
+          >
+            Enter Reddit link containing
+            <span class="tooltip">
+              hate speech
+              <span class="tooltiptext">
+                Speech that promotes violence or discrimination against
+                individuals or groups based on attributes such as gender, race,
+                religion, physical appearance, disability, etc. that can lead to
+                deterioration of ones health
+              </span>
+            </span>
+            into the textbox below, and then press the "Analyze" button to
+            classify the content according to its relevant labels. Be aware that
+            the system requires a minimum of <u>3 words</u> and accepts up to a
+            maximum of <u>280 words</u>.
+          </p>
+
+          <p
+            class="text-secondary"
+            id="upload-file-description"
+            style="display: none"
+          >
+            [Change this hehehe]
+            <span class="tooltip">
+              hate speech
+              <span class="tooltiptext">
+                Speech that promotes violence or discrimination against
+                individuals or groups based on attributes such as gender, race,
+                religion, physical appearance, disability, etc. that can lead to
+                deterioration of ones health
+              </span>
+            </span>
+            into the textbox below, and then press the "Analyze" button to
+            classify the content according to its relevant labels. Be aware that
+            the system requires a minimum of <u>3 words</u> and accepts up to a
+            maximum of <u>280 words</u>.
+          </p>
+
+          <p
+            class="text-secondary"
+            id="upload-image-description"
+            style="display: none"
+          >
+            Upload screenshot images from Facebook, X, and Reddit that contains
+            <span class="tooltip">
+              hate speech
+              <span class="tooltiptext">
+                Speech that promotes violence or discrimination against
+                individuals or groups based on attributes such as gender, race,
+                religion, physical appearance, disability, etc. that can lead to
+                deterioration of ones health
+              </span>
+            </span>
+            into the file upload box below, and then press the "Analyze" button
+            to classify the content according to its relevant labels. Be aware
+            that the system requires a minimum of <u>3 words</u> and accepts up
+            to a maximum of <u>280 words</u>.
           </p>
         </div>
       </section>
@@ -143,13 +210,23 @@
         </article>
 
         <!-- Upload File Tab -->
-        <article class="input-set" id="upload-section" style="display: none">
+        <article
+          class="input-set upload-section"
+          id="upload-section"
+          style="display: none"
+        >
           <input
             type="file"
             id="file-input"
             accept=".txt"
             style="display: none"
           />
+
+          <div class="upload-design">
+            <i class="bx bx-upload" id="upload-icon1"></i>
+            <i class="bx bx-edit" id="upload-icon2" style="display: none"></i>
+            <p>Drag your files here or click in this area.</p>
+          </div>
         </article>
 
         <!-- Upload Image Tab -->
@@ -234,7 +311,7 @@
       </section>
 
       <!-- Batch Section -->
-      <section id="batch-section" style="display: none;">
+      <article id="batch-section" style="display: none">
         <div
           class="flex justify-between align-center section-header"
           style="padding-bottom: 10px"
@@ -253,7 +330,7 @@
             <tbody></tbody>
           </table>
         </div>
-      </section> 
+      </article>
 
       <!-- Saved Posts Section -->
       <section id="saved-post">
