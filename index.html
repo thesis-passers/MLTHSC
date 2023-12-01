@@ -249,9 +249,14 @@
             class="flex justify-between align-center section-header"
             style="padding-bottom: 10px"
           >
-            <h4>Most Frequent Labels based on user input</h4>
+            <h4>Most Frequent Labels Based on Saved</h4>
           </div>
-          <div id="frequency-container"></div>
+          <div class="chart-legend">
+            <div class="chart">
+              <canvas id="labelPieChart"></canvas>
+            </div>
+            <div id="legendContainer" class="legend-container"></div>
+          </div>
         </section>
       </section>
 
@@ -324,6 +329,7 @@
 
     <!-- JavaScript Files -->
     <!-- <script src="./frontend/stls2.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./frontend/saveToLocalStorage.js"></script>
     <script src="./frontend/script.js"></script>
   </body>
