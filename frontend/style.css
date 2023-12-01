@@ -38,6 +38,10 @@ body {
   background-image: linear-gradient(180deg, white, rgb(230, 236, 247));
 }
 
+button {
+    transition: all 150ms ease;
+}
+
 .text-secondary {
   color: #434242;
   font-size: 12px;
@@ -458,7 +462,6 @@ textarea:focus {
   flex-direction: column;
   gap: 1rem;
   margin: 0 10px;
-  height: 500px;
 }
 
 .postDisplay {
@@ -961,3 +964,85 @@ footer {
     0px 7px 13px -3px rgba(0, 0, 0, 0.3),
     0px -3px 0px 0px rgba(0, 0, 0, 0.2) inset;
 }
+
+#labelFilterButtons {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ margin-bottom: 1rem;
+}
+
+.filterButton {
+    font-weight: 700;
+    margin-right: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border: none;
+    background-color: #989898;
+    border-radius: 5px;
+    color: #fff;
+    margin-bottom: 10px;
+
+  }
+
+  .filterButton:hover {
+    opacity: 80%;
+  }
+  
+  /* Label-specific background colors */
+.filterButton[data-label="age"].active {
+    background-color: var(--out-age);
+  }
+  
+  .filterButton[data-label="gender"].active {
+    background-color: var(--out-gender);
+  }
+  
+  .filterButton[data-label="physical"].active {
+    background-color: var(--out-physical);
+  }
+  
+  .filterButton[data-label="race"].active {
+    background-color: var(--out-race);
+  }
+  
+  .filterButton[data-label="religion"].active {
+    background-color: var(--out-religion);
+  }
+  
+  .filterButton[data-label="others"].active {
+    background-color: var(--out-other);
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    transition: all 150ms ease;
+
+}
+  #savedPosts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.postDisplay {
+    transition: opacity 0.5s ease; /* Add a smooth transition for opacity */
+  }
+  
+  /* Add this style if you want to stagger the animations */
+  .fade-in {
+    animation: fadeIn 0.5s ease;
+
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+ 

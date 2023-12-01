@@ -1,266 +1,232 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <!-- Meta & Stylesheet Links -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="./frontend/style.css" />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <link href="./frontend/MLTHSC_logo.png" rel="icon" type="image/x-icon" />
-  </head>
+</head>
 
-  <body>
+<body>
     <!-- Header Section -->
     <header>
-      <nav class="flex">
-        <!-- Logo Section -->
-        <div class="logo">
-          <img
-            class="logo-img"
-            src="./frontend/MLTHSC_logo.png"
-            alt="mlthsc logo"
-          />
-          <h2 class="logo-name">mlthsc.</h2>
-        </div>
-        <!-- Dark Mode Toggle -->
-        <div class="dark-mode-toggle">
-          <input
-            type="checkbox"
-            id="dark-mode-toggle"
-            onclick="toggleDarkMode()"
-          />
-          <label for="dark-mode-toggle"></label>
-        </div>
-      </nav>
+        <nav class="flex">
+            <!-- Logo Section -->
+            <div class="logo">
+                <img class="logo-img" src="./frontend/MLTHSC_logo.png" alt="mlthsc logo" />
+                <h2 class="logo-name">mlthsc.</h2>
+            </div>
+            <!-- Dark Mode Toggle -->
+            <div class="dark-mode-toggle">
+                <input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()" />
+                <label for="dark-mode-toggle"></label>
+            </div>
+        </nav>
     </header>
 
     <!-- Main Content Section -->
     <main class="container bg-white" id="main-container">
-      <!-- Introduction and Instructions -->
-      <section>
-        <div class="fixed text-center">
-          <h1 class="banner-title">
-            Multilabel Tagalog Hate Speech Classifier
-          </h1>
-          <p class="text-secondary">
-            Enter your
-            <span class="tooltip">
-              hate speech
-              <span class="tooltiptext">
-                Speech that promotes violence or discrimination against
-                individuals or groups based on attributes such as gender, race,
-                religion, physical appearance, disability, etc. that can lead to
-                deterioration of ones health
-              </span>
-            </span>
-            into the textbox below, and then press the "Analyze" button to
-            classify the content according to its relevant labels. Be aware that
-            the system requires a minimum of <u>3 words</u> and accepts up to a
-            maximum of <u>280 words</u>.
-          </p>
-        </div>
-      </section>
-
-      <!-- Input Options (Text, Link, Upload File, Upload Image) -->
-      <section class="input-set">
-        <!-- Tab Buttons for Input Options -->
-        <div class="flex tabs">
-          <button class="btn tab active" id="input-tab" data-tab="input">
-            Input Post
-          </button>
-          <button class="btn tab inactive" id="link-tab" data-tab="link">
-            Input Link
-          </button>
-          <button class="btn tab inactive" id="upload-tab" data-tab="upload">
-            Upload File
-          </button>
-          <button class="btn tab inactive" id="image-tab" data-tab="image">
-            Upload Image
-          </button>
-        </div>
-
-        <!-- Input Post Tab -->
-        <article class="input-textbox" id="input-section">
-          <textarea
-            type="text"
-            id="input-text"
-            placeholder="Enter hate speech here . . ."
-            value=""
-          ></textarea>
-
-          <div class="flex">
-            <!-- Sample Hate Speech Dropdown -->
-            <div id="sample-hate-speech-container">
-              <select id="sample-hate-speech" onchange="updateTextArea()">
-                <option selected disabled>Select a Sample Hate Speech</option>
-                <option
-                  value="bading tangina ka masahol ka pa sa hayop na feeling banal catholic fuckers kahoy lang yang sinasamba nyo"
-                >
-                  Example 1
-                </option>
-                <option
-                  value="tangina kang panget na hapon ka ang baho mo pang gago ka pakyu"
-                >
-                  Example 2
-                </option>
-                <option
-                  value="Tangina. Kailan mo kaya ipapasok sa utak mo ang mga binibilin ko. Ang tanga tanga mong bobo ka. Walang common sense ang tanga. Mamatay ka na nga."
-                >
-                  Example 3
-                </option>
-                <option
-                  value="Tanginang mga millenials to puro laro inaatupag. Lalo na mga babaeng puro pagpapakapokpok inaasikaso. Ganto na ba future generation ng pinas? Mga walang silbi sa lipunan"
-                >
-                  Example 4
-                </option>
-                <option
-                  value="Putanginang mga arabo na to. Parang mga tanga magsalita amputa. Balik na kayo sa bansa nyo tangina nyo mga mukhang unggoy na panget."
-                >
-                  Example 5
-                </option>
-              </select>
+        <!-- Introduction and Instructions -->
+        <section>
+            <div class="fixed text-center">
+                <h1 class="banner-title">
+                    Multilabel Tagalog Hate Speech Classifier
+                </h1>
+                <p class="text-secondary">
+                    Enter your
+                    <span class="tooltip">
+                        hate speech
+                        <span class="tooltiptext">
+                            Speech that promotes violence or discrimination against
+                            individuals or groups based on attributes such as gender, race,
+                            religion, physical appearance, disability, etc. that can lead to
+                            deterioration of ones health
+                        </span>
+                    </span>
+                    into the textbox below, and then press the "Analyze" button to
+                    classify the content according to its relevant labels. Be aware that
+                    the system requires a minimum of <u>3 words</u> and accepts up to a
+                    maximum of <u>280 words</u>.
+                </p>
             </div>
-
-            <!-- Word Count Display -->
-            <div class="dev dev-container">
-              <text
-                id="word-count"
-                class="dev"
-                style="text-align: center; margin-right: 5px"
-              >
-                -
-              </text>
-              <text class="word-limit"> / 280 Words</text>
-            </div>
-          </div>
-        </article>
-
-        <!-- Link Tab -->
-        <article class="input-set" id="link-section" style="display: none">
-          <!-- link input or content -->
-        </article>
-
-        <!-- Upload File Tab -->
-        <article class="input-set" id="upload-section" style="display: none">
-          <input
-            type="file"
-            id="file-input"
-            accept=".txt"
-            style="display: none"
-          />
-        </article>
-
-        <!-- Upload Image Tab -->
-        <article class="input-set" id="image-section" style="display: none">
-          <h1>Hello</h1>
-        </article>
-
-        <!-- Analyze and Clear Buttons -->
-        <div class="btn-group flex">
-          <button id="analyze-btn" class="btn btn-options btn-analyze">
-            Analyze <i class="bx bx-send"></i>
-          </button>
-          <button id="clear-btn" class="btn btn-options btn-clear">
-            Clear <i class="bx bxs-tag-x"></i>
-          </button>
-        </div>
-      </section>
-
-      <!-- Labels and Results Display Section -->
-      <section id="label-section">
-        <div
-          class="flex justify-between align-center section-header"
-          style="padding-bottom: 10px"
-        >
-          <h4>Labels</h4>
-          <button id="save-btn" class="btn btn-save">
-            <i class="bx bxs-save bx-xs"></i> Save
-          </button>
-        </div>
-
-        <!-- No Labels Container (Displayed when no labels are identified) -->
-        <div id="no-labels-container" style="display: none">
-          <div class="analyze_container result-fade-in">
-            <p>No label identified, please add more words</p>
-          </div>
-        </div>
-
-        <!-- Container for Displaying Labels -->
-        <div class="labels-container" id="labels-container">
-          <div class="label-container">
-            <div class="label border-none">
-              <span class="label-percent">0.00%</span>&nbsp;&nbsp;Age
-            </div>
-          </div>
-          <div class="label-container">
-            <div class="label border-none">
-              <span class="label-percent">0.00%</span>&nbsp;&nbsp;Gender
-            </div>
-          </div>
-          <div class="label-container">
-            <div class="label border-none">
-              <span class="label-percent">0.00%</span>&nbsp;&nbsp;Physical
-            </div>
-          </div>
-          <div class="label-container">
-            <div class="label border-none">
-              <span class="label-percent">0.00%</span>&nbsp;&nbsp;Race
-            </div>
-          </div>
-          <div class="label-container">
-            <div class="label border-none">
-              <span class="label-percent">0.00%</span>&nbsp;&nbsp;Religion
-            </div>
-          </div>
-          <div class="label-container">
-            <div class="label border-none">
-              <span class="label-percent">0.00%</span>&nbsp;&nbsp;Others
-            </div>
-          </div>
-        </div>
-
-        <!-- Settings Container for Label Display Options -->
-        <div
-          class="settings-container"
-          id="hide-labels-container"
-          style="display: none"
-        >
-          <button class="btn" id="toggle-labels-btn">
-            Show Labels below 50% <i class="bx bx-chevron-down"></i>
-          </button>
-        </div>
-
-        <!-- Saved Posts Section -->
-        <section id="saved-post">
-          <div
-            class="flex justify-between align-center section-header"
-            style="padding-bottom: 10px"
-          >
-            <h4>Saved Posts</h4>
-          </div>
-          <div id="savedPosts" class="posts-container"></div>
-          <div id="pagination-controls" class="pagination"></div>
         </section>
 
-        <section id="stats">
-          <div
-            class="flex justify-between align-center section-header"
-            style="padding-bottom: 10px"
-          >
-            <h4>Most Frequent Labels Based on Saved</h4>
-          </div>
-          <div class="chart-legend">
-            <div class="chart">
-              <canvas id="labelPieChart"></canvas>
+        <!-- Input Options (Text, Link, Upload File, Upload Image) -->
+        <section class="input-set">
+            <!-- Tab Buttons for Input Options -->
+            <div class="flex tabs">
+                <button class="btn tab active" id="input-tab" data-tab="input">
+                    Input Post
+                </button>
+                <button class="btn tab inactive" id="link-tab" data-tab="link">
+                    Input Link
+                </button>
+                <button class="btn tab inactive" id="upload-tab" data-tab="upload">
+                    Upload File
+                </button>
+                <button class="btn tab inactive" id="image-tab" data-tab="image">
+                    Upload Image
+                </button>
             </div>
-            <div id="legendContainer" class="legend-container"></div>
-          </div>
-        </section>
-      </section>
 
-      <!--<section id="batch-section" style="display: none;">
+            <!-- Input Post Tab -->
+            <article class="input-textbox" id="input-section">
+                <textarea type="text" id="input-text" placeholder="Enter hate speech here . . ." value=""></textarea>
+
+                <div class="flex">
+                    <!-- Sample Hate Speech Dropdown -->
+                    <div id="sample-hate-speech-container">
+                        <select id="sample-hate-speech" onchange="updateTextArea()">
+                            <option selected disabled>Select a Sample Hate Speech</option>
+                            <option
+                                value="bading tangina ka masahol ka pa sa hayop na feeling banal catholic fuckers kahoy lang yang sinasamba nyo">
+                                Example 1
+                            </option>
+                            <option value="tangina kang panget na hapon ka ang baho mo pang gago ka pakyu">
+                                Example 2
+                            </option>
+                            <option
+                                value="Tangina. Kailan mo kaya ipapasok sa utak mo ang mga binibilin ko. Ang tanga tanga mong bobo ka. Walang common sense ang tanga. Mamatay ka na nga.">
+                                Example 3
+                            </option>
+                            <option
+                                value="Tanginang mga millenials to puro laro inaatupag. Lalo na mga babaeng puro pagpapakapokpok inaasikaso. Ganto na ba future generation ng pinas? Mga walang silbi sa lipunan">
+                                Example 4
+                            </option>
+                            <option
+                                value="Putanginang mga arabo na to. Parang mga tanga magsalita amputa. Balik na kayo sa bansa nyo tangina nyo mga mukhang unggoy na panget.">
+                                Example 5
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Word Count Display -->
+                    <div class="dev dev-container">
+                        <text id="word-count" class="dev" style="text-align: center; margin-right: 5px">
+                            -
+                        </text>
+                        <text class="word-limit"> / 280 Words</text>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Link Tab -->
+            <article class="input-set" id="link-section" style="display: none">
+                <!-- link input or content -->
+            </article>
+
+            <!-- Upload File Tab -->
+            <article class="input-set" id="upload-section" style="display: none">
+                <input type="file" id="file-input" accept=".txt" style="display: none" />
+            </article>
+
+            <!-- Upload Image Tab -->
+            <article class="input-set" id="image-section" style="display: none">
+                <h1>Hello</h1>
+            </article>
+
+            <!-- Analyze and Clear Buttons -->
+            <div class="btn-group flex">
+                <button id="analyze-btn" class="btn btn-options btn-analyze">
+                    Analyze <i class="bx bx-send"></i>
+                </button>
+                <button id="clear-btn" class="btn btn-options btn-clear">
+                    Clear <i class="bx bxs-tag-x"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Labels and Results Display Section -->
+        <section id="label-section">
+            <div class="flex justify-between align-center section-header" style="padding-bottom: 10px">
+                <h4>Labels</h4>
+                <button id="save-btn" class="btn btn-save">
+                    <i class="bx bxs-save bx-xs"></i> Save
+                </button>
+            </div>
+
+            <!-- No Labels Container (Displayed when no labels are identified) -->
+            <div id="no-labels-container" style="display: none">
+                <div class="analyze_container result-fade-in">
+                    <p>No label identified, please add more words</p>
+                </div>
+            </div>
+
+            <!-- Container for Displaying Labels -->
+            <div class="labels-container" id="labels-container">
+                <div class="label-container">
+                    <div class="label border-none">
+                        <span class="label-percent">0.00%</span>&nbsp;&nbsp;Age
+                    </div>
+                </div>
+                <div class="label-container">
+                    <div class="label border-none">
+                        <span class="label-percent">0.00%</span>&nbsp;&nbsp;Gender
+                    </div>
+                </div>
+                <div class="label-container">
+                    <div class="label border-none">
+                        <span class="label-percent">0.00%</span>&nbsp;&nbsp;Physical
+                    </div>
+                </div>
+                <div class="label-container">
+                    <div class="label border-none">
+                        <span class="label-percent">0.00%</span>&nbsp;&nbsp;Race
+                    </div>
+                </div>
+                <div class="label-container">
+                    <div class="label border-none">
+                        <span class="label-percent">0.00%</span>&nbsp;&nbsp;Religion
+                    </div>
+                </div>
+                <div class="label-container">
+                    <div class="label border-none">
+                        <span class="label-percent">0.00%</span>&nbsp;&nbsp;Others
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Container for Label Display Options -->
+            <div class="settings-container" id="hide-labels-container" style="display: none">
+                <button class="btn" id="toggle-labels-btn">
+                    Show Labels below 50% <i class="bx bx-chevron-down"></i>
+                </button>
+            </div>
+
+            <!-- Saved Posts Section -->
+            <section id="saved-post">
+                <div class="flex justify-between align-center section-header" style="padding-bottom: 10px">
+                    <h4>Saved Posts</h4>
+                </div>
+                <div id="labelFilterButtons">
+                    <button class="filterButton active " data-label="">All Labels</button>
+                    <button class="filterButton " data-label="age">Age</button>
+                    <button class="filterButton" data-label="gender">Gender</button>
+                    <button class="filterButton" data-label="physical">Physical</button>
+                    <button class="filterButton" data-label="race">Race</button>
+                    <button class="filterButton" data-label="religion">Religion</button>
+                    <button class="filterButton" data-label="others">Others</button>
+                  </div>
+                <div id="savedPosts" class="posts-container posts-grid"></div>
+                <div id="pagination-controls" class="pagination"></div>
+            </section>
+
+            <section id="stats">
+                <div class="flex justify-between align-center section-header" style="padding-bottom: 10px">
+                    <h4>Most Frequent Labels Based on Saved</h4>
+                </div>
+                <div class="chart-legend">
+                    <div class="chart">
+                        <canvas id="labelPieChart"></canvas>
+                    </div>
+                    <div id="legendContainer" class="legend-container"></div>
+                </div>
+            </section>
+        </section>
+
+        <!--<section id="batch-section" style="display: none;">
         <div
           class="flex justify-between align-center section-header"
           style="padding-bottom: 10px"
@@ -288,43 +254,43 @@
 
     <!-- Footer -->
     <footer>
-      <article class="model-description">
-        <div>
-          <h4>
-            MULTILABEL CLASSIFICATION OF TAGALOG HATE SPEECH USING BIDIRECTIONAL
-            ENCODER REPRESENTATIONS FROM TRANSFORMERS (BERT)
-          </h4>
-          <p class="footer_size">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et ratione
-            incidunt optio facilis magni sapiente, id voluptas numquam
-            repudiandae omnis soluta, iste maxime quaerat, nesciunt facere eius
-            itaque voluptatum nihil? Lorem ipsum, dolor sit amet consectetur
-            adipisicing elit. Nostrum ad necessitatibus, aspernatur voluptas
-            voluptates corporis laboriosam! Asperiores facilis, dicta, natus,
-            magni adipisci nesciunt perferendis accusamus suscipit alias nam ab
-            ea?
-          </p>
-        </div>
+        <article class="model-description">
+            <div>
+                <h4>
+                    MULTILABEL CLASSIFICATION OF TAGALOG HATE SPEECH USING BIDIRECTIONAL
+                    ENCODER REPRESENTATIONS FROM TRANSFORMERS (BERT)
+                </h4>
+                <p class="footer_size">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et ratione
+                    incidunt optio facilis magni sapiente, id voluptas numquam
+                    repudiandae omnis soluta, iste maxime quaerat, nesciunt facere eius
+                    itaque voluptatum nihil? Lorem ipsum, dolor sit amet consectetur
+                    adipisicing elit. Nostrum ad necessitatibus, aspernatur voluptas
+                    voluptates corporis laboriosam! Asperiores facilis, dicta, natus,
+                    magni adipisci nesciunt perferendis accusamus suscipit alias nam ab
+                    ea?
+                </p>
+            </div>
 
-        <div>
-          <h4>DISCLAIMER</h4>
-          <p class="footer_size">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et ratione
-            incidunt optio facilis magni sapiente, id voluptas numquam
-            repudiandae omnis soluta, iste maxime quaerat, nesciunt facere eius
-            itaque voluptatum nihil?
-          </p>
-        </div>
-      </article>
+            <div>
+                <h4>DISCLAIMER</h4>
+                <p class="footer_size">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et ratione
+                    incidunt optio facilis magni sapiente, id voluptas numquam
+                    repudiandae omnis soluta, iste maxime quaerat, nesciunt facere eius
+                    itaque voluptatum nihil?
+                </p>
+            </div>
+        </article>
 
-      <article class="footer-bottom flex">
-        <p class="footer_size copyright">THESIS PASSERS &copy; 2024 <br /></p>
+        <article class="footer-bottom flex">
+            <p class="footer_size copyright">THESIS PASSERS &copy; 2024 <br /></p>
 
-        <p class="footer_size footer-authors">
-          <span>Saya-ang</span> | <span>Gozum</span> | <span>Hamor</span> |
-          <span>Mabansag</span>
-        </p>
-      </article>
+            <p class="footer_size footer-authors">
+                <span>Saya-ang</span> | <span>Gozum</span> | <span>Hamor</span> |
+                <span>Mabansag</span>
+            </p>
+        </article>
     </footer>
 
     <!-- JavaScript Files -->
@@ -332,7 +298,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./frontend/saveToLocalStorage.js"></script>
     <script src="./frontend/script.js"></script>
-  </body>
+</body>
 
-  <div id="toast-container"></div>
+<div id="toast-container"></div>
+
 </html>
