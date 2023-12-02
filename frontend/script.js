@@ -1,6 +1,7 @@
 // Elements
 const inputText = document.getElementById("input-text");
 const analyzeBtn = document.getElementById("analyze-btn");
+const extractBtn = document.getElementById("extractButton");
 const clearBtn = document.getElementById("clear-btn");
 const labelsContainer = document.getElementById("labels-container");
 const tableContainer = document.getElementById("table-container");
@@ -9,6 +10,10 @@ const toggleLabelsBtn = document.getElementById("toggle-labels-btn");
 const hideLabelsContainer = document.getElementById("hide-labels-container");
 const noLabelsContainer = document.getElementById("no-labels-container");
 const fileInput = document.getElementById("file-input");
+const linkInput = document.getElementById("linkInput");
+const extractedTextbox = document.getElementById("extractedText");
+
+const labelHeader = document.querySelector(".label-header");
 
 // Tab Buttons
 const inputTabBtn = document.getElementById("input-tab");
@@ -30,13 +35,18 @@ const linkDesc = document.getElementById("input-link-description");
 const fileDesc = document.getElementById("upload-file-description");
 const imageDesc = document.getElementById("upload-image-description");
 
-// Initialization
+// Webapp Instructions Elements
+const instruction1TabBtn = document.getElementById("instruction1-tab");
+const instruction2TabBtn = document.getElementById("instruction2-tab");
+const instruction1Section = document.getElementById("instruction1Section");
+const instruction2Section = document.getElementById("instruction2Section");
 
+// Initialization
 const freqContainer = document.getElementById("frequency-container");
 
 // Initialization
-
 let allLabelsBelow50 = true;
+
 updateSavedPostsDisplay();
 
 // Tab handling
@@ -53,6 +63,7 @@ function showTabUI(selectedTab) {
   Object.values(sections).forEach(
     (section) => (section.style.display = "none")
   );
+
   resetLabels();
   resetTable();
   fileInput.value = "";
@@ -60,6 +71,7 @@ function showTabUI(selectedTab) {
   updateWordCount();
   hideLabelsContainer.style.display = "none";
   noLabelsContainer.style.display = "none";
+  extractBtn.style.display = "none";
   document.getElementById("sample-hate-speech").selectedIndex = 0;
 
   // Show the selected section
@@ -85,6 +97,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .forEach((btn) => btn.classList.remove("active"));
       this.classList.add("active");
 
+      labelHeader.textContent = "Labels";
+
       const selectedTab = this.getAttribute("data-tab");
       showTabUI(selectedTab);
 
@@ -93,6 +107,12 @@ document.addEventListener("DOMContentLoaded", function () {
       if (selectedTab != "upload") {
         analyzeBtn.style.display = "block";
         clearBtn.style.width = "50%";
+      }
+
+      if (selectedTab === "link") {
+        extractBtn.style.display = "block";
+        analyzeBtn.style.display = "none";
+        labelHeader.textContent = "Extracted Text and Labels";
       }
     });
   });
@@ -104,6 +124,7 @@ function disableButtons() {
   clearBtn.disabled = true;
   saveBtn.disabled = true;
   saveBatchBtn.disabled = true;
+  extractBtn.disabled = true;
 
   const uploadSection = document.querySelector(".upload-section");
   const pElement = uploadSection.querySelector("p");
@@ -200,12 +221,15 @@ function hideLabelsInitially() {
 // Clear Button
 clearBtn.addEventListener("click", () => {
   inputText.value = "";
+  linkInput.value = "";
   document.getElementById("sample-hate-speech").selectedIndex = 0;
   resetLabels();
   resetTable();
   updateWordCount();
   hideLabelsContainer.style.display = "none";
   noLabelsContainer.style.display = "none";
+  extractedTextbox.style.display = "none";
+  extractedTextbox.value = "";
 
   fileInput.value = "";
   saveBtn.disabled = true;
@@ -381,7 +405,7 @@ function toggleDarkMode() {
 }
 
 // Toast
-const Toast = (message, type) => {
+const Toast = (message, type, persistent) => {
   const toastContainer = document.getElementById("toast-container");
 
   const toast = document.createElement("div");
@@ -389,10 +413,13 @@ const Toast = (message, type) => {
 
   if (type === "success") {
     toast.classList.add("success");
-    toast.innerHTML = '<i class="bx bxs-check-circle"></i>' + message; // Use a success icon
+    toast.innerHTML = '<i class="bx bxs-check-circle"></i>' + message;
   } else if (type === "failed") {
     toast.classList.add("failed");
-    toast.innerHTML = '<i class="bx bxs-x-circle"></i>' + message; // Use a failed icon
+    toast.innerHTML = '<i class="bx bxs-x-circle"></i>' + message;
+  } else if (type === "loading") {
+    toast.classList.add("loading");
+    toast.innerHTML = '<i class="bx bxs-info-circle"></i>' + message;
   }
 
   toastContainer.appendChild(toast);
@@ -401,12 +428,16 @@ const Toast = (message, type) => {
 
   toast.classList.add("show");
 
-  setTimeout(() => {
-    toast.classList.add("hide");
+  if (!persistent) {
     setTimeout(() => {
-      toast.remove();
-    }, 300);
-  }, 3000);
+      toast.classList.add("hide");
+      setTimeout(() => {
+        toast.remove();
+      }, 300);
+    }, 3000);
+  }
+
+  return toast;
 };
 
 // Instructions
@@ -431,4 +462,46 @@ function updateInstructions(selectedTab) {
       imageDesc.style.display = "block";
       break;
   }
+}
+
+// Webapp instructions
+function showTabInst(selectedTab) {
+  const sections = {
+    instruction1: instruction1Section,
+    instruction2: instruction2Section,
+  };
+
+  const clickedTab = this;
+
+  if (clickedTab.classList.contains("active")) {
+    clickedTab.classList.remove("active");
+    hideWebappInstructions();
+  } else {
+    Object.values(sections).forEach(
+      (section) => (section.style.display = "none")
+    );
+
+    if (sections[selectedTab]) {
+      sections[selectedTab].style.display = "block";
+    }
+
+    document
+      .querySelectorAll(".tab-inst")
+      .forEach((btn) => btn.classList.remove("active"));
+    clickedTab.classList.add("active");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".tab-inst").forEach((tabBtn) => {
+    tabBtn.addEventListener("click", function () {
+      const selectedTab = this.getAttribute("data-tab");
+      showTabInst.call(this, selectedTab);
+    });
+  });
+});
+
+function hideWebappInstructions() {
+  instruction1Section.style.display = "none";
+  instruction2Section.style.display = "none";
 }

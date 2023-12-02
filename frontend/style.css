@@ -39,7 +39,7 @@ body {
 }
 
 button {
-    transition: all 150ms ease;
+  transition: all 150ms ease;
 }
 
 .text-secondary {
@@ -168,9 +168,9 @@ u {
 }
 
 /* For Tab Container */
-.input-set {
+/* .input-set {
   padding: 0 8px 16px 8px;
-}
+} */
 
 /* Tabs for input */
 .tabs {
@@ -192,7 +192,8 @@ u {
   color: black;
 }
 
-.btn.tab.inactive:hover {
+.btn.tab.inactive:hover,
+.btn.tab-inst.inactive:hover {
   opacity: 70%;
   cursor: pointer;
 }
@@ -202,6 +203,7 @@ u {
   background-color: #ebeff5;
   padding-bottom: 10px;
   margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 textarea {
@@ -212,14 +214,15 @@ textarea {
   background-color: #ebeff5;
   border-radius: 0px;
   margin-bottom: 12px;
-  height: 100px;
   resize: none;
   line-height: 1.5;
   min-height: 120px;
+  font-size: 12px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-textarea:focus {
+.link-textbox,
+:focus {
   outline: none;
   border: none;
 }
@@ -304,6 +307,7 @@ textarea:focus {
   color: var(--white);
 }
 
+.btn-extract,
 .btn-analyze {
   background-color: green;
   color: var(--white);
@@ -319,6 +323,11 @@ textarea:focus {
 }
 
 #analyze-btn[disabled] {
+  opacity: 20%;
+  cursor: auto;
+}
+
+#extractButton[disabled] {
   opacity: 20%;
   cursor: auto;
 }
@@ -911,7 +920,7 @@ footer {
 .dark-mode #table-container th {
   background-color: #202020;
   font-size: 15px;
-  color: #4caf50;
+  color: white;
 }
 
 .dark-mode #table-container tbody tr:hover {
@@ -962,6 +971,10 @@ footer {
 
 .toast.failed {
   background-color: #f44336; /* Red background for failed */
+}
+
+.toast.loading {
+  background-color: orange;
 }
 
 .toast i {
@@ -1092,98 +1105,15 @@ footer {
     0px -3px 0px 0px rgba(0, 0, 0, 0.2) inset;
 }
 
-#labelFilterButtons {
- display: flex;
- flex-wrap: wrap;
- justify-content: center;
- margin-bottom: 1rem;
-}
-
-.filterButton {
-    font-weight: 700;
-    margin-right: 10px;
-    padding: 8px 12px;
-    cursor: pointer;
-    border: none;
-    background-color: #989898;
-    border-radius: 5px;
-    color: #fff;
-    margin-bottom: 10px;
-
-  }
-
-  .filterButton:hover {
-    opacity: 80%;
-  }
-  
-  /* Label-specific background colors */
-.filterButton[data-label="age"].active {
-    background-color: var(--out-age);
-  }
-  
-  .filterButton[data-label="gender"].active {
-    background-color: var(--out-gender);
-  }
-  
-  .filterButton[data-label="physical"].active {
-    background-color: var(--out-physical);
-  }
-  
-  .filterButton[data-label="race"].active {
-    background-color: var(--out-race);
-  }
-  
-  .filterButton[data-label="religion"].active {
-    background-color: var(--out-religion);
-  }
-  
-  .filterButton[data-label="others"].active {
-    background-color: var(--out-other);
-  }
-
-  .posts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
-    transition: all 150ms ease;
-
-}
-  #savedPosts {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-}
-
-.postDisplay {
-    transition: opacity 0.5s ease; /* Add a smooth transition for opacity */
-  }
-  
-  /* Add this style if you want to stagger the animations */
-  .fade-in {
-    animation: fadeIn 0.5s ease;
-
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
- 
-
-
-@media (max-width: 768px) {
+@media (max-width: 1213px) {
   .chart-legend {
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center items horizontally */
-    height: auto; /* Allow the container to adjust its height */
+    flex-direction: column;
+    align-items: center;
+    height: auto;
   }
 
   .chart {
-    width: 100%; /* Take up the full width */
+    width: 95%;
     margin-bottom: 20px;
   }
 
@@ -1192,8 +1122,8 @@ footer {
   }
 
   .legend-item {
-    width: 45%; /* Adjust width for smaller screens */
-    margin: 5px 10px; /* Center items horizontally */
+    width: 45%;
+    margin: 5px 10px;
   }
 
   .saved-posts-count {
@@ -1202,7 +1132,90 @@ footer {
   }
 }
 
-/* Upload */
+/* Filter */
+#labelFilterButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.filterButton {
+  font-weight: 700;
+  margin-right: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border: none;
+  background-color: #989898;
+  border-radius: 5px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.filterButton:hover {
+  opacity: 80%;
+}
+
+/* Label-specific background colors */
+.all-filter.active {
+  background-color: purple;
+}
+
+.filterButton[data-label="age"].active {
+  background-color: var(--out-age);
+}
+
+.filterButton[data-label="gender"].active {
+  background-color: var(--out-gender);
+}
+
+.filterButton[data-label="physical"].active {
+  background-color: var(--out-physical);
+}
+
+.filterButton[data-label="race"].active {
+  background-color: var(--out-race);
+}
+
+.filterButton[data-label="religion"].active {
+  background-color: var(--out-religion);
+}
+
+.filterButton[data-label="others"].active {
+  background-color: var(--out-other);
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  transition: all 150ms ease;
+}
+#savedPosts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.postDisplay {
+  transition: opacity 0.5s ease; /* Add a smooth transition for opacity */
+}
+
+/* Add this style if you want to stagger the animations */
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Upload Section */
 .upload-section {
   width: 100%;
   height: 200px;
@@ -1244,4 +1257,149 @@ footer {
 
 .upload-section:hover {
   background-color: var(--gray-25);
+}
+
+/* Webapp instructions section */
+.instruction {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  margin-bottom: 0px;
+  margin-top: 30px;
+  width: 100%;
+  height: 210px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  width: 100%;
+}
+
+.tabs button {
+  width: 100%;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  background-color: white;
+  text-align: center;
+  margin: 0px;
+}
+
+.tab-inst.inactive {
+  border-bottom: 3px solid #378f3a;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  color: #b3abab;
+}
+
+.tab-inst.active {
+  border-top: 3px solid #378f3a;
+  border-bottom: none;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.btn.tab-inst.active {
+  background-color: #f5f4f4;
+  color: #378f3a;
+}
+
+.tab-content {
+  font-size: 12px;
+  padding: 20px 20px 20px 30px;
+  line-height: 25px;
+  background-color: #f5f4f4;
+  border-radius: 0 0 10px 10px;
+}
+
+/* Floating Dialog Box */
+@keyframes floatDialog {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.floating-dialog {
+  position: absolute;
+  background-color: #378f3a;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  animation: floatDialog 2s infinite;
+  text-align: center;
+  color: white;
+  font-size: 12px;
+  z-index: 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.floating-dialog::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #378f3a transparent transparent transparent;
+}
+
+.tab-content ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.tab-content li {
+  color: black;
+}
+
+.tab-content li::before {
+  content: "\2713";
+  color: #39ff14;
+  margin-right: 5px;
+}
+
+.dark-mode .btn.tab-inst.active,
+.dark-mode .tab-content,
+.dark-mode .tab-inst.inactive {
+  background-color: #202020;
+}
+
+.dark-mode .tab-content li,
+.dark-mode .btn.tab-inst.active,
+.dark-mode .tab-inst {
+  color: #f0f0f0;
+}
+
+.dark-mode .tab-inst.inactive {
+  border-bottom: 3px solid #39ff14;
+  color: #b3abab;
+  background-color: #333;
+}
+
+.dark-mode .tab-inst.active {
+  border-top: 3px solid #39ff14;
+  border-bottom: none;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+/* input link section */
+.link-textbox {
+  min-height: 50px;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+#extractedText {
+  background-color: white;
+  color: black;
+  margin: 20px 10px;
 }
