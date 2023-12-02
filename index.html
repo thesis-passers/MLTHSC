@@ -153,7 +153,7 @@
           <textarea
             type="text"
             id="input-text"
-            placeholder="Enter hate speech here . . ."
+            placeholder="Enter hate speech"
             value=""
           ></textarea>
 
@@ -205,13 +205,17 @@
         </article>
 
         <!-- Link Tab -->
-        <article class="input-set" id="link-section" style="display: none">
-          <textarea
+        <article class="input-set reddit-input-set" id="link-section" style="display: none">
+          <div class="reddit-icon-set">
+              <!-- <i class="bx bxl-reddit bx-sm"></i> -->
+              <i class="bx bx-link bx-sm"></i>
+          </div>
+          <input
             id="linkInput"
-            class="link-textbox"
+            class="link-textbox reddit"
             type="url"
-            placeholder="Enter Reddit link here. . ."
-          ></textarea>
+            placeholder="Enter Reddit link"
+          ></input>
         </article>
 
         <!-- Upload File Tab -->
@@ -230,7 +234,7 @@
           <div class="upload-design">
             <i class="bx bx-upload" id="upload-icon1"></i>
             <i class="bx bx-edit" id="upload-icon2" style="display: none"></i>
-            <p>Drag your files here or click in this area.</p>
+            <p>Drag your files here or click here.</p>
           </div>
         </article>
 
@@ -366,7 +370,7 @@
           style="padding-bottom: 10px"
         >
           <h4>Saved Posts</h4>
-          <button id="export-btn" class="btn btn-save">
+          <button id="export-btn" class="btn btn-save" title="Export to CSV"> 
             <i class="bx bx-export bx-xs"></i> Export
           </button>
         </div>
