@@ -2,16 +2,22 @@
 const inputText = document.getElementById("input-text");
 const analyzeBtn = document.getElementById("analyze-btn");
 const extractBtn = document.getElementById("extractButton");
+const imageBtn = document.getElementById("imageButton");
 const clearBtn = document.getElementById("clear-btn");
+
 const labelsContainer = document.getElementById("labels-container");
 const tableContainer = document.getElementById("table-container");
 const wordCountElement = document.getElementById("word-count");
 const toggleLabelsBtn = document.getElementById("toggle-labels-btn");
 const hideLabelsContainer = document.getElementById("hide-labels-container");
 const noLabelsContainer = document.getElementById("no-labels-container");
+
 const fileInput = document.getElementById("file-input");
+const imageInput = document.getElementById("image-input");
 const linkInput = document.getElementById("linkInput");
 const extractedTextbox = document.getElementById("extractedText");
+const fileNameElement = document.getElementById("fileName");
+const uploadedImage = document.getElementById("uploadedImage");
 
 const labelHeader = document.querySelector(".label-header");
 
@@ -72,6 +78,7 @@ function showTabUI(selectedTab) {
   hideLabelsContainer.style.display = "none";
   noLabelsContainer.style.display = "none";
   extractBtn.style.display = "none";
+  imageBtn.style.display = "none";
   document.getElementById("sample-hate-speech").selectedIndex = 0;
 
   // Show the selected section
@@ -80,10 +87,15 @@ function showTabUI(selectedTab) {
     updateInstructions(selectedTab);
     labelSection.style.display = "block";
     batchSection.style.display = "none";
+
     if (selectedTab === "upload") {
-      fileInput.style.display = "block"; // Show file input for upload tab
+      fileInput.style.display = "block";
       batchSection.style.display = "block";
       labelSection.style.display = "none";
+    }
+
+    if (selectedTab === "image") {
+      imageInput.style.display = "block";
     }
   }
 }
@@ -114,6 +126,12 @@ document.addEventListener("DOMContentLoaded", function () {
         analyzeBtn.style.display = "none";
         labelHeader.textContent = "Extracted Text and Labels";
       }
+
+      if (selectedTab === "image") {
+        imageBtn.style.display = "block";
+        analyzeBtn.style.display = "none";
+        labelHeader.textContent = "Extracted Text and Labels";
+      }
     });
   });
 });
@@ -125,6 +143,7 @@ function disableButtons() {
   saveBtn.disabled = true;
   saveBatchBtn.disabled = true;
   extractBtn.disabled = true;
+  imageBtn.disabled = true;
 
   const uploadSection = document.querySelector(".upload-section");
   const pElement = uploadSection.querySelector("p");
@@ -222,6 +241,14 @@ function hideLabelsInitially() {
 clearBtn.addEventListener("click", () => {
   inputText.value = "";
   linkInput.value = "";
+  imageInput.value = "";
+
+  uploadedImage.style.display = "none";
+  uploadedImage.src = "";
+  fileNameElement.textContent = "Drag your files here or click in this area."; // Resets the file name display
+  const imageIcon = document.getElementById("image-icon");
+  imageIcon.style.display = "block";
+
   document.getElementById("sample-hate-speech").selectedIndex = 0;
   resetLabels();
   resetTable();
@@ -231,7 +258,6 @@ clearBtn.addEventListener("click", () => {
   extractedTextbox.style.display = "none";
   extractedTextbox.value = "";
 
-  fileInput.value = "";
   saveBtn.disabled = true;
 });
 
@@ -257,22 +283,27 @@ function fetchLabelsAndDisplay() {
 }
 
 async function fetchLabels() {
-    try {
-      // Try fetching from the AWS link
-      const awsResponse = await fetch('http://ec2-54-250-204-11.ap-northeast-1.compute.amazonaws.com:8080/labels?input=' + inputText.value);
-      const awsData = await awsResponse.json();
-      console.log(`aws data: ${awsData}`);
-      return awsData;
-    } catch (awsError) {
-      console.error('Failed to fetch from AWS:', awsError);
-  
-      // If fetching from AWS fails, fallback to the local link
-      const localResponse = await fetch('http://127.0.0.1:5000/labels?input=' + inputText.value);
-      const localData = await localResponse.json();
-      console.log(localData);
-      return localData;
-    }
+  try {
+    // Try fetching from the AWS link
+    const awsResponse = await fetch(
+      "http://ec2-54-250-204-11.ap-northeast-1.compute.amazonaws.com:8080/labels?input=" +
+        inputText.value
+    );
+    const awsData = await awsResponse.json();
+    console.log(`aws data: ${awsData}`);
+    return awsData;
+  } catch (awsError) {
+    console.error("Failed to fetch from AWS:", awsError);
+
+    // If fetching from AWS fails, fallback to the local link
+    const localResponse = await fetch(
+      "http://127.0.0.1:5000/labels?input=" + inputText.value
+    );
+    const localData = await localResponse.json();
+    console.log(localData);
+    return localData;
   }
+}
 
 function updateHTML(labels) {
   let resultHTML = "";

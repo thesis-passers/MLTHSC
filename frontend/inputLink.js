@@ -19,7 +19,7 @@ async function extractFromLink() {
   const link = linkInput.value;
 
   try {
-    const response = await fetch("http://127.0.0.1:5000/extract-link-post", {
+    const response = await fetch("http://127.0.0.1:8080/extract-link-post", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +50,7 @@ async function extractFromLink() {
 
         showAnalyzingState();
         setTimeout(() => {
-          fetchLabelsandDisplayForLink();
+          fetchLabelsandDisplay2();
         }, 1000);
       }
     } else {
@@ -60,9 +60,8 @@ async function extractFromLink() {
     console.error("Error:", error.message);
   }
 }
-
-function fetchLabelsandDisplayForLink() {
-  fetchLabelsLink()
+function fetchLabelsandDisplay2() {
+  fetchLabels2()
     .then((data) => {
       currentPost = data;
       saveBtn.disabled = false;
@@ -73,9 +72,9 @@ function fetchLabelsandDisplayForLink() {
     });
 }
 
-async function fetchLabelsLink() {
+async function fetchLabels2() {
   const response = await fetch(
-    `http://127.0.0.1:5000/labels?input=${extractedTextbox.value}`
+    `http://127.0.0.1:8080/labels?input=${extractedTextbox.value}`
   );
   console.log("checking; " + extractedTextbox.value);
   const data = await response.json();
