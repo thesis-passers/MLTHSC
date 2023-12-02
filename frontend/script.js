@@ -1,6 +1,7 @@
 // Elements
 const inputText = document.getElementById("input-text");
 const analyzeBtn = document.getElementById("analyze-btn");
+const extractBtn = document.getElementById("extractButton");
 const clearBtn = document.getElementById("clear-btn");
 const labelsContainer = document.getElementById("labels-container");
 const tableContainer = document.getElementById("table-container");
@@ -9,6 +10,7 @@ const toggleLabelsBtn = document.getElementById("toggle-labels-btn");
 const hideLabelsContainer = document.getElementById("hide-labels-container");
 const noLabelsContainer = document.getElementById("no-labels-container");
 const fileInput = document.getElementById("file-input");
+const linkInput = document.getElementById("linkInput");
 
 // Tab Buttons
 const inputTabBtn = document.getElementById("input-tab");
@@ -41,6 +43,7 @@ const freqContainer = document.getElementById("frequency-container");
 
 // Initialization
 let allLabelsBelow50 = true;
+
 updateSavedPostsDisplay();
 
 // Tab handling
@@ -57,6 +60,7 @@ function showTabUI(selectedTab) {
   Object.values(sections).forEach(
     (section) => (section.style.display = "none")
   );
+
   resetLabels();
   resetTable();
   fileInput.value = "";
@@ -64,6 +68,7 @@ function showTabUI(selectedTab) {
   updateWordCount();
   hideLabelsContainer.style.display = "none";
   noLabelsContainer.style.display = "none";
+  extractBtn.style.display = "none";
   document.getElementById("sample-hate-speech").selectedIndex = 0;
 
   // Show the selected section
@@ -98,6 +103,11 @@ document.addEventListener("DOMContentLoaded", function () {
         analyzeBtn.style.display = "block";
         clearBtn.style.width = "50%";
       }
+
+      if (selectedTab === "link") {
+        extractBtn.style.display = "block";
+        analyzeBtn.style.display = "none";
+      }
     });
   });
 });
@@ -108,6 +118,7 @@ function disableButtons() {
   clearBtn.disabled = true;
   saveBtn.disabled = true;
   saveBatchBtn.disabled = true;
+  extractBtn.disabled = true;
 
   const uploadSection = document.querySelector(".upload-section");
   const pElement = uploadSection.querySelector("p");
@@ -204,6 +215,7 @@ function hideLabelsInitially() {
 // Clear Button
 clearBtn.addEventListener("click", () => {
   inputText.value = "";
+  linkInput.value = "";
   document.getElementById("sample-hate-speech").selectedIndex = 0;
   resetLabels();
   resetTable();

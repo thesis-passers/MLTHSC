@@ -72,6 +72,10 @@ function processFileContent(content) {
       if (index === nonEmptySentences.length - 0) {
         inputText.value = "";
       }
+
+      if (index === nonEmptySentences.length - 1) {
+        clearBtn.disabled = false; // Re-enable clear button after processing is complete
+      }
     }, index * 2000);
   });
 
@@ -112,6 +116,7 @@ function fetchLabelsForBatches(currentIndex, totalSentences) {
     })
     .catch((error) => {
       console.error("Error:", error);
+      clearBtn.disabled = false;
     });
 }
 

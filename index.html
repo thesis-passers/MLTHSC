@@ -1,451 +1,554 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <!-- Meta & Stylesheet Links -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="./frontend/style.css" />
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
     <link href="./frontend/MLTHSC_logo.png" rel="icon" type="image/x-icon" />
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- Header Section -->
     <header>
-        <nav class="flex">
-            <!-- Logo Section -->
-            <div class="logo">
-                <img class="logo-img" src="./frontend/MLTHSC_logo.png" alt="mlthsc logo" />
-                <h2 class="logo-name">mlthsc.</h2>
-            </div>
-            <!-- Dark Mode Toggle -->
-            <div class="dark-mode-toggle">
-                <input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode()" />
-                <label for="dark-mode-toggle"></label>
-            </div>
-        </nav>
+      <nav class="flex">
+        <!-- Logo Section -->
+        <div class="logo">
+          <img
+            class="logo-img"
+            src="./frontend/MLTHSC_logo.png"
+            alt="mlthsc logo"
+          />
+          <h2 class="logo-name">mlthsc.</h2>
+        </div>
+        <!-- Dark Mode Toggle -->
+        <div class="dark-mode-toggle">
+          <input
+            type="checkbox"
+            id="dark-mode-toggle"
+            onclick="toggleDarkMode()"
+          />
+          <label for="dark-mode-toggle"></label>
+        </div>
+      </nav>
     </header>
 
     <!-- Main Content Section -->
     <main class="container bg-white" id="main-container">
-        <!-- Introduction and Instructions -->
-        <section>
-            <div class="fixed text-center">
-                <h1 class="banner-title">
-                    Multilabel Tagalog Hate Speech Classifier
-                </h1>
-                <p class="text-secondary" id="input-post-description" style="display: block">
-                    Enter your
-                    <span class="tooltip">
-                        hate speech
-                        <span class="tooltiptext">
-                            Speech that promotes violence or discrimination against
-                            individuals or groups based on attributes such as gender, race,
-                            religion, physical appearance, disability, etc. that can lead to
-                            deterioration of ones health
-                        </span>
-                    </span>
-                    into the textbox below, and then press the "Analyze" button to
-                    classify the content according to its relevant labels. Be aware that
-                    the system requires a minimum of <u>3 words</u> and accepts up to a
-                    maximum of <u>280 words</u>.
-                </p>
+      <!-- Introduction and Instructions -->
+      <section>
+        <div class="fixed text-center">
+          <h1 class="banner-title">
+            Multilabel Tagalog Hate Speech Classifier
+          </h1>
+          <p
+            class="text-secondary"
+            id="input-post-description"
+            style="display: block"
+          >
+            Enter your
+            <span class="tooltip">
+              hate speech
+              <span class="tooltiptext">
+                Speech that promotes violence or discrimination against
+                individuals or groups based on attributes such as gender, race,
+                religion, physical appearance, disability, etc. that can lead to
+                deterioration of ones health
+              </span>
+            </span>
+            into the textbox below, and then press the "Analyze" button to
+            classify the content according to its relevant labels. Be aware that
+            the system requires a minimum of <u>3 words</u> and accepts up to a
+            maximum of <u>280 words</u>.
+          </p>
 
-                <p class="text-secondary" id="input-link-description" style="display: none">
-                    Enter Reddit link containing
-                    <span class="tooltip">
-                        hate speech
-                        <span class="tooltiptext">
-                            Speech that promotes violence or discrimination against
-                            individuals or groups based on attributes such as gender, race,
-                            religion, physical appearance, disability, etc. that can lead to
-                            deterioration of ones health
-                        </span>
-                    </span>
-                    into the textbox below, and then press the "Analyze" button to
-                    classify the content according to its relevant labels. Be aware that
-                    the system requires a minimum of <u>3 words</u> and accepts up to a
-                    maximum of <u>280 words</u>.
-                </p>
+          <p
+            class="text-secondary"
+            id="input-link-description"
+            style="display: none"
+          >
+            Enter Reddit link containing
+            <span class="tooltip">
+              hate speech
+              <span class="tooltiptext">
+                Speech that promotes violence or discrimination against
+                individuals or groups based on attributes such as gender, race,
+                religion, physical appearance, disability, etc. that can lead to
+                deterioration of ones health
+              </span>
+            </span>
+            into the textbox below, and then press the "Analyze" button to
+            classify the content according to its relevant labels. Be aware that
+            the system requires a minimum of <u>3 words</u> and accepts up to a
+            maximum of <u>280 words</u>.
+          </p>
 
-                <p class="text-secondary" id="upload-file-description" style="display: none">
-                    Upload or drag a text file (.txt) containing
-                    <span class="tooltip">
-                        hate speech
-                        <span class="tooltiptext">
-                            Speech that promotes violence or discrimination against
-                            individuals or groups based on attributes such as gender, race,
-                            religion, physical appearance, disability, etc. that can lead to
-                            deterioration of ones health
-                        </span>
-                    </span>
-                    into the box below, in order to successively
-                    classify the content according to its relevant labels. Be aware that
-                    the system requires a minimum of <u>3 words</u> and accepts up to a
-                    maximum of <u>280 words</u>.
-                </p>
+          <p
+            class="text-secondary"
+            id="upload-file-description"
+            style="display: none"
+          >
+            Upload or drag a text file (.txt) containing
+            <span class="tooltip">
+              hate speech
+              <span class="tooltiptext">
+                Speech that promotes violence or discrimination against
+                individuals or groups based on attributes such as gender, race,
+                religion, physical appearance, disability, etc. that can lead to
+                deterioration of ones health
+              </span>
+            </span>
+            into the box below, in order to successively classify the content
+            according to its relevant labels. Be aware that the system requires
+            a minimum of <u>3 words</u> and accepts up to a maximum of
+            <u>280 words</u>.
+          </p>
 
-                <p class="text-secondary" id="upload-image-description" style="display: none">
-                    Upload screenshot images from Facebook, X, and Reddit that contains
-                    <span class="tooltip">
-                        hate speech
-                        <span class="tooltiptext">
-                            Speech that promotes violence or discrimination against
-                            individuals or groups based on attributes such as gender, race,
-                            religion, physical appearance, disability, etc. that can lead to
-                            deterioration of ones health
-                        </span>
-                    </span>
-                    into the file upload box below, and then press the "Analyze" button
-                    to classify the content according to its relevant labels. Be aware
-                    that the system requires a minimum of <u>3 words</u> and accepts up
-                    to a maximum of <u>280 words</u>.
-                </p>
-            </div>
-        </section>
+          <p
+            class="text-secondary"
+            id="upload-image-description"
+            style="display: none"
+          >
+            Upload screenshot images from Facebook, X, and Reddit that contains
+            <span class="tooltip">
+              hate speech
+              <span class="tooltiptext">
+                Speech that promotes violence or discrimination against
+                individuals or groups based on attributes such as gender, race,
+                religion, physical appearance, disability, etc. that can lead to
+                deterioration of ones health
+              </span>
+            </span>
+            into the file upload box below, and then press the "Analyze" button
+            to classify the content according to its relevant labels. Be aware
+            that the system requires a minimum of <u>3 words</u> and accepts up
+            to a maximum of <u>280 words</u>.
+          </p>
+        </div>
+      </section>
 
-        <!-- Input Options (Text, Link, Upload File, Upload Image) -->
-        <section class="input-set">
-            <!-- Tab Buttons for Input Options -->
-            <div class="flex tabs">
-                <button class="btn tab active" id="input-tab" data-tab="input">
-                    Input Post
-                </button>
-                <button class="btn tab inactive" id="link-tab" data-tab="link">
-                    Input Link
-                </button>
-                <button class="btn tab inactive" id="upload-tab" data-tab="upload">
-                    Upload File
-                </button>
-                <button class="btn tab inactive" id="image-tab" data-tab="image">
-                    Upload Image
-                </button>
-            </div>
+      <!-- Input Options (Text, Link, Upload File, Upload Image) -->
+      <section class="input-set">
+        <!-- Tab Buttons for Input Options -->
+        <div class="flex tabs">
+          <button class="btn tab active" id="input-tab" data-tab="input">
+            Input Post
+          </button>
+          <button class="btn tab inactive" id="link-tab" data-tab="link">
+            Input Link
+          </button>
+          <button class="btn tab inactive" id="upload-tab" data-tab="upload">
+            Upload File
+          </button>
+          <button class="btn tab inactive" id="image-tab" data-tab="image">
+            Upload Image
+          </button>
+        </div>
 
-            <!-- Input Post Tab -->
-            <article class="input-textbox" id="input-section">
-                <textarea type="text" id="input-text" placeholder="Enter hate speech here . . ." value=""></textarea>
+        <!-- Input Post Tab -->
+        <article class="input-textbox" id="input-section">
+          <textarea
+            type="text"
+            id="input-text"
+            placeholder="Enter hate speech here . . ."
+            value=""
+          ></textarea>
 
-                <div class="flex">
-                    <!-- Sample Hate Speech Dropdown -->
-                    <div id="sample-hate-speech-container">
-                        <select id="sample-hate-speech" onchange="updateTextArea()">
-                            <option selected disabled>Select a Sample Hate Speech</option>
-                            <option
-                                value="bading tangina ka masahol ka pa sa hayop na feeling banal catholic fuckers kahoy lang yang sinasamba nyo">
-                                Example 1
-                            </option>
-                            <option value="tangina kang panget na hapon ka ang baho mo pang gago ka pakyu">
-                                Example 2
-                            </option>
-                            <option
-                                value="Tangina. Kailan mo kaya ipapasok sa utak mo ang mga binibilin ko. Ang tanga tanga mong bobo ka. Walang common sense ang tanga. Mamatay ka na nga.">
-                                Example 3
-                            </option>
-                            <option
-                                value="Tanginang mga millenials to puro laro inaatupag. Lalo na mga babaeng puro pagpapakapokpok inaasikaso. Ganto na ba future generation ng pinas? Mga walang silbi sa lipunan">
-                                Example 4
-                            </option>
-                            <option
-                                value="Putanginang mga arabo na to. Parang mga tanga magsalita amputa. Balik na kayo sa bansa nyo tangina nyo mga mukhang unggoy na panget.">
-                                Example 5
-                            </option>
-                        </select>
-                    </div>
-
-                    <!-- Word Count Display -->
-                    <div class="dev dev-container">
-                        <text id="word-count" class="dev" style="text-align: center; margin-right: 5px">
-                            -
-                        </text>
-                        <text class="word-limit"> / 280 Words</text>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Link Tab -->
-            <article class="input-set" id="link-section" style="display: none">
-                <!-- link input or content -->
-            </article>
-
-            <!-- Upload File Tab -->
-            <article class="input-set upload-section" id="upload-section" style="display: none">
-                <input type="file" id="file-input" accept=".txt" style="display: none" />
-
-                <div class="upload-design">
-                    <i class="bx bx-upload" id="upload-icon1"></i>
-                    <i class="bx bx-edit" id="upload-icon2" style="display: none"></i>
-                    <p>Drag your files here or click in this area.</p>
-                </div>
-            </article>
-
-            <!-- Upload Image Tab -->
-            <article class="input-set" id="image-section" style="display: none">
-                <h1>Hello</h1>
-            </article>
-
-            <!-- Analyze and Clear Buttons -->
-            <div class="btn-group flex">
-                <button id="analyze-btn" class="btn btn-options btn-analyze">
-                    Analyze <i class="bx bx-send"></i>
-                </button>
-                <button id="clear-btn" class="btn btn-options btn-clear">
-                    Clear <i class="bx bxs-tag-x"></i>
-                </button>
-            </div>
-        </section>
-
-        <!-- Labels and Results Display Section -->
-        <section id="label-section">
-            <div class="flex justify-between align-center section-header" style="padding-bottom: 10px">
-                <h4>Labels</h4>
-                <button id="save-btn" class="btn btn-save">
-                    <i class="bx bxs-save bx-xs"></i> Save
-                </button>
+          <div class="flex">
+            <!-- Sample Hate Speech Dropdown -->
+            <div id="sample-hate-speech-container">
+              <select id="sample-hate-speech" onchange="updateTextArea()">
+                <option selected disabled>Select a Sample Hate Speech</option>
+                <option
+                  value="bading tangina ka masahol ka pa sa hayop na feeling banal catholic fuckers kahoy lang yang sinasamba nyo"
+                >
+                  Example 1
+                </option>
+                <option
+                  value="tangina kang panget na hapon ka ang baho mo pang gago ka pakyu"
+                >
+                  Example 2
+                </option>
+                <option
+                  value="Tangina. Kailan mo kaya ipapasok sa utak mo ang mga binibilin ko. Ang tanga tanga mong bobo ka. Walang common sense ang tanga. Mamatay ka na nga."
+                >
+                  Example 3
+                </option>
+                <option
+                  value="Tanginang mga millenials to puro laro inaatupag. Lalo na mga babaeng puro pagpapakapokpok inaasikaso. Ganto na ba future generation ng pinas? Mga walang silbi sa lipunan"
+                >
+                  Example 4
+                </option>
+                <option
+                  value="Putanginang mga arabo na to. Parang mga tanga magsalita amputa. Balik na kayo sa bansa nyo tangina nyo mga mukhang unggoy na panget."
+                >
+                  Example 5
+                </option>
+              </select>
             </div>
 
-            <!-- No Labels Container (Displayed when no labels are identified) -->
-            <div id="no-labels-container" style="display: none">
-                <div class="analyze_container result-fade-in">
-                    <p>No label identified, please add more words.</p>
-                </div>
+            <!-- Word Count Display -->
+            <div class="dev dev-container">
+              <text
+                id="word-count"
+                class="dev"
+                style="text-align: center; margin-right: 5px"
+              >
+                -
+              </text>
+              <text class="word-limit"> / 280 Words</text>
             </div>
-
-            <!-- Container for Displaying Labels -->
-            <div class="labels-container" id="labels-container">
-                <div class="label-container">
-                    <div class="label border-none">
-                        <span class="label-percent">0.00%</span>&nbsp;&nbsp;Age
-                    </div>
-                </div>
-                <div class="label-container">
-                    <div class="label border-none">
-                        <span class="label-percent">0.00%</span>&nbsp;&nbsp;Gender
-                    </div>
-                </div>
-                <div class="label-container">
-                    <div class="label border-none">
-                        <span class="label-percent">0.00%</span>&nbsp;&nbsp;Physical
-                    </div>
-                </div>
-                <div class="label-container">
-                    <div class="label border-none">
-                        <span class="label-percent">0.00%</span>&nbsp;&nbsp;Race
-                    </div>
-                </div>
-                <div class="label-container">
-                    <div class="label border-none">
-                        <span class="label-percent">0.00%</span>&nbsp;&nbsp;Religion
-                    </div>
-                </div>
-                <div class="label-container">
-                    <div class="label border-none">
-                        <span class="label-percent">0.00%</span>&nbsp;&nbsp;Others
-                    </div>
-                </div>
-            </div>
-
-            <!-- Settings Container for Label Display Options -->
-            <div class="settings-container" id="hide-labels-container" style="display: none">
-                <button class="btn" id="toggle-labels-btn">
-                    Show Labels below 50% <i class="bx bx-chevron-down"></i>
-                </button>
-            </div>
-        </section>
-
-        <!-- Batch Section -->
-        <article id="batch-section" style="display: none">
-            <div class="flex justify-between align-center section-header" style="padding-bottom: 10px">
-                <h4>Hate Speech Posts</h4>
-                <button id="save-batch-btn" class="btn btn-save">
-                    <i class="bx bxs-save bx-xs"></i> Save
-                </button>
-            </div>
-            <div>
-                <table id="table-container">
-                    <thead>
-                        <tr>
-                            <th>Post</th>
-                            <th>All Labels</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+          </div>
         </article>
 
-        <!-- Saved Posts Section -->
-        <section id="saved-post">
-            <div class="flex justify-between align-center section-header" style="padding-bottom: 10px">
-                <h4>Saved Posts</h4>
-                <button id="export-btn" class="btn btn-save">
-                    <i class="bx bx-export bx-xs"></i> Export
-                </button>
-            </div>
-            <div id="labelFilterButtons">
-                <button class="filterButton active " data-label="">All Labels</button>
-                <i class="bx bx-filter bx-sm" style=" margin-bottom: 10px; transform: rotate(-90deg); opacity: 30%"></i>
-                <button class="filterButton " data-label="age">Age</button>
-                <button class="filterButton" data-label="gender">Gender</button>
-                <button class="filterButton" data-label="physical">Physical</button>
-                <button class="filterButton" data-label="race">Race</button>
-                <button class="filterButton" data-label="religion">Religion</button>
-                <button class="filterButton" data-label="others">Others</button>
-            </div>
-
-            <!-- No posts Container (Displayed when no labels are identified) -->
-            <div id="no-posts-container" style="display: none">
-                <div class="analyze_container result-fade-in">
-                    <p>No posts saved.</p>
-                </div>
-            </div>
-
-            <div id="savedPosts" class="posts-container"></div>
-            <div id="pagination-controls" class="pagination"></div>
-        </section>
-
-        <!-- Stats -->
-        <article id="stats">
-            <div class="flex justify-between align-center section-header" style="padding-bottom: 10px">
-                <h4>Most Frequent Labels Based on Saved</h4>
-            </div>
-
-            <!-- No posts Container (Displayed when no labels are identified) -->
-            <div id="no-chart-container" style="display: none">
-                <div class="analyze_container result-fade-in">
-                    <p>No data to analyze.</p>
-                </div>
-            </div>
-
-            <div id="chart-legend" class="chart-legend" style="display: none">
-                <div class="chart">
-                    <canvas id="labelPieChart"></canvas>
-                </div>
-                <div id="legendContainer" class="legend-container"></div>
-            </div>
+        <!-- Link Tab -->
+        <article class="input-set" id="link-section" style="display: none">
+          <textarea
+            id="linkInput"
+            class="link-textbox"
+            type="url"
+            placeholder="Enter Reddit link here. . ."
+          ></textarea>
         </article>
 
-        <!-- Webapp Instructions Section -->
-        <section class="instruction">
+        <!-- Upload File Tab -->
+        <article
+          class="input-set upload-section"
+          id="upload-section"
+          style="display: none"
+        >
+          <input
+            type="file"
+            id="file-input"
+            accept=".txt"
+            style="display: none"
+          />
 
-           <!-- Floating Dialog Box -->
-          <div class="floating-dialog">How can our tool help?</div>
-
-          <!-- Section Header -->
-          <div class="flex justify-between align-center section-header" 
-                style="padding-bottom: 10px">
+          <div class="upload-design">
+            <i class="bx bx-upload" id="upload-icon1"></i>
+            <i class="bx bx-edit" id="upload-icon2" style="display: none"></i>
+            <p>Drag your files here or click in this area.</p>
           </div>
-          
-          <!-- Tab Buttons for Instructions -->
-          <div class="flex tabs">
-            <button class="btn tab-inst inactive" id="instruction1-tab" data-tab="instruction1">
-                How can hate speech analysis help you?
-            </button>
-            <button class="btn tab-inst inactive" id="instruction2-tab" data-tab="instruction2">
-                How does hate speech analysis work?
-            </button>
-          </div>
+        </article>
 
-          <!-- Inst 1 Tab -->
-          <article id="instruction1Section" style="display: none;">
-            <div class="tab-content">
-              <!-- Content for Instruction 1 -->
-              <ul>
-                <li>Gain a 
-                  <span class="tooltip">
-                    summary
-                    <span class="tooltiptext">
-                        In context, summary refers to what the hate speech is about,
-                        including its various forms.
-                    </span>
-                </span>
-                  of the issue.</li>
-                <li>Recognize 
-                  <span class="tooltip">
-                    patterns
-                    <span class="tooltiptext">
-                        Determining patterns in the spread of hateful content
-                        is essential as it provides numbers or statistics.
-                    </span>
-                  </span>
-                  in the prevalence of issues</li>
-                <li>Swiftly identify and detect 
-                  <span class="tooltip">
-                    instances
-                    <span class="tooltiptext">
-                        Detecting instances of labels per post allows the users to
-                        determine what actions must be taken.
-                    </span>
-                  </span>
-                  , allowing for immediate action.</li>
-              </ul>
+        <!-- Upload Image Tab -->
+        <article class="input-set" id="image-section" style="display: none">
+          <h1>Hello</h1>
+        </article>
+
+        <!-- Analyze and Clear Buttons -->
+        <div class="btn-group flex">
+          <!-- Button for Input Post and Upload File -->
+          <button id="analyze-btn" class="btn btn-options btn-analyze">
+            Analyze <i class="bx bx-send"></i>
+          </button>
+
+          <!-- Button for Extract Link -->
+          <button
+            id="extractButton"
+            class="btn btn-options btn-extract"
+            onclick="extractFromLink()"
+            style="display: none"
+          >
+            Extract and Analyze <i class="bx bx-send"></i>
+          </button>
+
+          <button id="clear-btn" class="btn btn-options btn-clear">
+            Clear <i class="bx bxs-tag-x"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- Labels and Results Display Section -->
+      <section id="label-section">
+        <div
+          class="flex justify-between align-center section-header"
+          style="padding-bottom: 10px"
+        >
+          <h4>Labels</h4>
+          <button id="save-btn" class="btn btn-save">
+            <i class="bx bxs-save bx-xs"></i> Save
+          </button>
+        </div>
+
+        <!-- No Labels Container (Displayed when no labels are identified) -->
+        <div id="no-labels-container" style="display: none">
+          <div class="analyze_container result-fade-in">
+            <p>No label identified, please add more words.</p>
+          </div>
+        </div>
+
+        <!-- Container for Displaying Labels -->
+        <div class="labels-container" id="labels-container">
+          <div class="label-container">
+            <div class="label border-none">
+              <span class="label-percent">0.00%</span>&nbsp;&nbsp;Age
             </div>
-          </article>
+          </div>
+          <div class="label-container">
+            <div class="label border-none">
+              <span class="label-percent">0.00%</span>&nbsp;&nbsp;Gender
+            </div>
+          </div>
+          <div class="label-container">
+            <div class="label border-none">
+              <span class="label-percent">0.00%</span>&nbsp;&nbsp;Physical
+            </div>
+          </div>
+          <div class="label-container">
+            <div class="label border-none">
+              <span class="label-percent">0.00%</span>&nbsp;&nbsp;Race
+            </div>
+          </div>
+          <div class="label-container">
+            <div class="label border-none">
+              <span class="label-percent">0.00%</span>&nbsp;&nbsp;Religion
+            </div>
+          </div>
+          <div class="label-container">
+            <div class="label border-none">
+              <span class="label-percent">0.00%</span>&nbsp;&nbsp;Others
+            </div>
+          </div>
+        </div>
 
-          <!-- Inst 2 Tab -->
-          <article id="instruction2Section" style="display: none;">
-            <div class="tab-content">
-              <!-- Content for Instruction 2 -->
-              <p>Simply provide or upload your 
+        <!-- Settings Container for Label Display Options -->
+        <div
+          class="settings-container"
+          id="hide-labels-container"
+          style="display: none"
+        >
+          <button class="btn" id="toggle-labels-btn">
+            Show Labels below 50% <i class="bx bx-chevron-down"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- Batch Section -->
+      <article id="batch-section" style="display: none">
+        <div
+          class="flex justify-between align-center section-header"
+          style="padding-bottom: 10px"
+        >
+          <h4>Hate Speech Posts</h4>
+          <button id="save-batch-btn" class="btn btn-save">
+            <i class="bx bxs-save bx-xs"></i> Save
+          </button>
+        </div>
+        <div>
+          <table id="table-container">
+            <thead>
+              <tr>
+                <th>Post</th>
+                <th>All Labels</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- Saved Posts Section -->
+      <section id="saved-post">
+        <div
+          class="flex justify-between align-center section-header"
+          style="padding-bottom: 10px"
+        >
+          <h4>Saved Posts</h4>
+          <button id="export-btn" class="btn btn-save">
+            <i class="bx bx-export bx-xs"></i> Export
+          </button>
+        </div>
+        <div id="labelFilterButtons">
+          <button class="all-filter filterButton active" data-label="">
+            All Labels
+          </button>
+          <i
+            class="bx bx-filter bx-sm"
+            style="margin-bottom: 10px; transform: rotate(-90deg); opacity: 30%"
+          ></i>
+          <button class="filterButton" data-label="age">Age</button>
+          <button class="filterButton" data-label="gender">Gender</button>
+          <button class="filterButton" data-label="physical">Physical</button>
+          <button class="filterButton" data-label="race">Race</button>
+          <button class="filterButton" data-label="religion">Religion</button>
+          <button class="filterButton" data-label="others">Others</button>
+        </div>
+
+        <!-- No posts Container (Displayed when no labels are identified) -->
+        <div id="no-posts-container" style="display: none">
+          <div class="analyze_container result-fade-in">
+            <p>No posts saved.</p>
+          </div>
+        </div>
+
+        <div id="savedPosts" class="posts-container"></div>
+        <div id="pagination-controls" class="pagination"></div>
+      </section>
+
+      <!-- Stats -->
+      <article id="stats">
+        <div
+          class="flex justify-between align-center section-header"
+          style="padding-bottom: 10px"
+        >
+          <h4>Most Frequent Labels Based on Saved</h4>
+        </div>
+
+        <!-- No posts Container (Displayed when no labels are identified) -->
+        <div id="no-chart-container" style="display: none">
+          <div class="analyze_container result-fade-in">
+            <p>No data to analyze.</p>
+          </div>
+        </div>
+
+        <div id="chart-legend" class="chart-legend" style="display: none">
+          <div class="chart">
+            <canvas id="labelPieChart"></canvas>
+          </div>
+          <div id="legendContainer" class="legend-container"></div>
+        </div>
+      </article>
+
+      <!-- Webapp Instructions Section -->
+      <section class="instruction">
+        <!-- Floating Dialog Box -->
+        <div class="floating-dialog">How can our tool help?</div>
+
+        <!-- Section Header -->
+        <div
+          class="flex justify-between align-center section-header"
+          style="padding-bottom: 10px"
+        ></div>
+
+        <!-- Tab Buttons for Instructions -->
+        <div class="flex tabs">
+          <button
+            class="btn tab-inst inactive"
+            id="instruction1-tab"
+            data-tab="instruction1"
+          >
+            How can hate speech analysis help you?
+          </button>
+          <button
+            class="btn tab-inst inactive"
+            id="instruction2-tab"
+            data-tab="instruction2"
+          >
+            How does hate speech analysis work?
+          </button>
+        </div>
+
+        <!-- Inst 1 Tab -->
+        <article id="instruction1Section" style="display: none">
+          <div class="tab-content">
+            <!-- Content for Instruction 1 -->
+            <ul>
+              <li>
+                Gain a
                 <span class="tooltip">
-                  sample data
+                  summary
                   <span class="tooltiptext">
-                      Sample data could in the form of plain text, Reddit link,
-                      image, and text file.
+                    In context, summary refers to what the hate speech is about,
+                    including its various forms.
                   </span>
                 </span>
-                , and we will handle the rest. 
-                Our 
+                of the issue.
+              </li>
+              <li>
+                Recognize
                 <span class="tooltip">
-                  AI algorithm
+                  patterns
                   <span class="tooltiptext">
-                    Bidirectional Encoder Representations from Transformer (BERT)
+                    Determining patterns in the spread of hateful content is
+                    essential as it provides numbers or statistics.
                   </span>
                 </span>
-                will swiftly help you in understanding 
-                your data within a few minutes.</p>
-            </div>              
-          </article>
-        </section>
+                in the prevalence of issues
+              </li>
+              <li>
+                Swiftly identify and detect
+                <span class="tooltip">
+                  instances
+                  <span class="tooltiptext">
+                    Detecting instances of labels per post allows the users to
+                    determine what actions must be taken.
+                  </span>
+                </span>
+                , allowing for immediate action.
+              </li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Inst 2 Tab -->
+        <article id="instruction2Section" style="display: none">
+          <div class="tab-content">
+            <!-- Content for Instruction 2 -->
+            <p>
+              Simply provide or upload your
+              <span class="tooltip">
+                sample data
+                <span class="tooltiptext">
+                  Sample data could in the form of plain text, Reddit link,
+                  image, and text file.
+                </span>
+              </span>
+              , and we will handle the rest. Our
+              <span class="tooltip">
+                AI algorithm
+                <span class="tooltiptext">
+                  Bidirectional Encoder Representations from Transformer (BERT)
+                </span>
+              </span>
+              will swiftly help you in understanding your data within a few
+              minutes.
+            </p>
+          </div>
+        </article>
+      </section>
     </main>
 
     <!-- Footer -->
     <footer>
-        <article class="model-description">
-            <div>
-                <h4>
-                    MULTILABEL CLASSIFICATION OF TAGALOG HATE SPEECH USING BIDIRECTIONAL
-                    ENCODER REPRESENTATIONS FROM TRANSFORMERS (BERT)
-                </h4>
-                <p class="footer_size">
-                    MLTHSC employs Bidirectional Encoder Representations from
-                    Transformer (BERT) to analyze text and categorize hate speech in
-                    Tagalog across multiple labels. The classifier discerns hateful
-                    content related to age, gender, race, religion, physical attributes,
-                    and other categories, enhancing the identification, and
-                    understanding of diverse forms of harmful speech.
-                </p>
-            </div>
+      <article class="model-description">
+        <div>
+          <h4>
+            MULTILABEL CLASSIFICATION OF TAGALOG HATE SPEECH USING BIDIRECTIONAL
+            ENCODER REPRESENTATIONS FROM TRANSFORMERS (BERT)
+          </h4>
+          <p class="footer_size">
+            MLTHSC employs Bidirectional Encoder Representations from
+            Transformer (BERT) to analyze text and categorize hate speech in
+            Tagalog across multiple labels. The classifier discerns hateful
+            content related to age, gender, race, religion, physical attributes,
+            and other categories, enhancing the identification, and
+            understanding of diverse forms of harmful speech.
+          </p>
+        </div>
 
-            <div>
-                <h4>DISCLAIMER</h4>
-                <p class="footer_size">
-                    This website does not collect any user credentials. In the event
-                    that data is saved, it is stored only in the local storage of your
-                    device, ensuring your information remains secure and within your
-                    control.
-                </p>
-            </div>
-        </article>
+        <div>
+          <h4>DISCLAIMER</h4>
+          <p class="footer_size">
+            This website does not collect any user credentials. In the event
+            that data is saved, it is stored only in the local storage of your
+            device, ensuring your information remains secure and within your
+            control.
+          </p>
+        </div>
+      </article>
 
-        <article class="footer-bottom flex">
-            <p class="footer_size copyright">THESIS PASSERS &copy; 2024 <br /></p>
+      <article class="footer-bottom flex">
+        <p class="footer_size copyright">THESIS PASSERS &copy; 2024 <br /></p>
 
-            <p class="footer_size footer-authors">
-                <span>Saya-ang</span> | <span>Gozum</span> | <span>Hamor</span> |
-                <span>Mabansag</span>
-            </p>
-        </article>
+        <p class="footer_size footer-authors">
+          <span>Saya-ang</span> | <span>Gozum</span> | <span>Hamor</span> |
+          <span>Mabansag</span>
+        </p>
+      </article>
     </footer>
 
     <!-- JavaScript Files -->
@@ -453,11 +556,14 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
+    <!-- <script src="https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js"></script> -->
+
     <script src="./frontend/saveToLocalStorage.js"></script>
     <script src="./frontend/script.js"></script>
     <script src="./frontend/batchProcessing.js"></script>
-</body>
+    <script src="./frontend/uploadImage.js"></script>
+    <script src="./frontend/inputLink.js"></script>
+  </body>
 
-<div id="toast-container"></div>
-
+  <div id="toast-container"></div>
 </html>
