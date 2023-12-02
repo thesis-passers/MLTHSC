@@ -43,7 +43,7 @@ saveBatchBtn.addEventListener("click", function () {
   updateActivePageButton();
 
   saveBatchBtn.disabled = true;
-  Toast("Batch saved successfully!", "success");
+  Toast("Batch saved successfully!", "success", false);
 });
 
 /** Save Button */
@@ -63,7 +63,7 @@ saveBtn.addEventListener("click", function () {
   updateActivePageButton();
 
   saveBtn.disabled = true;
-  Toast("Post saved successfully!", "success");
+  Toast("Post saved successfully!", "success", false);
 });
 
 /** Display Saved Hate Speech */
@@ -477,7 +477,7 @@ document.getElementById("export-btn").addEventListener("click", exportToExcel);
 
 function exportToExcel() {
   if (savedPosts.length === 0) {
-    Toast("No posts to export.", "failed");
+    Toast("No posts to export.", "failed", false);
     return;
   }
 
@@ -571,5 +571,5 @@ function exportToExcel() {
 
   // Export the workbook
   XLSX.writeFile(workbook, "saved_posts.xlsx");
-  Toast("Saved Posts exported successfully!", "success");
+  Toast("Saved Posts exported successfully!", "success", false);
 }

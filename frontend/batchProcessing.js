@@ -36,14 +36,15 @@ fileInput.addEventListener("change", (event) => {
     uploadIcon1.style.display = "none";
     uploadIcon2.style.display = "block";
 
-    Toast("File successfully uploaded!", "success");
+    Toast("File successfully uploaded!", "success", false);
   } else {
-    Toast("Please select a valid .txt file.", "failed");
+    Toast("Please select a valid .txt file.", "failed", false);
     fileInput.value = "";
   }
 });
 
 function processFileContent(content) {
+  const loadingToast = Toast("Extracting text please wait!", "loading", true);
   const sentences = content.split(/\n/);
   const nonEmptySentences = sentences.filter(
     (sentence) => sentence.trim() !== ""
@@ -64,7 +65,8 @@ function processFileContent(content) {
       } else {
         Toast(
           "Some sentences not analyzed! Please review the word count.",
-          "failed"
+          "failed",
+          false
         );
         fileInput.value = "";
       }
@@ -75,6 +77,7 @@ function processFileContent(content) {
 
       if (index === nonEmptySentences.length - 1) {
         clearBtn.disabled = false; // Re-enable clear button after processing is complete
+        loadingToast.remove();
       }
     }, index * 2000);
   });
@@ -111,7 +114,7 @@ function fetchLabelsForBatches(currentIndex, totalSentences) {
         clearBtn.disabled = false;
 
         saveBatchBtn.disabled = false;
-        Toast("Done analyzing file", "success");
+        Toast("Done analyzing file", "success", false);
       }
     })
     .catch((error) => {

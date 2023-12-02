@@ -14,6 +14,8 @@ function countWords(str) {
 }
 
 async function extractFromLink() {
+  const loadingToast = Toast("Extracting text please wait!", "loading", true);
+
   const link = linkInput.value;
 
   try {
@@ -33,9 +35,22 @@ async function extractFromLink() {
       // Check if word count is within limits
       const wordCount = countWords(data.postContent);
       if (wordCount < 3 || wordCount > 280) {
-        Toast("Extracted text does not satisfy the word limit.", "failed");
+        Toast(
+          "Extracted text does not satisfy the word limit.",
+          "failed",
+          false
+        );
       } else {
-        Toast("Text successfully extracted!", "success");
+        loadingToast.remove();
+        Toast("Text successfully extracted!", "success", false);
+
+        extractedTextbox.style.display = "block";
+        extractedTextbox.value = data.postContent;
+
+        showAnalyzingState();
+        setTimeout(() => {
+          fetchLabelsandDisplayForLink();
+        }, 1000);
       }
     } else {
       console.error("Error:", response.statusText);
@@ -43,4 +58,26 @@ async function extractFromLink() {
   } catch (error) {
     console.error("Error:", error.message);
   }
+}
+
+function fetchLabelsandDisplayForLink() {
+  fetchLabelsLink()
+    .then((data) => {
+      currentPost = data;
+      saveBtn.disabled = false;
+      updateHTML(data.labels);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+async function fetchLabelsLink() {
+  const response = await fetch(
+    `http://127.0.0.1:5000/labels?input=${extractedTextbox.value}`
+  );
+  console.log("checking; " + extractedTextbox.value);
+  const data = await response.json();
+  console.log(data); // if fetch is successful, log the data
+  return data;
 }

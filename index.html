@@ -268,11 +268,19 @@
           class="flex justify-between align-center section-header"
           style="padding-bottom: 10px"
         >
-          <h4>Labels</h4>
+          <h4 class="label-header">Labels</h4>
           <button id="save-btn" class="btn btn-save">
             <i class="bx bxs-save bx-xs"></i> Save
           </button>
         </div>
+
+        <textarea
+          type="text"
+          value=""
+          style="display: none"
+          id="extractedText"
+          disabled
+        ></textarea>
 
         <!-- No Labels Container (Displayed when no labels are identified) -->
         <div id="no-labels-container" style="display: none">
@@ -421,7 +429,7 @@
         <!-- Section Header -->
         <div
           class="flex justify-between align-center section-header"
-          style="padding-bottom: 10px"
+          style="padding: 10px; border: none"
         ></div>
 
         <!-- Tab Buttons for Instructions -->

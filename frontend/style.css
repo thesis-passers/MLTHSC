@@ -203,6 +203,7 @@ u {
   background-color: #ebeff5;
   padding-bottom: 10px;
   margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 textarea {
@@ -972,6 +973,10 @@ footer {
   background-color: #f44336; /* Red background for failed */
 }
 
+.toast.loading {
+  background-color: orange;
+}
+
 .toast i {
   margin-right: 5px;
   font-size: 20px;
@@ -1108,7 +1113,7 @@ footer {
   }
 
   .chart {
-    width: 100%;
+    width: 95%;
     margin-bottom: 20px;
   }
 
@@ -1255,24 +1260,28 @@ footer {
 }
 
 /* Webapp instructions section */
-section .instruction {
+.instruction {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   margin-bottom: 0px;
+  margin-top: 30px;
+  width: 100%;
+  height: 210px;
 }
 
 .tabs {
   display: flex;
   justify-content: center;
   margin: 0;
+  width: 100%;
 }
 
-.tab-inst {
+.tabs button {
+  width: 100%;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   background-color: white;
-  width: 1000px;
   text-align: center;
   margin: 0px;
 }
@@ -1298,8 +1307,10 @@ section .instruction {
 
 .tab-content {
   font-size: 12px;
-  padding: 10px;
+  padding: 20px 20px 20px 30px;
+  line-height: 25px;
   background-color: #f5f4f4;
+  border-radius: 0 0 10px 10px;
 }
 
 /* Floating Dialog Box */
@@ -1380,7 +1391,15 @@ section .instruction {
   border-bottom-left-radius: 0px;
 }
 
+/* input link section */
 .link-textbox {
   min-height: 50px;
   overflow: hidden;
+  margin-top: 15px;
+}
+
+#extractedText {
+  background-color: white;
+  color: black;
+  margin: 20px 10px;
 }
