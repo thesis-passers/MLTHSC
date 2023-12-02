@@ -1,7 +1,7 @@
 from flask import Flask, json, jsonify, request
 from flask_cors import CORS
+# import classifier2 as MLTHSC
 import classifier as MLTHSC
-import random
 from werkzeug.utils import secure_filename
 import os
 from picture import extract_text_from_screenshot, count_lines
@@ -34,121 +34,6 @@ def get_labels():
     return jsonify(data)
 
 
-@app.route("/random_labels", methods=['GET'])
-def get_random_labels():
-
-    input_text = request.args.get('input', '')
-
-    labels = MLTHSC.get_predictions(input_text)
-
-    sample_json = [
-        {
-            "labels": [
-                {
-                    "name": "Gender",
-                    "probability": "95.15%"
-                },
-                {
-                    "name": "Race",
-                    "probability": "14.40%"
-                },
-                {
-                    "name": "Physical",
-                    "probability": "10.09%"
-                },
-                {
-                    "name": "Age",
-                    "probability": "8.11%"
-                },
-                {
-                    "name": "Religion",
-                    "probability": "7.61%"
-                },
-                {
-                    "name": "Others",
-                    "probability": "3.16%"
-                }
-            ],
-            "text": "di na natauhan tong mga animal na bakla"
-        }, 
-        {
-        "labels": [
-            {
-            "name": "Age",
-            "probability": "90.39%"
-            },
-            {
-            "name": "Physical",
-            "probability": "21.30%"
-            },
-            {
-            "name": "Others",
-            "probability": "8.25%"
-            },
-            {
-            "name": "Race",
-            "probability": "6.87%"
-            },
-            {
-            "name": "Gender",
-            "probability": "6.16%"
-            },
-            {
-            "name": "Religion",
-            "probability": "4.03%"
-            }
-            ],
-            "text": "Tanginang nga batang paslit na to ang babaho pota dikit pa ng dikit sakin"
-            },
-            {
-            "labels": [
-            {
-            "name": "Others",
-            "probability": "47.97%"
-            },
-            {
-            "name": "Physical",
-            "probability": "41.99%"
-            },
-            {
-            "name": "Religion",
-            "probability": "8.62%"
-            },
-            {
-            "name": "Race",
-            "probability": "8.55%"
-            },
-            {
-            "name": "Gender",
-            "probability": "2.61%"
-            },
-            {
-            "name": "Age",
-            "probability": "1.71%"
-            }
-            ],
-            "text": "Bobo mo Daniella tanga mahulog ka sana"
-            }
-
-        ]
-
-    rand = random.randint(0,3)  
-
-    text = sample_json[rand]["text"]
-    labels = sample_json[rand]["labels"]
-
-    data = {
-        "text": text,
-        "labels": labels
-    }
-
-    return jsonify(data)
-
-
-
-# @app.route('/')
-# def index():
-#     return send_file('main.html')
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -207,4 +92,4 @@ def extract_link_posts():
         return jsonify({"error": "Internal Server Error"}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port=8080)
