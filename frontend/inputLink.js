@@ -19,7 +19,7 @@ async function extractFromLink() {
   const link = linkInput.value;
 
   try {
-    const response = await fetch("http://127.0.0.1:5000/extract-link-post", {
+    const response = await fetch("http://127.0.0.1:8080/extract-link-post", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ function fetchLabelsandDisplayForLink() {
 
 async function fetchLabelsLink() {
   const response = await fetch(
-    `http://127.0.0.1:5000/labels?input=${extractedTextbox.value}`
+    `http://127.0.0.1:8080/labels?input=${extractedTextbox.value}`
   );
   console.log("checking; " + extractedTextbox.value);
   const data = await response.json();

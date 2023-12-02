@@ -267,7 +267,7 @@ async function fetchLabels() {
       console.error('Failed to fetch from AWS:', awsError);
   
       // If fetching from AWS fails, fallback to the local link
-      const localResponse = await fetch('http://127.0.0.1:5000/labels?input=' + inputText.value);
+      const localResponse = await fetch('http://127.0.0.1:8080/labels?input=' + inputText.value);
       const localData = await localResponse.json();
       console.log(localData);
       return localData;
