@@ -30,12 +30,16 @@ const linkDesc = document.getElementById("input-link-description");
 const fileDesc = document.getElementById("upload-file-description");
 const imageDesc = document.getElementById("upload-image-description");
 
-// Initialization
+// Webapp Instructions Elements
+const instruction1TabBtn = document.getElementById("instruction1-tab");
+const instruction2TabBtn = document.getElementById("instruction2-tab");
+const instruction1Section = document.getElementById("instruction1Section");
+const instruction2Section = document.getElementById("instruction2Section");
 
+// Initialization
 const freqContainer = document.getElementById("frequency-container");
 
 // Initialization
-
 let allLabelsBelow50 = true;
 updateSavedPostsDisplay();
 
@@ -423,3 +427,42 @@ function updateInstructions(selectedTab) {
       break;
   }
 }
+
+// Webapp instructions
+function showTabInst(selectedTab) {
+  const sections = {
+    instruction1: instruction1Section,
+    instruction2: instruction2Section
+  };
+
+  const clickedTab = this;
+
+  if (clickedTab.classList.contains("active")) {
+    clickedTab.classList.remove("active");
+    hideWebappInstructions();
+  } else {
+    Object.values(sections).forEach((section) => (section.style.display = "none"));
+
+    if (sections[selectedTab]) {
+      sections[selectedTab].style.display = "block";
+    }
+    
+    document.querySelectorAll(".tab-inst").forEach((btn) => btn.classList.remove("active"));
+    clickedTab.classList.add("active");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".tab-inst").forEach((tabBtn) => {
+    tabBtn.addEventListener("click", function () {
+      const selectedTab = this.getAttribute("data-tab");
+      showTabInst.call(this, selectedTab);
+    });
+  });
+});
+
+function hideWebappInstructions() {
+  instruction1Section.style.display = "none";
+  instruction2Section.style.display = "none";
+}
+

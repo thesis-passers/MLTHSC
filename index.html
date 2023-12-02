@@ -69,7 +69,7 @@
                 </p>
 
                 <p class="text-secondary" id="upload-file-description" style="display: none">
-                    [Change this hehehe]
+                    Upload or drag a text file (.txt) containing
                     <span class="tooltip">
                         hate speech
                         <span class="tooltiptext">
@@ -79,7 +79,7 @@
                             deterioration of ones health
                         </span>
                     </span>
-                    into the textbox below, and then press the "Analyze" button to
+                    into the box below, in order to successively
                     classify the content according to its relevant labels. Be aware that
                     the system requires a minimum of <u>3 words</u> and accepts up to a
                     maximum of <u>280 words</u>.
@@ -324,6 +324,89 @@
                 <div id="legendContainer" class="legend-container"></div>
             </div>
         </article>
+
+        <!-- Webapp Instructions Section -->
+        <section class="instruction">
+
+           <!-- Floating Dialog Box -->
+          <div class="floating-dialog">How can our tool help?</div>
+
+          <!-- Section Header -->
+          <div class="flex justify-between align-center section-header" 
+                style="padding-bottom: 10px">
+          </div>
+          
+          <!-- Tab Buttons for Instructions -->
+          <div class="flex tabs">
+            <button class="btn tab-inst inactive" id="instruction1-tab" data-tab="instruction1">
+                How can hate speech analysis help you?
+            </button>
+            <button class="btn tab-inst inactive" id="instruction2-tab" data-tab="instruction2">
+                How does hate speech analysis work?
+            </button>
+          </div>
+
+          <!-- Inst 1 Tab -->
+          <article id="instruction1Section" style="display: none;">
+            <div class="tab-content">
+              <!-- Content for Instruction 1 -->
+              <ul>
+                <li>Gain a 
+                  <span class="tooltip">
+                    summary
+                    <span class="tooltiptext">
+                        In context, summary refers to what the hate speech is about,
+                        including its various forms.
+                    </span>
+                </span>
+                  of the issue.</li>
+                <li>Recognize 
+                  <span class="tooltip">
+                    patterns
+                    <span class="tooltiptext">
+                        Determining patterns in the spread of hateful content
+                        is essential as it provides numbers or statistics.
+                    </span>
+                  </span>
+                  in the prevalence of issues</li>
+                <li>Swiftly identify and detect 
+                  <span class="tooltip">
+                    instances
+                    <span class="tooltiptext">
+                        Detecting instances of labels per post allows the users to
+                        determine what actions must be taken.
+                    </span>
+                  </span>
+                  , allowing for immediate action.</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Inst 2 Tab -->
+          <article id="instruction2Section" style="display: none;">
+            <div class="tab-content">
+              <!-- Content for Instruction 2 -->
+              <p>Simply provide or upload your 
+                <span class="tooltip">
+                  sample data
+                  <span class="tooltiptext">
+                      Sample data could in the form of plain text, Reddit link,
+                      image, and text file.
+                  </span>
+                </span>
+                , and we will handle the rest. 
+                Our 
+                <span class="tooltip">
+                  AI algorithm
+                  <span class="tooltiptext">
+                    Bidirectional Encoder Representations from Transformer (BERT)
+                  </span>
+                </span>
+                will swiftly help you in understanding 
+                your data within a few minutes.</p>
+            </div>              
+          </article>
+        </section>
     </main>
 
     <!-- Footer -->

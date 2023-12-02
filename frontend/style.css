@@ -192,7 +192,8 @@ u {
   color: black;
 }
 
-.btn.tab.inactive:hover {
+.btn.tab.inactive:hover,
+.btn.tab-inst.inactive:hover {
   opacity: 70%;
   cursor: pointer;
 }
@@ -911,7 +912,7 @@ footer {
 .dark-mode #table-container th {
   background-color: #202020;
   font-size: 15px;
-  color: #4caf50;
+  color: white;
 }
 
 .dark-mode #table-container tbody tr:hover {
@@ -1244,4 +1245,130 @@ footer {
 
 .upload-section:hover {
   background-color: var(--gray-25);
+}
+
+/* Webapp instructions section */
+section .instruction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.tab-inst {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  background-color: white;
+  width: 1000px;
+  text-align: center;
+  margin: 0px;
+}
+
+.tab-inst.inactive {
+  border-bottom: 3px solid #378f3a;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  color: #b3abab;
+}
+
+.tab-inst.active {
+  border-top: 3px solid #378f3a;
+  border-bottom: none;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.btn.tab-inst.active {
+  background-color: #f5f4f4;
+  color: #378f3a;
+}
+
+.tab-content {
+  font-size: 12px;
+  padding: 10px;
+  background-color: #f5f4f4;
+}
+
+/* Floating Dialog Box */
+@keyframes floatDialog {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.floating-dialog {
+  position: absolute;
+  background-color: #378f3a;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  animation: floatDialog 2s infinite; 
+  text-align: center;
+  color: white;
+  font-size: 12px;
+  z-index: 1; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.floating-dialog::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #378f3a transparent transparent transparent;
+}
+
+.tab-content ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.tab-content li {
+  color: black;
+}
+
+.tab-content li::before {
+  content: '\2713';
+  color: #39ff14; 
+  margin-right: 5px; 
+}
+
+.dark-mode .btn.tab-inst.active,
+.dark-mode .tab-content,
+.dark-mode .tab-inst.inactive {
+  background-color: #202020;
+}
+
+.dark-mode .tab-content li,
+.dark-mode .btn.tab-inst.active,
+.dark-mode .tab-inst {
+  color: #f0f0f0;
+}
+
+.dark-mode .tab-inst.inactive {
+  border-bottom: 3px solid #39ff14;
+  color: #b3abab;
+  background-color: #333;
+}
+
+.dark-mode .tab-inst.active {
+  border-top: 3px solid #39ff14;
+  border-bottom: none;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
