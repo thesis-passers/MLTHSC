@@ -1,18 +1,7 @@
 import os
-import pandas as pd
-import torch
-import torch.nn as nn
-from tqdm import tqdm
-import re
 import torch
 import torch.nn as nn
 from transformers import BertTokenizer, BertModel
-import numpy as np
-import random
-
-torch.manual_seed(42)
-np.random.seed(42)
-random.seed(42)
 
 tokenizer = BertTokenizer.from_pretrained('gklmip/bert-tagalog-base-uncased')
 model_name = "gklmip/bert-tagalog-base-uncased"
@@ -44,6 +33,8 @@ def preprocess_text(text):
 
 def get_predictions(test_sentence):
 
+    trained_model.eval()
+
     encoded_test_sentence = preprocess_text(test_sentence)
 
     with torch.no_grad():
@@ -68,7 +59,6 @@ def get_predictions(test_sentence):
     print("Labels:")
     for label, probability in predicted_labels:
         print(f"({label}, {probability})")
-
 
     return label_probabilities
 
