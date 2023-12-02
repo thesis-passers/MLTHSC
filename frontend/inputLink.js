@@ -35,6 +35,7 @@ async function extractFromLink() {
       // Check if word count is within limits
       const wordCount = countWords(data.postContent);
       if (wordCount < 3 || wordCount > 280) {
+        loadingToast.remove();
         Toast(
           "Extracted text does not satisfy the word limit.",
           "failed",
