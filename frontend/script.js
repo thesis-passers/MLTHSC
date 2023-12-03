@@ -285,7 +285,7 @@ function fetchLabelsAndDisplay() {
 async function fetchLabels() {
     try {
       // Try fetching from the AWS link
-      const awsResponse = await fetch('http://ec2-54-250-204-11.ap-northeast-1.compute.amazonaws.com:8080/labels?input=' + inputText.value);
+      const awsResponse = await fetch('http://ec2-35-78-201-98.ap-northeast-1.compute.amazonaws.com:8080/labels?input=' + inputText.value);
       const awsData = await awsResponse.json();
       console.log(`aws data: ${awsData}`);
       return awsData;
