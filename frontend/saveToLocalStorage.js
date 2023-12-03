@@ -90,7 +90,7 @@ const PostDisplay = (post, index) => {
         "postDisplay-label",
         `label-${label.name.toLowerCase()}`
       );
-      labelElement.textContent = label.name;
+      labelElement.textContent = `${label.name} ${label.probability}`;
       labelsContainer.appendChild(labelElement);
     }
   }

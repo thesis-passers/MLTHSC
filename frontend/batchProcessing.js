@@ -64,7 +64,7 @@ function processFileContent(content) {
         fetchLabelsForBatches(index, nonEmptySentences.length);
       } else {
         Toast(
-          "Some sentences not analyzed! Please review the word count.",
+          "Current line does not follow the prescribed word count. Skipping sentence.....",
           "failed",
           false
         );
