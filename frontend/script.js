@@ -81,6 +81,12 @@ function showTabUI(selectedTab) {
   imageBtn.style.display = "none";
   document.getElementById("sample-hate-speech").selectedIndex = 0;
 
+  uploadedImage.style.display = "none";
+  uploadedImage.src = "";
+  fileNameElement.textContent = "Drag your files here or click in this area."; // Resets the file name display
+  const imageIcon = document.getElementById("image-icon");
+  imageIcon.style.display = "block";
+
   // Show the selected section
   if (sections[selectedTab]) {
     sections[selectedTab].style.display = "block";
@@ -283,22 +289,27 @@ function fetchLabelsAndDisplay() {
 }
 
 async function fetchLabels() {
-    try {
-      // Try fetching from the AWS link
-      const awsResponse = await fetch('http://ec2-35-78-201-98.ap-northeast-1.compute.amazonaws.com:8080/labels?input=' + inputText.value);
-      const awsData = await awsResponse.json();
-      console.log(`aws data: ${awsData}`);
-      return awsData;
-    } catch (awsError) {
-      console.error('Failed to fetch from AWS:', awsError);
-  
-      // If fetching from AWS fails, fallback to the local link
-      const localResponse = await fetch('http://127.0.0.1:8080/labels?input=' + inputText.value);
-      const localData = await localResponse.json();
-      console.log(localData);
-      return localData;
-    }
+  try {
+    // Try fetching from the AWS link
+    const awsResponse = await fetch(
+      "http://ec2-35-78-201-98.ap-northeast-1.compute.amazonaws.com:8080/labels?input=" +
+        inputText.value
+    );
+    const awsData = await awsResponse.json();
+    console.log(`aws data: ${awsData}`);
+    return awsData;
+  } catch (awsError) {
+    console.error("Failed to fetch from AWS:", awsError);
+
+    // If fetching from AWS fails, fallback to the local link
+    const localResponse = await fetch(
+      "http://127.0.0.1:8080/labels?input=" + inputText.value
+    );
+    const localData = await localResponse.json();
+    console.log(localData);
+    return localData;
   }
+}
 
 //   async function fetchLabels() {
 //     try {
@@ -309,8 +320,7 @@ async function fetchLabels() {
 //       return localData;
 //     } catch (awsError) {
 //       console.error('Failed to fetch from AWS:', awsError);
-  
-      
+
 //     }
 //   }
 

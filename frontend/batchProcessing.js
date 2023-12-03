@@ -9,6 +9,8 @@ function isValidFile(file) {
 
 // Read batches
 fileInput.addEventListener("change", (event) => {
+  Toast("File successfully uploaded!", "success", false);
+
   const selectedFile = event.target.files[0];
   isFileUploaded = true;
 
@@ -35,8 +37,6 @@ fileInput.addEventListener("change", (event) => {
     uploadSection.style.backgroundColor = "#80808040";
     uploadIcon1.style.display = "none";
     uploadIcon2.style.display = "block";
-
-    Toast("File successfully uploaded!", "success", false);
   } else {
     Toast("Please select a valid .txt file.", "failed", false);
     fileInput.value = "";
