@@ -50,7 +50,7 @@ async function extractFromLink() {
 
         showAnalyzingState();
         setTimeout(() => {
-          fetchLabelsandDisplayForLink();
+          fetchLabelsandDisplay2();
         }, 1000);
       }
     } else {
@@ -60,9 +60,8 @@ async function extractFromLink() {
     console.error("Error:", error.message);
   }
 }
-
-function fetchLabelsandDisplayForLink() {
-  fetchLabelsLink()
+function fetchLabelsandDisplay2() {
+  fetchLabels2()
     .then((data) => {
       currentPost = data;
       saveBtn.disabled = false;
@@ -73,7 +72,7 @@ function fetchLabelsandDisplayForLink() {
     });
 }
 
-async function fetchLabelsLink() {
+async function fetchLabels2() {
   const response = await fetch(
     `http://127.0.0.1:8080/labels?input=${extractedTextbox.value}`
   );

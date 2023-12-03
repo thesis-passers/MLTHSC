@@ -4,7 +4,7 @@ from flask_cors import CORS
 from api import classifier as MLTHSC
 from werkzeug.utils import secure_filename
 import os
-from api.picture import extract_text_from_screenshot, count_lines
+from api.picture import extract_text_from_screenshot
 from api.link import extract_link_post
 
 app = Flask(__name__)
@@ -41,8 +41,15 @@ def get_labels():
 @app.route('/upload', methods=['POST'])
 def upload():
     try:
+        print("upload test")
+
+        # return jsonify({"text": "image"})
+
         if 'image' not in request.files:
+            print("image NOT in request file")
             return jsonify({"error": "No file part"}), 400
+        
+        print("image in request file")
 
         file = request.files['image']
 
@@ -50,24 +57,11 @@ def upload():
             return jsonify({"error": "No selected file"}), 400
 
         if file:
-            # Generate a secure filename for the uploaded file
-            filename = secure_filename(file.filename)
 
-            # Create a unique folder for each user
-            user_folder = os.path.join(app.config['UPLOAD_FOLDER'], 'user_' + str(hash(request.remote_addr)))
-            os.makedirs(user_folder, exist_ok=True)
+            extracted_text = extract_text_from_screenshot(file)
+            print(f'extracted_text {extracted_text}')
 
-            # Save the file in the user's folder with the secure filename
-            file_path = os.path.join(user_folder, filename)
-            file.save(file_path)
-
-            extracted_text = extract_text_from_screenshot(file_path)
-            line_count = count_lines(extracted_text)
-
-            # Remove the uploaded file
-            os.remove(file_path)
-
-            return jsonify({"hateSpeech": extracted_text, "lineCount": line_count})
+        return jsonify({"hateSpeech": extracted_text})
 
     except Exception as e:
         print('Error:', str(e))

@@ -21,6 +21,9 @@
   --in-religion: #0f3a97;
   --out-other: #65696c;
   --in-other: #3f3b3b;
+
+  --theme: #454cad;
+  --dark-text: #5f6982;
 }
 
 * {
@@ -231,29 +234,6 @@ textarea {
   border: none;
 }
 
-/* Upload File Tab */
-#upload-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#file-input {
-  display: block;
-  margin: 0 auto;
-  padding: 15px;
-  font-size: 12px;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  background-color: #f8f8f8;
-  color: #333;
-  cursor: pointer;
-}
-
-#file-input:hover {
-  background-color: #e0e0e0;
-}
-
 /* Buttons save, analyze and clear */
 .btn {
   padding: 10px 20px;
@@ -320,18 +300,10 @@ textarea {
 .btn:hover {
   opacity: 80%;
 }
-
-#clear-btn[disabled] {
-  opacity: 20%;
-  cursor: auto;
-}
-
+#imageButton[disabled],
+#extractButton[disabled],
+#clear-btn[disabled],
 #analyze-btn[disabled] {
-  opacity: 20%;
-  cursor: auto;
-}
-
-#extractButton[disabled] {
   opacity: 20%;
   cursor: auto;
 }
@@ -1136,6 +1108,36 @@ footer {
   }
 }
 
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  transition: all 150ms ease;
+}
+#savedPosts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.postDisplay {
+  transition: opacity 0.5s ease; /* Add a smooth transition for opacity */
+}
+
+/* Add this style if you want to stagger the animations */
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* Filter */
 #labelFilterButtons {
   display: flex;
@@ -1187,80 +1189,6 @@ footer {
 
 .filterButton[data-label="others"].active {
   background-color: var(--out-other);
-}
-
-.posts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
-  transition: all 150ms ease;
-}
-#savedPosts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-}
-
-.postDisplay {
-  transition: opacity 0.5s ease; /* Add a smooth transition for opacity */
-}
-
-/* Add this style if you want to stagger the animations */
-.fade-in {
-  animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Upload Section */
-.upload-section {
-  width: 100%;
-  height: 200px;
-  border: 3px dashed gray;
-  margin: 20px auto;
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.upload-design {
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: black;
-}
-
-.upload-design i {
-  font-size: 100px;
-  color: gray;
-  margin: 10px;
-}
-
-.upload-section input {
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 200px;
-  outline: none;
-  opacity: 0;
-}
-
-.upload-section:hover {
-  background-color: var(--gray-25);
 }
 
 /* Webapp instructions section */
@@ -1432,4 +1360,76 @@ footer {
     
     /* color: orangered; */
     opacity: 50%;
+}
+
+/* Upload File Section */
+.image-section,
+.upload-section {
+  width: 100%;
+  height: 500px;
+  border: 3px dashed gray;
+  margin: 20px auto;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 10px;
+}
+
+.image-design,
+.upload-design {
+  width: 100%;
+  height: 500px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: black;
+}
+
+.image-design i,
+.upload-design i {
+  font-size: 100px;
+  color: gray;
+  margin: 10px;
+}
+
+.image-section input,
+.upload-section input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 500px;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-section:hover,
+.upload-section:hover {
+  background-color: var(--gray-25);
+}
+
+/* Upload Image Section */
+.image-section {
+  /* border-radius: 7px; */
+  border: 3px solid #eee;
+}
+
+.image-section:hover {
+  border-color: #454cad;
+  background-color: white;
+}
+
+#uploadedImage {
+  max-height: 400px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+#fileName {
+  margin-top: 30px;
 }

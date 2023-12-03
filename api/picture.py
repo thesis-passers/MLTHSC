@@ -2,12 +2,12 @@ from PIL import Image
 import pytesseract
 import re
 
-pytesseract.pytesseract.tesseract_cmd = r"C:/Program Files/Tesseract-OCR/tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = r"D:/Program Files/Tesseract-OCR/tesseract.exe"
 
-def extract_text_from_screenshot(image_path):
+def extract_text_from_screenshot(file):
     try:
         # Use Tesseract to do OCR on the image
-        result = pytesseract.image_to_string(Image.open(image_path), lang='eng')
+        result = pytesseract.image_to_string(Image.open(file), lang='eng')
 
         # Apply modifications
         modified_text = exclude_lines_not_starting_with_text_and_short_lines(
@@ -19,6 +19,7 @@ def extract_text_from_screenshot(image_path):
     except Exception as e:
         print(f"Error: {e}")
         return None
+    
 
 def exclude_username_buttons_and_brackets(text):
     pattern = re.compile(r'(?:@|u|r\/)(\w+)[^[\]]+?([\s\S]+)')
@@ -39,8 +40,7 @@ def exclude_lines_not_starting_with_text_and_short_lines(text):
 def exclude_submitted_line(text):
     return re.sub(r'^Submitted:.*', '', text, flags=re.MULTILINE)
 
-def count_lines(text):
-    return len(text.split('\n'))
+
 
 # if __name__ == "__main__":
 #     # Replace 'path/to/your/image.jpg' with the actual path to your image file

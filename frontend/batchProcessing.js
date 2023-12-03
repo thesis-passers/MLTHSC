@@ -86,7 +86,7 @@ function processFileContent(content) {
 }
 
 function fetchLabelsForBatches(currentIndex, totalSentences) {
-  fetch(`http://127.0.0.1:5000/labels?input=${inputText.value}`)
+  fetch(`http://127.0.0.1:8080/labels?input=${inputText.value}`)
     .then((response) => response.json())
     .then((data) => {
       currentPost = data;
