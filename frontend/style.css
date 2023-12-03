@@ -274,6 +274,11 @@ textarea {
   color: white;
 }
 
+.dark-mode .btn-save:disabled {
+  background-color: #378f3a;
+  color: #ccc;
+}
+
 .btn-options {
   width: 50%;
 }
@@ -1428,4 +1433,9 @@ footer {
   max-height: 400px;
   max-width: 100%;
   object-fit: contain;
+}
+
+.dark-mode .image-section:hover {
+  border-color: #ccc;
+  background-color: #434242;
 }
