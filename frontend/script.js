@@ -74,11 +74,13 @@ function showTabUI(selectedTab) {
   resetTable();
   fileInput.value = "";
   inputText.value = "";
+  linkInput.value = "";
   updateWordCount();
   hideLabelsContainer.style.display = "none";
   noLabelsContainer.style.display = "none";
   extractBtn.style.display = "none";
   imageBtn.style.display = "none";
+  extractedTextbox.style.display = "none";
   document.getElementById("sample-hate-speech").selectedIndex = 0;
 
   uploadedImage.style.display = "none";
