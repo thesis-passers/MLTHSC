@@ -282,37 +282,37 @@ function fetchLabelsAndDisplay() {
     });
 }
 
-// async function fetchLabels() {
-//     try {
-//       // Try fetching from the AWS link
-//       const awsResponse = await fetch('http://ec2-54-250-204-11.ap-northeast-1.compute.amazonaws.com:8080/labels?input=' + inputText.value);
-//       const awsData = await awsResponse.json();
-//       console.log(`aws data: ${awsData}`);
-//       return awsData;
-//     } catch (awsError) {
-//       console.error('Failed to fetch from AWS:', awsError);
-  
-//       // If fetching from AWS fails, fallback to the local link
-//       const localResponse = await fetch('http://127.0.0.1:8080/labels?input=' + inputText.value);
-//       const localData = await localResponse.json();
-//       console.log(localData);
-//       return localData;
-//     }
-//   }
-
-  async function fetchLabels() {
+async function fetchLabels() {
     try {
+      // Try fetching from the AWS link
+      const awsResponse = await fetch('http://ec2-54-250-204-11.ap-northeast-1.compute.amazonaws.com:8080/labels?input=' + inputText.value);
+      const awsData = await awsResponse.json();
+      console.log(`aws data: ${awsData}`);
+      return awsData;
+    } catch (awsError) {
+      console.error('Failed to fetch from AWS:', awsError);
+  
       // If fetching from AWS fails, fallback to the local link
       const localResponse = await fetch('http://127.0.0.1:8080/labels?input=' + inputText.value);
       const localData = await localResponse.json();
       console.log(localData);
       return localData;
-    } catch (awsError) {
-      console.error('Failed to fetch from AWS:', awsError);
-  
-      
     }
   }
+
+//   async function fetchLabels() {
+//     try {
+//       // If fetching from AWS fails, fallback to the local link
+//       const localResponse = await fetch('http://127.0.0.1:8080/labels?input=' + inputText.value);
+//       const localData = await localResponse.json();
+//       console.log(localData);
+//       return localData;
+//     } catch (awsError) {
+//       console.error('Failed to fetch from AWS:', awsError);
+  
+      
+//     }
+//   }
 
 function updateHTML(labels) {
   let resultHTML = "";
